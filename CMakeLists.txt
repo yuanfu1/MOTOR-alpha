@@ -1,0 +1,188 @@
+cmake_minimum_required(VERSION 3.5)
+
+
+# Change to your project:
+# build my project:
+# Note: this cmake builds the OO design of Multiscale Data Assimilation System:
+PROJECT(MOTOR-DA)
+
+# Include the common template:
+IF (IS_ABSOLUTE $ENV{CTEMPLATES})
+  MESSAGE(STATUS "CTEMPLATES path is set!")
+ELSE ($ENV{CTEMPLATES} LESS 1)
+  MESSAGE(FATAL_ERROR "Env CTEMPLATES is not set, please set and rerun!")
+ENDIF (IS_ABSOLUTE $ENV{CTEMPLATES})
+include($ENV{CTEMPLATES}/cmakeCommon.cmake)
+
+
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/external/fortran-yaml-cpp/CMakeLists.txt")
+    message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
+endif()
+
+# if(NOT EXISTS "${PROJECT_SOURCE_DIR}/external/lapack/CMakeLists.txt")
+#     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
+# endif()
+
+# add_subdirectory(./external/lapack)
+# add_subdirectory(./external/fortran-yaml-cpp EXCLUDE_FROM_ALL)
+
+# MOTOR-DA module list, 
+# Each module can be compile independently, comment if you do not wish to compile
+# any other modules.
+
+# Utilities
+add_subdirectory(./src/Utilities/Utility)
+add_subdirectory(./src/Utilities/NMLRead)
+add_subdirectory(./src/Utilities/GrapesIO)
+add_subdirectory(./src/Utilities/InterpHP)
+add_subdirectory(./src/Utilities/FLog)
+add_subdirectory(./src/Utilities/LBFGSB)
+add_subdirectory(./src/Utilities/UpdateBdy)
+add_subdirectory(./src/Utilities/YAMLRead)
+add_subdirectory(./src/Utilities/LAPS_utility)
+add_subdirectory(./src/Utilities/Utility/specialFunctions)
+#add_subdirectory(./src/Utilities/Utility/AMG)
+
+# # ThirdPartyLibs
+# add_subdirectory(./src/ThirdPartyLibs/lapack)
+
+# MOTOR-Repository
+# Multi-Processing Domain Decomposition
+add_subdirectory(./src/MOTOR-Repository/MPDD)
+
+# Geometry
+add_subdirectory(./src/MOTOR-Repository/StructuredGrid/MGGen)
+add_subdirectory(./src/MOTOR-Repository/Geometry)
+
+# Auxillary type
+add_subdirectory(./src/MOTOR-Repository/AuxType)
+
+# Linear solver type
+add_subdirectory(./src/MOTOR-Repository/LinearSolvers)
+
+# Multi-Processing observation type
+add_subdirectory(./src/MOTOR-Repository/MPObs)
+
+# MOTOR-DA
+
+# Transformations
+add_subdirectory(./src/MOTOR-DA/Transform/TransBase)
+add_subdirectory(./src/MOTOR-DA/Transform/M2ODirect)
+
+# IF ( ${CMAKE_SYSTEM_NAME} MATCHES "Linux" )
+ add_subdirectory(./src/MOTOR-DA/Transform/ObsOperator/RTTOV)
+# ENDIF()
+add_subdirectory(./src/MOTOR-DA/Transform/ObsOperator/OprRadar)
+add_subdirectory(./src/MOTOR-DA/Transform/ObsOperator/UV2DirSpd)
+add_subdirectory(./src/MOTOR-DA/Transform/CVOperator/M2CV)
+add_subdirectory(./src/MOTOR-DA/Transform/Constraint/UV2W)
+add_subdirectory(./src/MOTOR-DA/Transform/Constraint/GeosBal)
+add_subdirectory(./src/MOTOR-DA/Transform/Constraint/HydroStatic)
+
+add_subdirectory(./src/MOTOR-DA/Transform/ObsOperator/OprGNSS)
+
+# States
+add_subdirectory(./src/MOTOR-DA/States/State)
+add_subdirectory(./src/MOTOR-DA/States/Field)
+
+# PreSys
+add_subdirectory(./src/MOTOR-PS/PreSys)
+# # ZGrid
+add_subdirectory(./src/MOTOR-PS/ZGrid)
+
+# IO
+add_subdirectory(./src/MOTOR-DA/IO/IOModels/IOModel)
+add_subdirectory(./src/MOTOR-DA/IO/IOModels/IOGrapes)
+add_subdirectory(./src/MOTOR-DA/IO/IOModels/IOWRF)
+add_subdirectory(./src/MOTOR-DA/IO/IOModels/IOECM)
+add_subdirectory(./src/MOTOR-DA/IO/IOModels/IOERA5)
+add_subdirectory(./src/MOTOR-DA/IO/IOModels/ModelCoupler)
+
+add_subdirectory(./src/MOTOR-DA/IO/IONetCDF/State2NC)
+add_subdirectory(./src/MOTOR-DA/IO/IONetCDF/Obs2State)
+
+# Background model: Yuanfu Xie temporarily turns this off on April 15,2024.
+add_subdirectory(./src/MOTOR-DA/BkgMG)
+add_subdirectory(./src/MOTOR-DA/ObsMG)
+
+# B Matrix
+add_subdirectory(./src/MOTOR-DA/BMatrix/BMatrix)
+add_subdirectory(./src/MOTOR-DA/BMatrix/BField)
+add_subdirectory(./src/MOTOR-DA/BMatrix/EnLoc)
+
+# R Matrix
+add_subdirectory(./src/MOTOR-DA/RMatrix)
+# Poisson solver
+add_subdirectory(./src/MOTOR-PS/PoissonSolver_Kp)
+
+# # rightHandSides
+add_subdirectory(./src/MOTOR-PS/gzm_upd)
+# # rightHandSides
+add_subdirectory(./src/MOTOR-PS/rightHandSides)
+
+# Time Integration schemes:
+add_subdirectory(./src/MOTOR-PS/TimeIntegration)
+# Controls to model mapping:
+ add_subdirectory(./src/MOTOR-DA/C2M)
+
+## Minimization
+add_subdirectory(./src/MOTOR-DA/Minimization/JFunc)
+add_subdirectory(./src/MOTOR-DA/Minimization/MiniSolver)
+
+# Cumulus
+add_subdirectory(./src/MOTOR-DA/Constraints/Cumulus)
+
+# Obs
+add_subdirectory(./src/MOTOR-DA/Obs/ObsSet)
+add_subdirectory(./src/MOTOR-DA/Obs/ObsField)
+add_subdirectory(./src/MOTOR-DA/Obs/C2O)
+
+# # MultiGrid
+add_subdirectory(./src/MOTOR-DA/PostProc)
+
+# # MultiGrid
+add_subdirectory(./src/MOTOR-DA/MGOpts)
+
+# MOTOR-PS
+
+# # PreSys
+# add_subdirectory(./src/MOTOR-PS/PreSys)
+# # 1. Dyn
+add_subdirectory(./src/MOTOR-PS/Dyn)
+# # 2. DyCores
+add_subdirectory(./src/MOTOR-PS/DyCores)
+
+# # Run
+# add_subdirectory(./src/MOTOR-PS/run)
+
+# MOTOR-QC
+# thinning
+add_subdirectory(./src/MOTOR-QC/ObsBase)
+add_subdirectory(./src/MOTOR-QC/ObsUtilities)
+add_subdirectory(./src/MOTOR-QC/ObsConvention)
+# IF ( ${CMAKE_SYSTEM_NAME} MATCHES "Linux" )
+ add_subdirectory(./src/MOTOR-QC/ObsSatellite)
+# ENDIF()
+add_subdirectory(./src/MOTOR-QC/ObsRadar)
+add_subdirectory(./src/MOTOR-QC/ObsSatob)
+
+add_subdirectory(./src/MOTOR-QC/ObsGNSS)
+
+# MOTOR-DP
+add_subdirectory(./src/MOTOR-DP/ObsSatellite)
+
+# Mock
+add_subdirectory(./src/Mock)
+
+# Application
+add_subdirectory(./src/Application)
+
+# UnitTests
+add_subdirectory(./src/UnitTests)
+
+# # Tempplate:
+add_subdirectory(./src/Template/yourModule) 
+
+
+
+
