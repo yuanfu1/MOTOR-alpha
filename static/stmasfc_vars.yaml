@@ -1,0 +1,29 @@
+STMASFC_variables:
+  STMASFC_maxobs: 400000
+  STMASFC_numvars: 5
+  STMASFC_varnames: [USF, VSF, TSF, DSF, PSF, PCP1]
+  STMASFC_radius: 
+    - [100000.0, 100000.0, 1800.0, 200.0, 0.5]
+    - [100000.0, 100000.0, 1800.0, 200.0, 0.5]
+    - [100000.0, 100000.0, 1800.0, 200.0, 0.3]
+    - [100000.0, 100000.0, 1800.0, 200.0, 0.3]
+    - [100000.0, 100000.0, 1800.0, 200.0, 0.5]
+    - [100000.0, 100000.0, 1800.0, 200.0, 0.5]
+  STMASFC_smooth:     [2.0e5, 2.0e5, 5.0e5, 5.0e5, 5.0e5, 1.0e4]
+  STMASFC_inc:        [5.0, 5.0, 10.0, 10.0, 10.0, 0.1]
+  STMASFC_thresholds: [10.0, 10.0, 5.0, 5.0, 10.0, 30.0]
+  STMASFC_stddev:     [10.0, 10.0, 2.5, 2.5, 4.0, 4.0]
+
+# numvars         Number of analysis variables;
+# varnames        The names of these analysis variables, following the
+#                 convention of the netcdf for surface analysis (LAPS);
+#                 In order to run a multi-variate analysis, users have
+#                 to arrange their variable names as USF,VSF,PSF,TSF;
+# radius          Influence radius of observations in each directions.
+#                 Each variable has different radius in x,y,t,z, and land as
+#                 topography and land-water are considered (meters, seconds);
+# smooth          parameters for smoothing 2 delta x waves
+# inc             increment sizes for controling how obs mapped to grid following bkgd patterns;
+# thresholds      Threshold values for rejecting obs that has larger difference
+#                 from background than the thresholds.
+# stddev          Factors of standard deviations for rejecting observation data

@@ -1,0 +1,13 @@
+SET (PS_SRC	
+	PoissonSolver.F90
+	PSMatrix.F90
+	namelist_ps.f90
+	PSSolutn.F90
+  	Relaxations.F90
+	mixedPsiChi_Solver.F90
+	mixedPsiChiSolver_Dirichlet.F90
+	addLinearSolutions.F90
+	AdotX4PsiChi.F90
+	GMRES_gzm.F90
+	psiChi2velocity.F90
+	)

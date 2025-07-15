@@ -1,0 +1,136 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+ 
+ 
+latlon_grid:
+  num_grid: [1025, 1025]
+  domain_latlon: [18, 27, 107, 119]
+ 
+ 
+obs_thinning:
+  obs_qcThreshold: [5.0D2, 5.0D2, 5.0D2]
+  obs_missing: 9999.0D0
+  obs_invalid: 3.4D38
+  obs_radius: [5.0D0, 5.0D0, 5.0D2, 5.0D1]
+  thinning_threshold: 0.25D0
+  interpolation: 1
+ 
+ 
+analysis_para:
+  start_time: [2021, 5, 4,  9, 0, 0]
+  end_time:   [2021, 5, 4, 12, 0, 0]
+ 
+ 
+geometry:
+  mpi_layout_g14: [2, 2]
+  mpi_layout_g58: [2, 4]
+  mpi_layout_g9L: [2, 4]
+  time_steps_g14:  3
+  time_steps_g58:  5
+  time_steps_g9L:  9
+  mgStart: 4
+  mgEnd: 7
+ 
+DASpace:
+  ztop: 30000.0
+
+
+poissonSovler:
+  solver:  FMV
+  nCycle:    3
+  nIterPre:  3
+  nIterPost: 6
+  nRelax:    2
+  max_band: 10
+  omegas: [1.951627, 0.569688]
+ 
+ 
+modelState:
+  vLevel: 66 # maximum value is 50 for rttov profiles
+  varList: [uwnd,vwnd,temp,qvapor,pres]
+ 
+ 
+RTTOV:
+  platform_name: [fy4_1]
+  inst_name: [agri]
+  sensor_name: [ir]
+  debug_dev: FALSE # for developers (dev)
+  gas_name: [Water_vapour]
+  ppmv_gasunit: TRUE
+  rttov_clouds: FALSE   #! if .true., hydrometeors  are mandatory input
+  rttov_aerosols: FALSE #! if .true., aerosol gases are mandatory input
+  use_kmodel: FALSE
+  interp_method: 1
+
+CV_Transform:
+  rhov_scale_scheme: 'None' # /'None'/'DomainAvg'/'EXPO'/'Power'
+  qvapor_scale_scheme: 'DomainAvg'  #/'None'/'DomainAvg'/'Power'
+  temp_scale_scheme: 'DomainAvg' # /'None'/'DomainAvg'/'Power'
+ 
+FY4-AGRI:
+  satinfo: [satinfo_fy4-1-agri.txt]
+  satpath: [/MOTOR/MOTOR-TEST-DATA/20210504/]
+  # satpath: [/public/home/wuyl/run/motor/MOTOR02/tests_DA/20220527_GGF_MOTOR/input_obs/]
+  # For FY4-AGRI 
+  fdi_files: [FDI.txt]
+  geo_files: [GEO.txt]
+  clm_files: [CLM.txt]
+  # For local run, please download data from NAS first.
+  # Local data path: Z:\谢老师团队\MOTOR-DA Test DATA
+  obsfile_format: HDF5
+  only_over_sea: FALSE
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: pdf_mode # 'pdf_mode', 'static_BC', 'var_BC'
+  Thin_w_bkg: TRUE
+  Source_of_bkg: tb_bak # state or obsavg or tb_bak
+  Use_real_obs: TRUE 
+  Use_real_bkg: TRUE
+  write_diag: FALSE
+  test_name: XbMG
+  minimizer: FRCG #LBFGS FRCG
+
+ 
+IO:
+  input_dir_Surface: ${INPUT_DIR}
+  input_dir_Sound: ${INPUT_DIR}
+  input_dir_Vwpw: ${INPUT_DIR}
+  input_dir_Radar: ${INPUT_DIR}
+  input_dir_Satellite: ${INPUT_DIR}
+  input_dir_model: ${INPUT_DIR}
+  input_dir: ${INPUT_DIR}
+  output_dir: ${OUTPUT_DIR}
+  OutputFileName: grapesinput-MOTORDA
+  bk_model: GRAPES
+  NMLFileName:
+    - namelist.input
+    - namelist.input
+  ModelFileName:
+    - grapesinput_21050400F_0409
+    - grapesinput_21050412F_0412
+  
+ 
+flog:
+  LogFileName: /log/test
+ 
+ 
+BMat:
+ ScaleParaX: 1.0
+ ScaleParaY: 1.0
+ ScaleParaZ: 1.0
+ ScaleParaT: 1.0
+# ScaleParaX: 0.0
+# ScaleParaY: 0.0
+# ScaleParaZ: 0.0
+# ScaleParaT: 0.0
+  
+ 
+Minimization:
+  MaxOptStep: 80
+  Use_JcTerm: TRUE
+  Weight_Jc: 0.1
+ 
+
+

@@ -1,0 +1,5 @@
+SET (JFunc_SRC	
+	JFunc.F90
+	# JFunc_HybInc.F90
+	costFuncGrad.F90
+	)

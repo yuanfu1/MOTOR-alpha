@@ -1,0 +1,22 @@
+# This is a yaml table file for any netCDF file of observation data ingest
+data_source:
+  instrument: cloudDriftWind
+  dataSource: FY-4
+data_content:
+  missingValue: -999.00
+  required: [1,1,1,1,1,1,0] # It must matche the variables
+  variables:
+  - wind_speed			# "FY4A PGS L2 Atmosphere Montion Vector:wind vector\'s wind speed"
+  - wind_direction		# "FY4A PGS L2 Atmosphere Montion Vector:wind vector\'s wind to direction measured positive clockwise from due north" 
+  - pressure			# "FY4A PGS L2 Atmosphere Montion Vector:wind vector\'s air pressure"
+  - temperature			# "FY4A PGS L2 Atmosphere Montion Vector:wind vector\'s air temperature"
+  - qi				# "FY4A PGS L2 qi"
+  - satzen			# "FY4A PGS L2 Atmosphere Montion Vector:satellite zenith angle"
+  - DQF				# "FY4A PGS L2 atmosphere montion vector data quality flags"
+  latlon:
+  - lat				# "FY4A PGS L2 Atmosphere Montion Vector:wind vector\'s latitude coordinate"
+  - lon				# "FY4A PGS L2 Atmosphere Montion Vector:wind vector\'s longitude coordinate"
+  time:
+  - NONE
+  height:
+  - NONE

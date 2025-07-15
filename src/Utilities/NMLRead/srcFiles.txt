@@ -1,0 +1,5 @@
+SET (NMLRead_SRC
+     namelist_read.f90
+     namelist_read.inc
+       	)
+

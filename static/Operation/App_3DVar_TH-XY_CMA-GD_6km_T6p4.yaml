@@ -1,0 +1,406 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+latlon_grid:
+  num_grid:
+  - 513
+  - 769
+  domain_latlon:
+  - 10
+  - 43.48
+  - 93.04
+  - 132.94
+analysis_para:
+  start_time:
+  - 2024
+  - 11
+  - 2
+  - 23
+  - 0
+  - 0
+  end_time:
+  - 2024
+  - 11
+  - 3
+  - 0
+  - 0
+  - 0
+geometry:
+  mpi_layout_g14:
+  - 2
+  - 4
+  mpi_layout_g58:
+  - 2
+  - 4
+  mpi_layout_g9L:
+  - 2
+  - 4
+  time_steps_g14: 3
+  time_steps_g58: 5
+  time_steps_g9L: 9
+  mgStart: 4
+  mgEnd: 8
+DASpace:
+  ztop: 30000.0
+  VerticalCoord: TerrainFollowing
+poissonSovler:
+  solver: FMV
+  nCycle: 3
+  nIterPre: 3
+  nIterPost: 6
+  nRelax: 2
+  max_band: 10
+  omegas:
+  - 1.951627
+  - 0.569688
+modelState:
+  vLevel: 67
+  varList:
+  - temp
+  - uwnd
+  - vwnd
+  - pres
+  - qvapor
+  ctlVarNames:
+  - pres_ctl
+  - qvapor_ctl
+  - psl_ctl
+  Fillin_range:
+  - -1
+  - 3
+  - 2
+  - 1
+  - 3
+  - 2
+  - 1
+  - 3
+  - 2
+  geobalBeg: 6
+  geobalEnd: 6
+  geobalWeights:
+  - 0.0
+  - 0.0
+  - 0.0
+obs_thinning:
+  obs_qcThreshold:
+  - 5.0D2
+  - 5.0D2
+  - 5.0D2
+  obs_missing: 999999999.0D0
+  obs_invalid: 3.4D38
+  obs_radius:
+  - 5.0D0
+  - 5.0D0
+  - 5.0D2
+  - 5.0D1
+  thinning_threshold: 0.25D0
+  interpolation: 1
+  varObsSpace:
+  - abc
+IO:
+  input_dir_Surface: /Users/qzl/sources/MOTOR/input/2024110300_T10p1/input/obs/synop
+  input_dir_Sound: /Users/qzl/sources/MOTOR/input/2024110300_T10p1/input/obs/sound
+  input_dir_Vwpw: /Users/qzl/sources/MOTOR/input/2024110300_T10p1/input/obs/vwpw
+  input_dir_Radar: /Users/qzl/sources/MOTOR/input/2024110300_T10p1/input/obs/radar
+  input_dir_Satellite: ${INPUT_DIR}
+  input_dir_model: /Users/qzl/sources/MOTOR/input/2024110300_T10p1/input/model
+  input_dir: ${INPUT_DIR}
+  output_dir: /Users/qzl/sources/MOTOR/input/2024110300_T10p1/output
+  bk_model: GRAPES
+  grapes_model_type: CMA-GD
+  obsVarList_Surface:
+  - uwnd
+  - vwnd
+  - temp
+  - qvapor
+  - pres
+  NMLFileName:
+  - namelist.input.si2024110218
+  - namelist.input.si2024110300
+  ModelFileName:
+  - grapesinput2024110218
+  - grapesinput2024110300
+  bakFileList: null
+  OutputFileName: grapesinput-MOTORDA
+  obsFileList_Surface:
+  - '20241102_2300'
+  - '20241102_2305'
+  - '20241102_2310'
+  - '20241102_2315'
+  - '20241102_2320'
+  - '20241102_2325'
+  - '20241102_2330'
+  - '20241102_2335'
+  - '20241102_2340'
+  - '20241102_2345'
+  - '20241102_2350'
+  - '20241102_2355'
+  - '20241103_0000'
+  obsFileList_Sound:
+  - rec_RTEMP_20241103000000_g.dat
+  obsFileList_Vwpw: null
+  obsFilePath_Radar: /Obs
+  obsFileType_Radar: merge
+  obsFileList_Radar:
+    - RAD_Z9002_VAD.nc
+    - RAD_Z9010_VAD.nc
+    - RAD_Z9012_VAD.nc
+    - RAD_Z9020_VAD.nc
+    - RAD_Z9023_VAD.nc
+    - RAD_Z9024_VAD.nc
+    - RAD_Z9025_VAD.nc
+    - RAD_Z9030_VAD.nc
+    - RAD_Z9040_VAD.nc
+    - RAD_Z9041_VAD.nc
+    - RAD_Z9042_VAD.nc
+    - RAD_Z9043_VAD.nc
+    - RAD_Z9044_VAD.nc
+    - RAD_Z9070_VAD.nc
+    - RAD_Z9071_VAD.nc
+    - RAD_Z9072_VAD.nc
+    - RAD_Z9073_VAD.nc
+    - RAD_Z9075_VAD.nc
+    - RAD_Z9083_VAD.nc
+    - RAD_Z9087_VAD.nc
+    - RAD_Z9091_VAD.nc
+    - RAD_Z9092_VAD.nc
+    - RAD_Z9094_VAD.nc
+    - RAD_Z9095_VAD.nc
+    - RAD_Z9096_VAD.nc
+    - RAD_Z9099_VAD.nc
+    - RAD_Z9200_VAD.nc
+    - RAD_Z9220_VAD.nc
+    - RAD_Z9230_VAD.nc
+    - RAD_Z9240_VAD.nc
+    - RAD_Z9250_VAD.nc
+    - RAD_Z9270_VAD.nc
+    - RAD_Z9280_VAD.nc
+    - RAD_Z9290_VAD.nc
+    - RAD_Z9311_VAD.nc
+    - RAD_Z9313_VAD.nc
+    - RAD_Z9314_VAD.nc
+    - RAD_Z9350_VAD.nc
+    - RAD_Z9351_VAD.nc
+    - RAD_Z9352_VAD.nc
+    - RAD_Z9355_VAD.nc
+    - RAD_Z9358_VAD.nc
+    - RAD_Z9375_VAD.nc
+    - RAD_Z9376_VAD.nc
+    - RAD_Z9411_VAD.nc
+    - RAD_Z9415_VAD.nc
+    - RAD_Z9431_VAD.nc
+    - RAD_Z9432_VAD.nc
+    - RAD_Z9433_VAD.nc
+    - RAD_Z9436_VAD.nc
+    - RAD_Z9437_VAD.nc
+    - RAD_Z9438_VAD.nc
+    - RAD_Z9439_VAD.nc
+    - RAD_Z9451_VAD.nc
+    - RAD_Z9452_VAD.nc
+    - RAD_Z9453_VAD.nc
+    - RAD_Z9455_VAD.nc
+    - RAD_Z9459_VAD.nc
+    - RAD_Z9469_VAD.nc
+    - RAD_Z9470_VAD.nc
+    - RAD_Z9471_VAD.nc
+    - RAD_Z9474_VAD.nc
+    - RAD_Z9475_VAD.nc
+    - RAD_Z9476_VAD.nc
+    - RAD_Z9478_VAD.nc
+    - RAD_Z9479_VAD.nc
+    - RAD_Z9513_VAD.nc
+    - RAD_Z9515_VAD.nc
+    - RAD_Z9517_VAD.nc
+    - RAD_Z9518_VAD.nc
+    - RAD_Z9519_VAD.nc
+    - RAD_Z9523_VAD.nc
+    - RAD_Z9527_VAD.nc
+    - RAD_Z9531_VAD.nc
+    - RAD_Z9535_VAD.nc
+    - RAD_Z9551_VAD.nc
+    - RAD_Z9552_VAD.nc
+    - RAD_Z9556_VAD.nc
+    - RAD_Z9558_VAD.nc
+    - RAD_Z9563_VAD.nc
+    - RAD_Z9570_VAD.nc
+    - RAD_Z9571_VAD.nc
+    - RAD_Z9572_VAD.nc
+    - RAD_Z9573_VAD.nc
+    - RAD_Z9574_VAD.nc
+    - RAD_Z9575_VAD.nc
+    - RAD_Z9576_VAD.nc
+    - RAD_Z9577_VAD.nc
+    - RAD_Z9579_VAD.nc
+    - RAD_Z9580_VAD.nc
+    - RAD_Z9592_VAD.nc
+    - RAD_Z9593_VAD.nc
+    - RAD_Z9595_VAD.nc
+    - RAD_Z9596_VAD.nc
+    - RAD_Z9597_VAD.nc
+    - RAD_Z9598_VAD.nc
+    - RAD_Z9599_VAD.nc
+    - RAD_Z9631_VAD.nc
+    - RAD_Z9660_VAD.nc
+    - RAD_Z9692_VAD.nc
+    - RAD_Z9718_VAD.nc
+    - RAD_Z9730_VAD.nc
+    - RAD_Z9731_VAD.nc
+    - RAD_Z9732_VAD.nc
+    - RAD_Z9733_VAD.nc
+    - RAD_Z9735_VAD.nc
+    - RAD_Z9736_VAD.nc
+    - RAD_Z9737_VAD.nc
+    - RAD_Z9738_VAD.nc
+    - RAD_Z9740_VAD.nc
+    - RAD_Z9744_VAD.nc
+    - RAD_Z9745_VAD.nc
+    - RAD_Z9751_VAD.nc
+    - RAD_Z9753_VAD.nc
+    - RAD_Z9754_VAD.nc
+    - RAD_Z9755_VAD.nc
+    - RAD_Z9758_VAD.nc
+    - RAD_Z9759_VAD.nc
+    - RAD_Z9762_VAD.nc
+    - RAD_Z9770_VAD.nc
+    - RAD_Z9773_VAD.nc
+    - RAD_Z9774_VAD.nc
+    - RAD_Z9775_VAD.nc
+    - RAD_Z9776_VAD.nc
+    - RAD_Z9778_VAD.nc
+    - RAD_Z9779_VAD.nc
+    - RAD_Z9780_VAD.nc
+    - RAD_Z9791_VAD.nc
+    - RAD_Z9792_VAD.nc
+    - RAD_Z9793_VAD.nc
+    - RAD_Z9794_VAD.nc
+    - RAD_Z9795_VAD.nc
+    - RAD_Z9796_VAD.nc
+    - RAD_Z9797_VAD.nc
+    - RAD_Z9798_VAD.nc
+    - RAD_Z9816_VAD.nc
+    - RAD_Z9817_VAD.nc
+    - RAD_Z9833_VAD.nc
+    - RAD_Z9835_VAD.nc
+    - RAD_Z9836_VAD.nc
+    - RAD_Z9837_VAD.nc
+    - RAD_Z9839_VAD.nc
+    - RAD_Z9852_VAD.nc
+    - RAD_Z9854_VAD.nc
+    - RAD_Z9857_VAD.nc
+    - RAD_Z9858_VAD.nc
+    - RAD_Z9871_VAD.nc
+    - RAD_Z9874_VAD.nc
+    - RAD_Z9876_VAD.nc
+    - RAD_Z9879_VAD.nc
+    - RAD_Z9883_VAD.nc
+    - RAD_Z9888_VAD.nc
+    - RAD_Z9894_VAD.nc
+    - RAD_Z9898_VAD.nc
+    - RAD_Z9901_VAD.nc
+    - RAD_Z9906_VAD.nc
+    - RAD_Z9909_VAD.nc
+    - RAD_Z9911_VAD.nc
+    - RAD_Z9912_VAD.nc
+    - RAD_Z9914_VAD.nc
+    - RAD_Z9915_VAD.nc
+    - RAD_Z9916_VAD.nc
+    - RAD_Z9917_VAD.nc
+    - RAD_Z9930_VAD.nc
+    - RAD_Z9932_VAD.nc
+    - RAD_Z9939_VAD.nc
+    - RAD_Z9941_VAD.nc
+    - RAD_Z9953_VAD.nc
+    - RAD_Z9973_VAD.nc
+    - RAD_Z9976_VAD.nc
+    - RAD_Z9990_VAD.nc
+    - RAD_Z9993_VAD.nc
+    - RAD_Z9994_VAD.nc
+    - RAD_Z9996_VAD.nc
+    - RAD_Z9997_VAD.nc
+    - RAD_Z9998_VAD.nc
+    - RAD_Z9999_VAD.nc
+  obsType: vwpw
+flog:
+  LogFileName: /log/test
+BMat:
+  ScaleParaX: 48.75
+  ScaleParaY: 48.75
+  ScaleParaZ: 2.0
+  ScaleParaT: 0.5
+  RelativeWeightJb2Jo: 240.0   # Relative weight between Jb and Jo, radius of diffusion sphere
+  disableBmatForUV: FALSE
+  ensNum: 0
+Minimization:
+  MaxOptStep: 100
+  Use_JcTerm: false
+  Weight_Jc: 0.1
+  Use_JcTerm_InCompres: TRUE
+  Weight_Jc_InCompres: 1000
+  Type_Jc_InCompres: UV2Divg
+Verify:
+  # VA_latlon:
+  # - 23.0
+  # - 23.3
+  # - 114.3
+  # - 115.1
+  ERA5_File: /Users/qzl/sources/MOTOR/input/2024110300_T10p1/verify/2024110300.nc
+  testRepUV: false
+RunMode:
+  Mode: Debug
+  Task: 3DVar
+  Framework: FullState #FullState #Incremental
+  FixResolution: FALSE  # If use the same resolution for mg
+  OuterLoops: 10
+  LineSearch: TRUE
+  NegativeCheck: TRUE
+RTTOV:
+  platform_name:
+  - fy4_1
+  inst_name:
+  - agri
+  sensor_name:
+  - ir
+  debug_dev: false
+  gas_name:
+  - Water_vapour
+  ppmv_gasunit: true
+  rttov_clouds: false
+  rttov_aerosols: false
+  use_kmodel: false
+  interp_method: 1
+CV_Transform:
+  rhov_scale_scheme: None
+  qvapor_scale_scheme: Power
+  temp_scale_scheme: Power
+FY4-AGRI:
+  satinfo:
+  - satinfo_fy4-1-agri.txt
+  satpath:
+  - /MOTOR/MOTOR-TEST-DATA/20210504/
+  fdi_files:
+  - FDI.txt
+  geo_files:
+  - GEO.txt
+  clm_files:
+  - CLM.txt
+  obsfile_format: HDF5
+  only_over_sea: false
+  use_varbc: false
+  use_offline_bc: true
+  bias_predictors:
+  - constant
+  - thickness_1000_300
+  - thickness_200_50
+  - skin_temperature
+  - tpw
+  - scan_angle_order1
+  bias_scheme: pdf_mode
+  Thin_w_bkg: true
+  Source_of_bkg: tb_bak
+  Use_real_obs: true
+  Use_real_bkg: true
+  write_diag: false
+  test_name: XbMG
+  minimizer: FRCG
+MultigridOptions:
+  UpdateBkgd: false

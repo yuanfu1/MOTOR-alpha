@@ -1,0 +1,7 @@
+SET (BField_SRC
+     BFieldLaplace.F90
+     BFieldBase.F90
+     BFieldEnLoc.F90
+     BFieldHybInc.F90
+     )
+

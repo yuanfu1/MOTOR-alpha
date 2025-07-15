@@ -1,0 +1,98 @@
+GCC version 12.3.0
+
+|     Type     | Elements |    Array Name   |    Method   |  Time (s) |
+|--------------|----------|-----------------|-------------|-----------|
+|    Character |   65536  |  Char. Decrease |    Ord_Sort |  0.000312 |
+|    Character |   65536  |  Char. Increase |    Ord_Sort |  0.000185 |
+|    Character |   65536  |    Char. Random |    Ord_Sort |  0.013153 |
+|  String_type |    4096  | String Decrease |    Ord_Sort |  0.000169 |
+|  String_type |    4096  | String Increase |    Ord_Sort |  0.000093 |
+|  String_type |    4096  |   String Random |    Ord_Sort |  0.002297 |
+| Bitset_large |    4096  | Bitset Decrease |    Ord_Sort |  0.000154 |
+| Bitset_large |    4096  | Bitset Increase |    Ord_Sort |  0.000028 |
+| Bitset_large |    4096  |   Bitset Random |    Ord_Sort |  0.001603 |
+|    Bitset_64 |    4096  | Bitset Decrease |    Ord_Sort |  0.000013 |
+|    Bitset_64 |    4096  | Bitset Increase |    Ord_Sort |  0.000003 |
+|    Bitset_64 |    4096  |   Bitset Random |    Ord_Sort |  0.000229 |
+|      Integer |   65536  |          Blocks |  Radix_Sort |  0.001074 |
+|      Integer |   65536  |      Decreasing |  Radix_Sort |  0.000975 |
+|      Integer |   65536  |       Identical |  Radix_Sort |  0.000584 |
+|      Integer |   65536  |      Increasing |  Radix_Sort |  0.001010 |
+|      Integer |   65536  |    Random dense |  Radix_Sort |  0.000583 |
+|      Integer |   65536  |    Random order |  Radix_Sort |  0.000863 |
+|      Integer |   65536  |   Random sparse |  Radix_Sort |  0.000370 |
+|      Integer |   65536  |        Random 3 |  Radix_Sort |  0.000962 |
+|      Integer |   65536  |       Random 10 |  Radix_Sort |  0.000938 |
+|         Real |   65536  |     rand-real32 |  Radix_Sort |  0.000408 |
+|      Integer |   65536  |          Blocks |        Sort |  0.000927 |
+|      Integer |   65536  |      Decreasing |        Sort |  0.001463 |
+|      Integer |   65536  |       Identical |        Sort |  0.001862 |
+|      Integer |   65536  |      Increasing |        Sort |  0.000602 |
+|      Integer |   65536  |    Random dense |        Sort |  0.002922 |
+|      Integer |   65536  |    Random order |        Sort |  0.003000 |
+|      Integer |   65536  |   Random sparse |        Sort |  0.002960 |
+|      Integer |   65536  |        Random 3 |        Sort |  0.000912 |
+|      Integer |   65536  |       Random 10 |        Sort |  0.002851 |
+|    Character |   65536  |  Char. Decrease |        Sort |  0.011446 |
+|    Character |   65536  |  Char. Increase |        Sort |  0.004512 |
+|    Character |   65536  |    Char. Random |        Sort |  0.014710 |
+|  String_type |    4096  | String Decrease |        Sort |  0.003196 |
+|  String_type |    4096  | String Increase |        Sort |  0.001312 |
+|  String_type |    4096  |   String Random |        Sort |  0.002044 |
+| Bitset_large |    4096  | Bitset Decrease |        Sort |  0.001248 |
+| Bitset_large |    4096  | Bitset Increase |        Sort |  0.000357 |
+| Bitset_large |    4096  |   Bitset Random |        Sort |  0.000851 |
+|    Bitset_64 |    4096  | Bitset Decrease |        Sort |  0.000094 |
+|    Bitset_64 |    4096  | Bitset Increase |        Sort |  0.000040 |
+|    Bitset_64 |    4096  |   Bitset Random |        Sort |  0.000194 |
+|      Integer |   65536  |          Blocks |  Sort_Index |  0.000256 |
+|      Integer |   65536  |      Decreasing |  Sort_Index |  0.000063 |
+|      Integer |   65536  |       Identical |  Sort_Index |  0.000029 |
+|      Integer |   65536  |      Increasing |  Sort_Index |  0.000029 |
+|      Integer |   65536  |    Random dense |  Sort_Index |  0.006618 |
+|      Integer |   65536  |    Random order |  Sort_Index |  0.007536 |
+|      Integer |   65536  |   Random sparse |  Sort_Index |  0.004240 |
+|      Integer |   65536  |        Random 3 |  Sort_Index |  0.000115 |
+|      Integer |   65536  |       Random 10 |  Sort_Index |  0.000065 |
+|    Character |   65536  |  Char. Decrease |  Sort_Index |  0.000301 |
+|    Character |   65536  |  Char. Increase |  Sort_Index |  0.000200 |
+|    Character |   65536  |    Char. Random |  Sort_Index |  0.014343 |
+|  String_type |    4096  | String Decrease |  Sort_Index |  0.000160 |
+|  String_type |    4096  | String Increase |  Sort_Index |  0.000085 |
+|  String_type |    4096  |   String Random |  Sort_Index |  0.002306 |
+| Bitset_large |    4096  | Bitset Decrease |  Sort_Index |  0.000081 |
+| Bitset_large |    4096  | Bitset Increase |  Sort_Index |  0.000013 |
+| Bitset_large |    4096  |   Bitset Random |  Sort_Index |  0.000914 |
+|    Bitset_64 |    4096  | Bitset Decrease |  Sort_Index |  0.000009 |
+|    Bitset_64 |    4096  | Bitset Increase |  Sort_Index |  0.000004 |
+|    Bitset_64 |    4096  |   Bitset Random |  Sort_Index |  0.000236 |
+|      Integer |   65536  |          Blocks |  Sort_Index |  0.000126 |
+|      Integer |   65536  |      Decreasing |  Sort_Index |  0.000062 |
+|      Integer |   65536  |       Identical |  Sort_Index |  0.000029 |
+|      Integer |   65536  |      Increasing |  Sort_Index |  0.000029 |
+|      Integer |   65536  |    Random dense |  Sort_Index |  0.004138 |
+|      Integer |   65536  |    Random order |  Sort_Index |  0.006092 |
+|      Integer |   65536  |   Random sparse |  Sort_Index |  0.007155 |
+|      Integer |   65536  |        Random 3 |  Sort_Index |  0.000111 |
+|      Integer |   65536  |       Random 10 |  Sort_Index |  0.000063 |
+|    Character |   65536  |  Char. Decrease |  Sort_Index |  0.000291 |
+|    Character |   65536  |  Char. Increase |  Sort_Index |  0.000199 |
+|    Character |   65536  |    Char. Random |  Sort_Index |  0.012712 |
+|  String_type |    4096  | String Decrease |  Sort_Index |  0.000220 |
+|  String_type |    4096  | String Increase |  Sort_Index |  0.000127 |
+|  String_type |    4096  |   String Random |  Sort_Index |  0.002485 |
+| Bitset_large |    4096  | Bitset Decrease |  Sort_Index |  0.000206 |
+| Bitset_large |    4096  | Bitset Increase |  Sort_Index |  0.000025 |
+| Bitset_large |    4096  |   Bitset Random |  Sort_Index |  0.002248 |
+|    Bitset_64 |    4096  | Bitset Decrease |  Sort_Index |  0.000019 |
+|    Bitset_64 |    4096  | Bitset Increase |  Sort_Index |  0.000009 |
+|    Bitset_64 |    4096  |   Bitset Random |  Sort_Index |  0.000549 |
+|      Integer |   65536  |          Blocks |    Ord_Sort |  0.000161 |
+|      Integer |   65536  |      Decreasing |    Ord_Sort |  0.000067 |
+|      Integer |   65536  |       Identical |    Ord_Sort |  0.000030 |
+|      Integer |   65536  |      Increasing |    Ord_Sort |  0.000030 |
+|      Integer |   65536  |    Random dense |    Ord_Sort |  0.004133 |
+|      Integer |   65536  |    Random order |    Ord_Sort |  0.003828 |
+|      Integer |   65536  |   Random sparse |    Ord_Sort |  0.003633 |
+|      Integer |   65536  |        Random 3 |    Ord_Sort |  0.000071 |
+|      Integer |   65536  |       Random 10 |    Ord_Sort |  0.000045 |

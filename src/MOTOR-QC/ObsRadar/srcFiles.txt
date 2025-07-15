@@ -1,0 +1,8 @@
+SET (RadarRAW_SRC	
+	RadarRAW.F90
+	ObsRadarRef.F90
+	ObsRadarVel.F90
+	ObsRadarVelEach.F90
+	radar_to_latlon.f
+	razm_lat_lon_gm.f
+	)

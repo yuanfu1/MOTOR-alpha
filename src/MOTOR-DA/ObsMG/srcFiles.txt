@@ -1,0 +1,4 @@
+SET (ObsMG_SRC
+     ObsMG.F90
+     ObsSetArray.F90
+        )

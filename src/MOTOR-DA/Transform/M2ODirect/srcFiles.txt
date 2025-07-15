@@ -1,0 +1,3 @@
+SET (M2ODirect_SRC	
+	M2ODirect.F90 
+	)

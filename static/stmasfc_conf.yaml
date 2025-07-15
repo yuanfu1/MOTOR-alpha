@@ -1,0 +1,13 @@
+STMASFC_configure:
+  STMASFC_start_grdpts: [15, 14, 3]
+  STMASFC_numlevels: 7
+  STMASFC_iters: 10
+  STMASFC_time_window: [-7200, 0]
+  STMASFC_debugging: 3
+
+# STMASFC_start_grdpts        The number of gridpoints at start multilevel
+#                   	      for each direction;
+# STMASFC_numlevels           Total multigrid levels users set
+# STMASFC_time_window         Analysis time window: seconds before and
+#                             after the analysis time; 
+# STMASFC_debugging           Print out debugging information (>0: yes; 0: no)

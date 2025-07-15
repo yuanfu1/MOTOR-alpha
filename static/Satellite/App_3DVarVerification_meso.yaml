@@ -1,0 +1,342 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+latlon_grid:
+  num_grid:
+  # - 1537
+  # - 2561
+  - 257
+  - 257
+  domain_latlon:
+  - 19
+  - 28.1
+  - 80
+  - 89.1
+  # - 10
+  # - 60.1
+  # - 70
+  # - 145
+Wavelet:
+  latlon_times:
+  - 2
+  - 4
+  keepRate: 0.3
+  useWave: false
+  processErr: FALSE
+SatelliteInfo:
+  inputDir: /Users/shuting/Desktop/
+  list:
+    - fy4_1_agri_after_QC_BC_2.nc
+    - fy4_1_agri_after_QC_BC_5.nc
+  varNames:
+    - ch_1_tbb
+    - ch_2_tbb
+    - ch_3_tbb
+    - ch_4_tbb
+    - ch_5_tbb
+    - ch_6_tbb
+    - ch_7_tbb
+  chanList:
+    - 009
+    - 010
+    - 011
+    - 012
+    - 013
+    - 014
+    - 015
+  obsType:
+    fy4_1_agri
+analysis_para:
+  start_time:
+  - 2023
+  - 1
+  - 23
+  - 18
+  - 0
+  end_time:
+  - 2023
+  - 1
+  - 24
+  - 0
+  - 0
+geometry:
+  mpi_layout_g14:
+  - 2
+  - 2
+  mpi_layout_g58:
+  - 2
+  - 2
+  mpi_layout_g9L:
+  - 2
+  - 2
+  time_steps_g14: 3
+  time_steps_g58: 5
+  time_steps_g9L: 9
+  mgStart: 7
+  mgEnd: 7
+  haloWidth: 1
+C2M:
+  useUV2W: FALSE
+DASpace:
+  ztop: 30000.0
+  VerticalCoord: 'TerrainFollowing'
+poissonSovler:
+  solver: FMV
+  nCycle: 3
+  nIterPre: 3
+  nIterPost: 6
+  nRelax: 2
+  max_band: 10
+  omegas:
+  - 1.951627
+  - 0.569688
+modelState:
+  vLevel: 67
+  varList:
+  - uwnd
+  - vwnd
+  - temp
+  - qvapor
+  - qcloud
+  - qrain
+  - qice
+  - qsnow
+  - qgraupel
+  - pres
+  ctlVarNames: [pres_ctl,qvapor_ctl,qcloud_ctl,qice_ctl] 
+  Fillin_range:
+  - -1
+  - 5
+  - 2
+  - 1
+  - 5
+  - 2
+  - 1
+  - 5
+  - 2
+  - 1
+  - 5
+  - 2
+  - 1
+  - 3
+  - 2
+  geobalBeg: 5
+  geobalEnd: 5
+  # geobalWeights:
+  # - 0.0
+  # - 0.0
+  # - 0.0
+RTTOV:
+  # platform_name: [fy3_4, fy3_5]
+  # inst_name: [mwts2, mwts3]
+  # platform_name: [fy4_1, fy3_4, fy3_4, fy3_5, fy3_5]
+  # inst_name: [agri, mwts2, mwhs2, mwts3, mwhs3]
+  platform_name: [fy4_1]
+  inst_name: [agri]
+  turnOn: [TRUE]
+  # turnOn: [FALSE, TRUE, FALSE, FALSE, FALSE]
+  debug_dev: FALSE # for developers (dev)
+  gas_name: [Water_vapour]
+  ppmv_gasunit: TRUE
+  rttov_clouds: FALSE   #! if .true., hydrometeors  are mandatory input
+  rttov_aerosols: FALSE #! if .true., aerosol gases are mandatory input
+  use_kmodel: TRUE
+  interp_method: 1
+
+CV_Transform:
+  rhov_scale_scheme: 'None' # /'None'/'DomainAvg'/'EXPO'/'Power'
+  qvapor_scale_scheme: 'Power'  #/'None'/'DomainAvg'/'Power'
+  temp_scale_scheme: 'None' # /'None'/'DomainAvg'/'Power'
+ 
+FY4-AGRI:
+  satellite: fy4_1
+  satpath: [/Users/yaliwu/Desktop/mesocase/input/obs/agri/]
+  # For FY4-AGRI 
+  fdi_files: [FDI.txt]
+  geo_files: [GEO.txt]
+  clm_files: [CLM.txt]
+  # For local run, please download data from NAS first.
+  # Local data path: Z:\谢老师团队\MOTOR-DA Test DATA
+  obsfile_format: HDF5
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  normalize_pred: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: ScanAirs # 'pdf_mode', 'static_BC', 'var_BC', 'ScanAirs', 'aaa'
+  use_cloudy_predictors: FALSE
+  cloudy_predictors: [ca_mean, tb_obs]
+  Thin_w_bkg: TRUE
+  Source_of_bkg: state # state or obsavg. Not valid since MOTOR-DP 
+  Use_real_obs: TRUE 
+  Use_real_bkg: TRUE
+  write_diag: TRUE
+  test_name: XbMG
+  minimizer: FRCG #LBFGS FRCG
+
+FY4-GIIRS:
+  satpath: [/Users/yaliwu/Desktop/nas_team/work/TestCase/test_2022052700/giirs/]
+  fdi_files: [FDI.txt]
+  clm_files: [CLM.txt]
+  obsfile_format: HDF5
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: ScanAirs # 'pdf_mode', 'ScanAirs', 'var_BC'
+  Thin_w_bkg: TRUE
+  Source_of_bkg: tb_bak # state or obsavg or tb_bak
+  Use_real_obs: TRUE 
+  Use_real_bkg: TRUE
+  write_diag: TRUE
+  test_name: XbMG
+  minimizer: FRCG #LBFGS FRCG
+
+FY3-MWTS:
+  satellite: [fy3_4, fy3_5]
+  instrument: [mwts2, mwts3]
+  satpath: [/Users/yaliwu/Downloads/, /Users/yaliwu/Downloads/]
+  rad_files: [RAD_MWTS2.txt, RAD_MWTS3.txt]
+  obsfile_format: HDF5
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: pdf_mode # 'pdf_mode', 'static_BC', 'var_BC'
+  Thin_w_bkg: TRUE
+  Source_of_bkg: obs # state or obs
+  Use_real_obs: TRUE
+  Use_real_bkg: TRUE
+  write_diag: TRUE
+  test_name: test_rawobs
+
+FY3-MWHS:
+  satellite: [fy3_4, fy3_5]
+  instrument: [mwhs2, mwhs3]
+  satpath: [/Users/yaliwu/Downloads/, /Users/yaliwu/Downloads/]
+  rad_files: [RAD_MWHS2.txt, Rad_MWHS3.txt]
+  obsfile_format: HDF5
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: pdf_mode # 'pdf_mode', 'static_BC', 'var_BC'
+  Thin_w_bkg: TRUE
+  Source_of_bkg: obs # state or obs
+  Use_real_obs: FALSE
+  Use_real_bkg: TRUE
+  write_diag: FALSE
+  test_name: test_rawobs
+
+FY3-HIRAS:
+  satpath: [/Users/yaliwu/Downloads/]
+  rad_files: [RAD_hiras.txt]
+  obsfile_format: HDF5
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: pdf_mode # 'pdf_mode', 'static_BC', 'var_BC'
+  Thin_w_bkg: TRUE
+  Source_of_bkg: obs # state or obs
+  Use_real_obs: FALSE
+  Use_real_bkg: TRUE
+  write_diag: TRUE
+  test_name: test_rawobs
+  
+obs_thinning:
+  obs_qcThreshold:
+  - 5.0D2
+  - 5.0D2
+  - 5.0D2
+  obs_missing: 999999999.0D0
+  obs_invalid: 3.4D38
+  obs_radius:
+  - 5.0D0
+  - 5.0D0
+  - 5.0D2
+  - 5.0D1
+  thinning_threshold: 0.25D0
+  interpolation: 1
+  varObsSpace:
+  - abc
+IO:
+  input_dir_Surface: /Users/yaliwu/Desktop/mesocase/input/obs/synop
+  input_dir_Sound: /Users/yaliwu/Desktop/mesocase/input/obs/sound
+  input_dir_Vwpw: /public/home/simi/wkdir/ProductsMaintenance/MESO/MOTOR/task/230124/230124_0000/input/obs/vwpw
+  input_dir_Radar: /public/home/simi/wkdir/ProductsMaintenance/MESO/MOTOR/task/230124/230124_0000/input/obs/radar
+  input_dir_Satellite: ${INPUT_DIR}
+  input_dir_model: /Users/yaliwu/Desktop/mesocase/input/model
+  input_dir: ${INPUT_DIR}
+  # output_dir: /Users/yaliwu/Desktop/MOTOR/MOTOR/output/FullState/
+  output_dir: /Users/yaliwu/Desktop/MOTOR/MOTOR/output/FullState-test/
+  bk_model: GRAPES
+  grapes_model_type: CMA-MESO
+  obsVarList_Surface:
+  - uwnd
+  - vwnd
+  - temp
+  - qvapor
+  - pres
+  NMLFileName:
+  - namelist.psi
+  - namelist.psi
+  ModelFileName:
+  - grapesinput2023012318.si
+  - grapesinput2023012400.si
+  bakFileList:
+  - wrfout_d01_2022-01-13_00:00:00
+  - wrfout_d01_2022-01-13_01:00:00
+  OutputFileName: grapesinput-MOTORDA
+  ObsFlag_Surface: 1
+  ObsFlag_Sound: 1
+  ObsFlag_Vwpw: 1
+  obsFileList_Surface:
+  - '20230123_2300'
+  - '20230123_2305'
+  - '20230123_2310'
+  - '20230123_2315'
+  - '20230123_2320'
+  - '20230123_2325'
+  - '20230123_2330'
+  - '20230123_2335'
+  - '20230123_2340'
+  - '20230123_2345'
+  - '20230123_2350'
+  - '20230123_2355'
+  - '20230124_0000'
+  obsFileList_Sound:
+  - rec_RTEMP_20230124000000_g.dat
+  obsFileList_Vwpw: null
+  obsFilePath_Radar: /Obs
+  obsFileList_Radar: null
+  obsType: vwpw
+flog:
+  LogFileName: /log/test
+BMat:
+  ScaleParaX: 48.75
+  ScaleParaY: 48.75
+  ScaleParaZ: 2.0
+  ScaleParaT: 0.5
+  RelativeWeightJb2Jo: 240.0
+  # RelativeWeightJb2Jo: 0.0
+  disableBmatForUV: FALSE
+  BECsolver: Laplace   # Laplace, Ensemble.
+  ensNum: 0
+Minimization:
+  MaxOptStep: 10
+  Use_JcTerm: false
+  Weight_Jc: 0.1
+  Use_JcTerm_InCompres: false
+  Weight_Jc_InCompres: 10
+  Type_Jc_InCompres: UV2Divg        # UV2Divg / UV2W-UVW2Divg
+Verify:
+  VA_latlon:
+  - 23.0
+  - 23.3
+  - 114.3
+  - 115.1
+RunMode:
+  Mode: Debug
+  Task: 3DVar
+  Framework: FullState #FullState #Incremental
+  FixResolution: FALSE  # If use the same resolution for mg
+  OuterLoops: 10
+  LineSearch: TRUE
+  BoundaryCheck: inner # Projected or inner
+  OuterLoops: 10

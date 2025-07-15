@@ -1,0 +1,11 @@
+SET (Dyn_SRC
+    PreCal.F90	
+	Sphere/TenDiv.F90
+	Sphere/TenVor.F90
+	Sphere/Tenqvapor.F90
+	Sphere/TenRho.F90
+	Sphere/TenTheta.F90
+	Sphere/TenW.F90
+	nwp.F90
+	CalPres.F90
+	)

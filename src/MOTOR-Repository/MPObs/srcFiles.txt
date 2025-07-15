@@ -1,0 +1,3 @@
+SET (MPObs_SRC
+	MPObs.F90
+	)

@@ -1,0 +1,84 @@
+#!/bin/sh
+# start the rttov gui application
+
+if [ -z ${RTTOV_GUI_PREFIX} ]
+then
+	echo "ERROR : the environment variable RTTOV_GUI_PREFIX is not set"
+	exit 1
+fi
+export PATH=${RTTOV_GUI_PREFIX}:$PATH
+
+if [ -z ${RTTOV_GUI_WRK_DIR} ]
+then
+	if [ ! -r $HOME/.rttov ]
+	then
+		mkdir  $HOME/.rttov
+	fi
+export RTTOV_GUI_WRK_DIR=$HOME/.rttov
+fi
+if [ ! -d ${RTTOV_GUI_WRK_DIR} ]
+then
+	mkdir -p ${RTTOV_GUI_WRK_DIR}
+fi
+
+# update as necessary your PYTHONPATH
+export PYTHONPATH=$PYTHONPATH:${RTTOV_GUI_PREFIX}
+
+
+
+cd ${RTTOV_GUI_PREFIX}
+if [ -z "$1" ]
+then
+  ${cmdpython} rcontroller/controller.py
+  exit
+fi
+case $1 in
+"avhrr"|"AVHRR") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/standard54lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov7pred54L/rtcoef_metop_2_avhrr.dat 
+;;
+"hirs") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/cldaer101lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov8pred54L/rtcoef_metop_1_hirs.dat 
+;;
+"iasi"|"IASI") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/standard54lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov9pred101L/rtcoef_metop_2_iasi.H5 
+;;
+"cris"|"CRIS") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/standard54lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov9pred101L/rtcoef_jpss_0_cris.H5 
+;;
+"pc"|"PC") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/cldaer101lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov9pred101L/rtcoef_metop_2_iasi_pcrttov_compat.H5 -p=${RTTOV_GUI_COEFF_DIR}/pc/pccoef_metop_2_iasi_landsea_trace_nlte.H5
+;;
+"cloud"|"clouds") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/cldaer101lev_allgas.H5 -c=${RTTOV_GUI_COEFF_DIR}/cldaer_visir/sccldcoef_jpss_0_viirs.dat -s=${RTTOV_GUI_COEFF_DIR}/rttov9pred54L/rtcoef_jpss_0_viirs.dat
+;;
+"aer"|"aerosols") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/cldaer101lev_allgas.H5  -a=${RTTOV_GUI_COEFF_DIR}/cldaer_visir/scaercoef_jpss_0_viirs.dat -s=${RTTOV_GUI_COEFF_DIR}/rttov9pred54L/rtcoef_jpss_0_viirs.dat
+;;
+"solar") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/cldaer101lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov9pred54L/rtcoef_eos_2_modis.dat
+;;
+"msg") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/cldaer101lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov9pred54L/rtcoef_msg_4_seviri.dat
+;;
+"ssmi") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/cldaer101lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov7pred54L/rtcoef_dmsp_15_ssmi.dat
+;;
+"MW"|"mw"|"MO"|"mo") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/varying101lev_clw.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov7pred54L/rtcoef_dmsp_18_ssmis.dat
+;;
+"landsat") ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/cldaer101lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov7pred54L/rtcoef_landsat_4_tm.dat
+;;
+'1dvar') ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/standard54lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov7pred54L/rtcoef_metop_1_amsua.dat
+;;
+'1dvar2') ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/standard54lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov7pred54L/rtcoef_metop_2_mhs.dat
+;;
+'1dvar3') ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/standard54lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov7pred54L/rtcoef_metop_2_amsua.dat
+;;
+'1dvar4') ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/standard54lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov7pred54L/rtcoef_noaa_18_amsua.dat
+;;
+'1dvar5') ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/standard54lev_allgas.H5 -s=${RTTOV_GUI_COEFF_DIR}/rttov9pred101L/rtcoef_metop_2_iasi.H5
+;;
+"KG|kg") ${cmdpython} rcontroller/controller.py -d -A=${RTTOV_GUI_PROFILE_DIR}/../profile-datasets-py/standard101lev_allgas_kgkg/002.py  -s=${RTTOV_GUI_COEFF_DIR}/rttov9pred101L/rtcoef_metop_2_iasi.H5
+;;
+"MMR_0"|"mmr_0")  ${cmdpython} rcontroller/controller.py -d -A=${RTTOV_GUI_PROFILE_DIR}/../profile-datasets-py/cldaer101lev_allgas/002.py -s=${RTTOV_GUI_COEFF_DIR}/rttov9pred54L/rtcoef_metopsg_1_metimage.dat
+;;
+"PCclouds"|"PCClouds"|"PCCLOUDS")
+ coefFile=${RTTOV_GUI_COEFF_DIR}/rttov9pred101L/rtcoef_metop_2_iasi.H5
+ pcFile=${RTTOV_GUI_COEFF_DIR}/pc//pccoefcld_metop_2_iasi.dat
+ pcCloudsFile=${RTTOV_GUI_COEFF_DIR}/cldaer_ir/sccldcoef_metop_2_iasi.H5
+ echo "-s=${coefFile} -p=${pcFile} -c=${pcCloudsFile}"
+ ${cmdpython} rcontroller/controller.py -d -P=${RTTOV_GUI_PROFILE_DIR}/cldaer101lev_allgas.H5 -s=${coefFile} -p=${pcFile} -c=${pcCloudsFile}
+;;
+
+*)  ${cmdpython} rcontroller/controller.py
+;;
+esac

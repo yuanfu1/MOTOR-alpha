@@ -1,0 +1,3 @@
+SET (Obs2State_SRC	
+	Obs2State.F90 
+	)

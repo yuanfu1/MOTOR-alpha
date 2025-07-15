@@ -1,0 +1,72 @@
+cmake_minimum_required(VERSION 3.5)
+
+# Change to your project:
+# build my project:
+PROJECT(MOTOR-PS_Repo)
+
+# Include the common template:
+IF (IS_ABSOLUTE $ENV{MOTOR_TEMPLATES})
+  MESSAGE(STATUS "MOTOR_TEMPLATES path is set!")
+ELSE ($ENV{MOTOR_TEMPLATES} LESS 1)
+  MESSAGE(FATAL_ERROR "Env MOTOR_TEMPLATES is not set, please set and rerun!")
+ENDIF (IS_ABSOLUTE $ENV{MOTOR_TEMPLATES})
+include($ENV{MOTOR_TEMPLATES}/cmakeCommon.txt)
+
+# Set the libs and mods paths under MOTOR_LIBS and MOTOR_MODS:
+#-------------------------------------------------------------------------------
+SET (LIBRARY_OUTPUT_PATH $ENV{MOTOR_LIBS}/MOTOR-PS)
+MESSAGE(STATUS "LIBRARY_OUTPUT_PATH: " ${LIBRARY_OUTPUT_PATH})
+SET(CMAKE_Fortran_MODULE_DIRECTORY $ENV{MOTOR_MODS}/MOTOR-PS)
+install (DIRECTORY ${CMAKE_Fortran_MODULE_DIRECTORY}/ DESTINATION include)
+
+#-------------------------------------------------------------------------------
+# Source codes to this build:
+include (FilesSelected.txt)
+
+# Set the libs and mods paths under MOTOR_LIBS and MOTOR_MODS:
+#-------------------------------------------------------------------------------
+SET (LIBRARY_OUTPUT_PATH $ENV{MOTOR_LIBS}/MOTOR-PS)
+MESSAGE(STATUS "LIBRARY_OUTPUT_PATH: " ${LIBRARY_OUTPUT_PATH})
+SET(CMAKE_Fortran_MODULE_DIRECTORY $ENV{MOTOR_MODS}/MOTOR-PS)
+install (DIRECTORY ${CMAKE_Fortran_MODULE_DIRECTORY}/ DESTINATION include)
+
+ADD_LIBRARY(nwp STATIC ${MOTOR-PS_Repo_SRC})
+ADD_LIBRARY(linpack STATIC IMPORTED)
+ADD_LIBRARY(blas STATIC IMPORTED)
+#ADD_LIBRARY(myutility STATIC IMPORTED)
+
+SET_TARGET_PROPERTIES(linpack PROPERTIES IMPORTED_LOCATION $ENV{HOME}/developments/sftware/netlib/LINPACK/lib/liblinpack.a)
+SET_TARGET_PROPERTIES(blas PROPERTIES IMPORTED_LOCATION $ENV{HOME}/developments/sftware/netlib/LINPACK/lib/liblas.a)
+#SET_TARGET_PROPERTIES(myutility PROPERTIES IMPORTED_LOCATION $ENV{COMMON_LIBS}/libutility.a)
+
+# Add dependencies:
+ADD_DEPENDENCIES(nwp hevi)
+#ADD_DEPENDENCIES(nwp structuredStates)
+
+#-------------------------------------------------------------------------------
+# Include directories:
+#INCLUDE_DIRECTORIES($ENV{COMMON_MODS})
+INCLUDE_DIRECTORIES($ENV{MOTOR_MODS}/Utility)
+INCLUDE_DIRECTORIES($ENV{MOTOR_MODS}/MOTOR_Repository/Geometry)
+INCLUDE_DIRECTORIES($ENV{MOTOR_MODS}/MOTOR_Repository/Helmholtz)
+INCLUDE_DIRECTORIES($ENV{MOTOR_MODS}/MOTOR_Repository/States/ModelState_Xm)
+INCLUDE_DIRECTORIES($ENV{MOTOR_MODS}/MOTOR_Repository/States/StructuredStates)
+INCLUDE_DIRECTORIES($ENV{MOTOR_MODS}/MOTOR-PS/ZGrid)
+INCLUDE_DIRECTORIES($ENV{MOTOR_MODS}/MOTOR-PS/hevi)
+
+#-------------------------------------------------------------------------------
+# Add subdirectories to this build:
+ADD_SUBDIRECTORY(ZGrid)
+ADD_SUBDIRECTORY(hevi)
+
+# Build tests:
+SET (EXE1 "test_nwp.exe")
+
+ADD_EXECUTABLE(${EXE1} test_nwp.F90)
+
+TARGET_LINK_LIBRARIES(${EXE1} nwp Helmholtz ModelState gzm linpack blas)
+
+# ADD_TEST("test_nwp" ${EXE1})  # Migrated to UnitTests
+
+SET_TESTS_PROPERTIES(test_nwp PROPERTIES FAIL_REGULAR_EXPRESSION "ERROR;FAIL;Test failed")
+SET_TESTS_PROPERTIES(test_nwp PROPERTIES PASS_REGULAR_EXPRESSION "Test passed")

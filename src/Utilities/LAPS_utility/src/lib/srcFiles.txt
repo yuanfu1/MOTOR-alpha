@@ -1,0 +1,3 @@
+SET (laps_lib_SRC
+     laps_routines.f
+    )

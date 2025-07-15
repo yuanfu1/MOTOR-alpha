@@ -1,0 +1,18 @@
+AGRI_channels  RTTOV_channels ifuse  obserr  bias   camin   camax   stdmin   stdmax   BTlim   overseaonly
+   8 channels in total
+   8      8   -1   1.0     0.1    0.008     17.375    10.041     36.127    269.57   -1
+   9      9    1   1.0     0.1    0.014     9.525     1.798      11.117    239.34   -1
+   10    10    1   1.0     0.1    0.038     18.388    1.332      19.250    252.91   -1
+   11    11   -1   1.0     0.1    0.030     23.957    4.051      31.649    279.86   -1
+   12    12   -1   1.0     0.1    0.028     23.683    3.419      32.779    284.13   -1
+   13    13   -1   1.0     0.1    0.035     23.610    1.957      30.018    285.67   -1
+   14    14   -1   1.0     0.1    0.782     24.166    1.308      26.215    261.07   -1
+   15    15   -1   1.0     0.1    0.782     24.166    1.308      26.215    261.07   -1
+Dimensions: DIM_000 DIM_001 DIM_002 DIM_003 DIM_004 DIM_005
+For REG: 4096 65536 14 2 1092 2748; For GLB: 4096 65536 14 2 2748 2748
+subpoint (longitude)
+   105.0
+Resolution (km)
+   4.0
+Parameters for lat/lon conversion: COFF(column offset) CFAC(column scale factor) ea(earth radius: km) eb(earth radius: km) h(height of satellite: km)
+   1373.5 10233137.0 6378.137 6356.7523 42164

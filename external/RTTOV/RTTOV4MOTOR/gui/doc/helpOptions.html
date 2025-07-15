@@ -1,0 +1,161 @@
+<html>
+
+<body bgcolor="#ababab">
+<h4>Table of Contents</h4>
+
+<ul>
+<li><a href="#gene">General configuration options</a></li>
+<li><a href="#RT">General radiative transfer options</a></li>
+<li><a href="#VISIR">Visible/IR-only radiative transfer options</a></li>
+<li><a href="#MW">MW-only radiative transfer options</a></li>
+<li><a href="#PC">Principal Components-only radiative transfer options</a></li>
+<li><a href="#interp">Options related to interpolation and the vertical grid</a></li>
+
+</ul>
+
+<p>
+<a name="gene">
+<h6>General configuration options</h6>
+<ul>
+<li><br>apply_reg_limits:</br>
+ If true, input profiles outside the limits specified in the coefficient files are reset to the min/max. If false, such profiles will generate 
+warning messages unless verbose is false (default = false). Has no effect if do_checkinput is false.</li>
+<li><br>verbose:</br>
+ If false, only messages for fatal errors are output (default = true)
+</li>
+<li><br>do_checkinput:</br>
+ If true, checks whether input profiles are within both absolute and regression limits. 
+If false, no check is performed (default = true) </li>
+<li><br>fix_hgpl:</br>
+If true, apply fix to match 2m p with elevation in geometry calculations (default = true) </li>
+</ul>
+
+</a>
+</p>
+
+<p>
+<a name="RT">
+<h6>General radiative transfer options</h6>
+<ul>
+<li><br>switchrad:</br> Determines input perturbation for AD/K routines: if true, radiancedata_ad/k % bt is used for channels with wavelengths > 3 micrometers, 
+   otherwise radiancedata_ad/k modulo total is used (default = true)</li>
+
+<li><br>addrefrac:</br> If true, RTTOV calculations account for atmospheric refraction (default = true)</li>
+
+<li><br>use_t2m_opdep:</br> If true, activate use of surface temperature in optical depth calculation (default = true)</li>
+
+<li><br>use_q2m:</br> If true, activate use of surface humidity (default = true)</li>
+
+<li><br>do_lambertian:</br> If true, activate treatment of surface as Lambertian instead of specular reflector for downwelling  emitted radiance (default = false)</li>
+
+<li><br>lambertian_fixed_angle:</br>switches between the fixed angle (true, default) and parameterised angle (false) for the downwelling transmittances in the Lambertian surface option (only applicable if do_lambertian is true)</li>
+
+<li><br>plane_parallel:</br> If true, ignore atmospheric curvature (default = false)</li>
+
+<li><br>rad_down_lin_tau: </br>if true (default), uses linear in tau for downwelling radiance calculation in rttov_integrate; 
+if false uses the simpler layer-average (the impact on radiances is very small)</li>
+
+<li><br>ozone_data:</br> If true, user is supplying ozone profile (default = false)</li>
+
+<li><br>co2_data:</br> If true, user is supplying co2 profile (default = false)</li>
+
+<li><br>n2o_data:</br> If true, user is supplying n2o profile (default = false)</li>
+
+<li><br>co_data:</br> If true, user is supplying co profile (default = false)</li>
+
+<li><br>ch4_data: </br> If true, user is supplying ch4 profile (default = false)</li>
+
+<li><br>so2_data: </br> If true, user is supplying so2 profile (default = false)</li>
+</ul>
+</a>
+</p>
+
+<p>
+<a name="VISIR">
+<h6>Visible/IR-only radiative transfer options</h6>
+<ul>
+<li><br>solar_sea_brdf_model:</br>Solar sea BRDF model (JONSWAP or Elfouhaily, default = Elfouhaily))</li>
+
+<li><br>ir_sea_emis_model:</br>IR sea emissivity model ( ISEM or IREMIS, default = IREMIS)</li>
+
+<li><br>addsolar:</br> If true, enable solar calculations for solar-affected channels (default = false)</li>
+<li><br>rayleigh_max_wavelength:</br> Ignore Rayleigh scattering for channels at wavelengths above this (microns) (default = 2 microns)</li>
+<li><br>rayleigh_min_pressure:</br>  Ignore Rayleigh scattering at pressures below this (hPa) (default = 0 hPa)</li>
+
+<li><br>rayleigh_single_scatt:</br> If true, enable Rayleigh single-scattering for VIS/NIR channels (default = true)</li>
+
+<li><br>do_nlte_correction:</br> If true, includes non-LTE bias correction for hi-res sounders (default = false) NB this is independent of addsolar</li>
+
+<li><br>addaerosl: </br>If true, account for scattering due to aerosols (default = false)</li>
+
+<li><br>addclouds:</br> If true, account for scattering due to clouds (default = false)</li>
+
+<li><br>cldcol_threshold:</br> Threshold for stream weights to compute for cloud scattering calculations (default = -1); recommended to be set negative when calling TL, AD or K models. Only applies when addclouds is true.</li>
+
+<li><br>ir_scatt_model:</br> IR scattering model to use</li>
+<li><br>vis_scatt_model:</br> VIS/NIR scattering model to use</li>
+<li><br>dom_nstreams:</br> Number of DOM streams, must be even and not less than 2</li>
+<li><br>dom_accuracy:</br> Convergence criterion for termination of DOM azimuthal loop</li>
+<li><br>dom_opdep_threshold:</br> DOM ignores levels below this optical depth: 10. is reasonable, not applied if <= 0</li>
+
+
+<li><br>grid_box_avg_cloud: </br> if true, cloud concentrations for VIS/IR simulations are supplied as model grid-box averages so that they are divided by the cloud fraction inside RTTOV to get the cloud concentration of the cloudy fraction of each layer (default false)</li>
+
+
+
+<li><br>rayleigh_single_scatt: </br>if false this disables the Rayleigh single scattering calculation for visible channels (default true, only applicable if addsolar is true)</li>
+
+</ul>
+</a>
+</p>
+
+<p>
+<a name="PC">
+<h6>Principal Components-only radiative transfer options</h6>
+<ul>
+<li><br>addpc:</br>  If true, carry out Principal Components calculations (default = false).</li>
+
+<li><br>ipcbnd:</br>  The index of the PC spectral band: 1-3 for IASI clear-sky simulations; 1 otherwise (default = -1).</li>
+
+<li><br>ipcreg: </br> The index of the required set of PC predictors: 1-4 for IASI (see table 12 for the number of predictors), and 1-3 for AIRS (for 200, 300 and 400 predictors) (default = -1)</li>
+
+<li><br>addradrec:</br>  If true, the PC calculations will return reconstructed radiances as well as the PC scores (default = false)</li>
+
+<li><br>npcscores:</br> Number of PC scores for PC-RTTOV</li> 
+
+</ul>
+</a>
+</p>
+
+<p>
+<a name="MW">
+<h6>MW-only radiative transfer options</h6>
+<ul>
+<li><br>fastem_version:</br> Version of the FASTEM model to use (default = 6).</li>
+
+<li><br>supply_foam_fraction:</br>  If true, user is sypplying the foam_fraction (see surface window) (default = false).</li>
+
+<li><br>clw_data:</br> If true, user is supplying clw profiles (default = false)(not implemented).</li>
+
+</ul>
+</a>
+</p>
+
+
+
+<p>
+<a name="interp">
+<h6>Options related to interpolation and the vertical grid</h6>
+<ul>
+<li><br>addinterp: </br> If true, input profiles may be supplied on user-defined levels, and internal interpolation is used (default = false).</li>
+<li><br>spacetop:</br>  If true, treat user's model top as space boundary (default = true)</li>
+<li><br>lgradp:</br>  Allow TL/AD of user pressure levels if addinterp is true (default = false)</li>
+<li><br>reg_limit_extrap:</br> if is set to true the profiles used for the optical depth calculations are reset to the limit values if some input values fall outside the regression limits (default = false)</li>
+
+</ul>
+</a>
+</p>
+
+
+</body>
+</html>

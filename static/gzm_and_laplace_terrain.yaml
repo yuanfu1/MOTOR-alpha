@@ -1,0 +1,488 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+latlon_grid:
+  num_grid:
+  - 513
+  - 1025
+  domain_latlon:
+  - 16
+  - 31.36
+  - 96
+  - 123.36
+analysis_para:
+  start_time:
+  - 2022
+  - 5
+  - 26
+  - 23
+  - 0
+  - 0
+  end_time:
+  - 2022
+  - 5
+  - 27
+  - 0
+  - 0
+  - 0
+geometry:
+  mpi_layout_g14:
+  - 1
+  - 1
+  mpi_layout_g58:
+  - 2
+  - 2
+  mpi_layout_g9L:
+  - 2
+  - 2
+  time_steps_g14: 3
+  time_steps_g58: 5
+  time_steps_g9L: 9
+  mgStart: 1
+  mgEnd: 10
+  #topoSmooth: [0,0,0,0,0]
+DASpace:
+  ztop: 30000.0
+poissonSovler:
+  solver: FMV
+  nCycle: 10
+  nIterPre: 3
+  nIterPost: 6
+  nRelax: 2
+  max_band: 10
+  omegas:
+  - 1.951627
+  - 0.569688
+modelState:
+  vLevel: 89
+  varList:
+  - psi
+  - chi
+  - div
+  - vor
+  - w
+  - rho
+  - qvapor
+  - theta
+  - pres
+  - tendiv
+  - tenvor
+  - tenw
+  - tenrho
+  - tenqvapor
+  - tentheta
+  - tenpres
+  - psit
+  - chit
+  - divt
+  - vort
+  - wt
+  - qvaport
+  - thetat
+  - rhot
+  - prest
+  - tendivt
+  - tenvort
+  - tenwt
+  - tenrhot
+  - tenqvaport
+  - tenthetat
+  - tenprest
+  - parvort
+  - pardivt
+  - parrhot
+  - parqvaport
+  - parthetat
+  - parprest
+  - parwt
+  - prho_sg
+  - prho_sgt
+  - F_rho_chit
+  - J_rho_psit
+  - F_rho_chi
+  - J_rho_psi
+  - F_z_chisg
+  - J_z_psisg
+  - F_z_chisgt
+  - J_z_psisgt
+  - J_q_psi
+  - F_q_chi
+  - J_z_psi
+  - F_z_chi
+  - F_z_chiF
+  - J_z_psiF
+  - pq_sg
+  - J_q_psit
+  - F_q_chit
+  - J_z_psit
+  - F_z_chit
+  - F_z_chiFt
+  - J_z_psiFt
+  - pq_sgt
+  - J_th_psit
+  - F_th_chit
+  - J_th_psi
+  - F_th_chi
+  - psiF
+  - chiF
+  - F_z_chir
+  - J_z_psir
+  - F_z_chirt
+  - J_z_psirt
+
+
+
+  ctlVarNames: [pres_ctl,qvapor_ctl] 
+  Fillin_range: [-1,3,2,1,3,2,1,3,2]
+  geobalBeg: 5
+  geobalEnd: 5
+ # geobalWeights: [0.0,0.0,0.0]
+ # mgGridSmooth: [0,0,0]
+
+RTTOV:
+  platform_name: [fy4_1]
+  inst_name: [agri]
+  sensor_name: [ir]
+#  platform_name: [fy4_1, fy3_4, fy3_4, fy3_4]
+#  inst_name: [agri, mwts2, mwhs2, hiras]
+#  sensor_name: [ir, mw, mw, ir]
+  debug_dev: FALSE # for developers (dev)
+  gas_name: [Water_vapour]
+  ppmv_gasunit: TRUE
+  rttov_clouds: FALSE   #! if .true., hydrometeors  are mandatory input
+  rttov_aerosols: FALSE #! if .true., aerosol gases are mandatory input
+  use_kmodel: TRUE
+  interp_method: 1
+
+CV_Transform:
+  rhov_scale_scheme: 'None' # /'None'/'DomainAvg'/'EXPO'/'Power'
+  qvapor_scale_scheme: 'Power'  #/'None'/'DomainAvg'/'Power'
+  temp_scale_scheme: 'None' # /'None'/'DomainAvg'/'Power'
+ 
+FY4-AGRI:
+  satinfo: [satinfo_fy4-1-agri.txt]
+  satpath: [/Users/yaliwu/Desktop/2022052700case/agri/]
+  # For FY4-AGRI 
+  fdi_files: [FDI.txt]
+  geo_files: [GEO.txt]
+  clm_files: [CLM.txt]
+  # For local run, please download data from NAS first.
+  # Local data path: Z:\谢老师团队\MOTOR-DA Test DATA
+  obsfile_format: HDF5
+  only_over_sea: FALSE
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  normalize_pred: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: ScanAirs # 'pdf_mode', 'static_BC', 'var_BC', 'ScanAirs'
+  Thin_w_bkg: TRUE
+  Source_of_bkg: state # state or obsavg
+  Use_real_obs: TRUE 
+  Use_real_bkg: TRUE
+  write_diag: TRUE
+  test_name: XbMG
+  minimizer: FRCG #LBFGS FRCG
+
+FY4-GIIRS:
+  satinfo: [satinfo_fy4-1-giirs.txt]
+  satpath: [/Users/yaliwu/Desktop/nas_team/work/TestCase/test_2022052700/giirs/]
+  fdi_files: [FDI.txt]
+  clm_files: [CLM.txt]
+  obsfile_format: HDF5
+  only_over_sea: FALSE
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: ScanAirs # 'pdf_mode', 'ScanAirs', 'var_BC'
+  Thin_w_bkg: TRUE
+  Source_of_bkg: tb_bak # state or obsavg or tb_bak
+  Use_real_obs: TRUE 
+  Use_real_bkg: TRUE
+  write_diag: TRUE
+  test_name: XbMG
+  minimizer: FRCG #LBFGS FRCG
+
+FY3-MWTS2:
+  satinfo: [satinfo_fy3_4-mwts2.txt]
+  satpath: [/Users/yaliwu/Downloads/]
+  rad_files: [RAD_MWTS2.txt]
+  obsfile_format: HDF5
+  only_over_sea: TRUE
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: pdf_mode # 'pdf_mode', 'static_BC', 'var_BC'
+  Thin_w_bkg: TRUE
+  Source_of_bkg: obs # state or obs
+  Use_real_obs: FALSE
+  Use_real_bkg: TRUE
+  write_diag: TRUE
+  test_name: test_rawobs
+
+FY3-MWHS2:
+  satinfo: [satinfo_fy3_4-mwhs2.txt]
+  satpath: [/Users/yaliwu/Downloads/]
+  rad_files: [RAD.txt]
+  obsfile_format: HDF5
+  only_over_sea: TRUE
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: pdf_mode # 'pdf_mode', 'static_BC', 'var_BC'
+  Thin_w_bkg: TRUE
+  Source_of_bkg: obs # state or obs
+  Use_real_obs: FALSE
+  Use_real_bkg: TRUE
+  write_diag: FALSE
+  test_name: test_rawobs
+
+FY3-HIRAS:
+  satinfo: [satinfo_fy3_4-hiras.txt]
+  satpath: [/Users/yaliwu/Downloads/]
+  rad_files: [RAD.txt]
+  obsfile_format: HDF5
+  only_over_sea: TRUE
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: pdf_mode # 'pdf_mode', 'static_BC', 'var_BC'
+  Thin_w_bkg: TRUE
+  Source_of_bkg: obs # state or obs
+  Use_real_obs: FALSE
+  Use_real_bkg: TRUE
+  write_diag: TRUE
+  test_name: test_rawobs
+
+obs_thinning:
+  obs_qcThreshold:
+  - 5.0D2
+  - 5.0D2
+  - 5.0D2
+  obs_missing: 999999999.0D0
+  obs_invalid: 3.4D38
+  obs_radius:
+  - 5.0D0
+  - 5.0D0
+  - 5.0D2
+  - 5.0D1
+  thinning_threshold: 0.25D0
+  varObsSpace: [abc]
+  interpolation: 1
+IO:
+  output_dir: ${OUTPUT_DIR}
+  input_dir_Surface: /Users/yaliwu/Desktop/2022052700case/synop
+  input_dir_Sound: /Users/yaliwu/Desktop/2022052700case/sound
+  input_dir_Vwpw: /Users/yaliwu/Desktop/nas_team/work/TestCase/test_2022052700/vwpw
+  input_dir_Radar: /Users/yaliwu/Desktop/nas_team/work/TestCase/test_2022052700/radar
+  input_dir_Satellite: ${INPUT_DIR}
+#  input_dir_model: /Users/yaliwu/Desktop/nas_team/work/TestCase/test_2022052700/model
+  input_dir_model: /Users/yaliwu/Desktop/2022052700case/model-ggf/
+  input_dir: ${INPUT_DIR}
+  # output_dir: /Users/yaliwu/Desktop/MOTOR/MOTOR/output/test_mergenorm2/
+#  output_dir: /Users/yaliwu/Desktop/MOTOR/MOTOR/output/test_mergenorm_dpp/
+#  output_dir: /Users/yaliwu/Desktop/MOTOR/MOTOR/output/test_ctrl1
+  # output_dir: /Users/yaliwu/Desktop/MOTOR/MOTOR/output/test_alpha0.1.3
+  bk_model: GRAPES
+  grapes_model_type: CMA-GD # CMA-GD / CMA-MESO
+  obsVarList_Surface:  [uwnd, vwnd, temp, qvapor, pres]
+  NMLFileName:
+  - namelist.input
+  - namelist.input
+  ModelFileName:
+  - grapesinput2022052621
+  - grapesinput2022052700
+  HydroFileName:
+  - qcqr2022052621.dat
+  - qcqr2022052700.dat
+  bakFileList:
+  - wrfout_d01_2022-01-13_00:00:00
+  - wrfout_d01_2022-01-13_01:00:00
+  OutputFileName: grapesinput-MOTORDA
+  OutputQcqrName: qcqr-MOTORDA
+  ObsFlag_Surface: 1
+  ObsFlag_Sound: 1
+  ObsFlag_Vwpw: 1
+  obsFileList_Surface:
+  - '20220526_2300'
+  - '20220526_2305'
+  - '20220526_2310'
+  - '20220526_2315'
+  - '20220526_2320'
+  - '20220526_2325'
+  - '20220526_2330'
+  - '20220526_2335'
+  - '20220526_2340'
+  - '20220526_2345'
+  - '20220526_2350'
+  - '20220526_2355'
+  - '20220527_0000'
+  obsFileList_Sound:
+  # - rec_RTEMP_20220526210000_g.dat
+  - rec_RTEMP_20220527000000_g.dat
+  obsFileList_Vwpw:
+  - RVWPW_20220526230000.dat
+  - RVWPW_20220526230500.dat
+  - RVWPW_20220526231000.dat
+  - RVWPW_20220526231500.dat
+  - RVWPW_20220526232000.dat
+  - RVWPW_20220526232500.dat
+  - RVWPW_20220526233000.dat
+  - RVWPW_20220526233500.dat
+  - RVWPW_20220526234000.dat
+  - RVWPW_20220526234500.dat
+  - RVWPW_20220526235000.dat
+  - RVWPW_20220526235500.dat
+  - RVWPW_20220527000000.dat
+  obsFilePath_Radar: /Obs
+  obsFileList_Radar:
+  - Z_RADR_I_Z9763_20220526235400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9754_20220526232400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9751_20220526232401_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9660_20220526233001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9758_20220526233001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9758_20220526233600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9660_20220526233600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9762_20220526234800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9759_20220526234800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9754_20220526233001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9763_20220526233000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9763_20220526233601_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9754_20220526233600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9758_20220526235400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9660_20220526235400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9200_20220526231200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9762_20220526234200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9755_20220526234201_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9662_20220526234801_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9758_20220526232401_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9660_20220526232401_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9751_20220526233001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9751_20220526233600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9753_20220526234200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9660_20220526231801_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9758_20220526231801_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9200_20220526233000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9759_20220527000000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9200_20220526233600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9758_20220526230000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9660_20220526230000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9660_20220526230601_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9763_20220526231201_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9662_20220527000000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9758_20220526230600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9751_20220526231200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9754_20220526231201_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9754_20220526231800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9200_20220526232400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9753_20220527000000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9755_20220527000001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9751_20220526231800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9763_20220526231800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9200_20220526235401_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9762_20220527000000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9763_20220526230001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9751_20220526230001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9763_20220526230600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9758_20220526231200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9754_20220526230001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9751_20220526230601_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9754_20220526230600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9660_20220526231201_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9662_20220526231200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9200_20220526234800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9763_20220527000001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9762_20220526230000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9755_20220526230001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9755_20220526230600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9759_20220526231201_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9762_20220526230600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9753_20220526231800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9753_20220526230000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9753_20220526230601_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9755_20220526231800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9762_20220526231801_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9754_20220527000001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9751_20220527000000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9755_20220526233000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9755_20220526233601_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9758_20220526234800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9660_20220526234800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9759_20220526235401_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9753_20220526233000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9662_20220526235400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9662_20220526232401_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9753_20220526233600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9751_20220526234200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9754_20220526234201_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9763_20220526234200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9759_20220526232400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9762_20220526233000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9762_20220526233601_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9762_20220526232401_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9759_20220526233600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9755_20220526235400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9755_20220526232401_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9759_20220526233000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9763_20220526234801_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9660_20220526234200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9758_20220526234200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9753_20220526232400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9662_20220526233000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9662_20220526233601_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9753_20220526235400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9754_20220526234800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9751_20220526234801_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9762_20220526235400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9200_20220527000000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9662_20220526230001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9753_20220526231200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9759_20220526231800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9758_20220527000001_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9662_20220526230601_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9660_20220527000000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9759_20220526230600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9762_20220526231200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9200_20220526234200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9759_20220526230000_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9755_20220526231200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9662_20220526231801_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9200_20220526230600_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9759_20220526234200_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9200_20220526231801_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9753_20220526234800_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9763_20220526232400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9662_20220526234201_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9751_20220526235400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9755_20220526234801_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9754_20220526235400_O_DOR_SAD_CAP_FMT.nc
+  - Z_RADR_I_Z9200_20220526230001_O_DOR_SAD_CAP_FMT.nc
+  obsType: vwpw
+flog:
+  LogFileName: /log/test
+BMat:
+  ScaleParaX: 2.0
+  ScaleParaY: 2.0
+  ScaleParaZ: 0.5
+  ScaleParaT: 1.0
+  BECsolver: Laplace   # Laplace, Ensemble.
+  ensNum: 0
+Minimization:
+  MaxOptStep: 2
+  Use_JcTerm: False
+  Weight_Jc: 0.1
+  Use_JcTerm_InCompres: FALSE
+  Weight_Jc_InCompres: 10
+Verify:
+  VA_latlon:
+  - 23.0
+  - 23.3
+  - 114.3
+  - 115.1
+
+TimeIntegral:
+  time_step: 30
+  buffer: 0
+  
+RunMode:
+  Mode: Debug
+  Task: 3DVar

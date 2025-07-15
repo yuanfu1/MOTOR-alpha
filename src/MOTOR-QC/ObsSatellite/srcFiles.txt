@@ -1,0 +1,8 @@
+SET (ObsSatellite_SRC	
+     EachChannel.F90
+     thinning_utils.F90
+     Satellite_QC_utils.F90
+     Interp_utils.F90
+     ObsSatellite.F90
+     SatelliteRecon.F90
+	)

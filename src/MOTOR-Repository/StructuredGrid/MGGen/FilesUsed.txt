@@ -1,0 +1,9 @@
+SET (MGGen_SRC
+	gridStruct.F90
+	gridGenIcosTr.F90
+	gridGenLatLon.F90
+	mgGen.F90
+	mgGenLatLonExtra.F90
+	edgeSettings.F90
+	unitTestLatLon.F90
+    )

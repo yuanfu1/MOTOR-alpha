@@ -1,0 +1,8 @@
+SET (gzm_upd_SRC
+	gzm.F90	
+	gzm_tlm.F90
+	gzm_adj.F90
+	test_gzm_tlm.F90
+	test_gzm_adj.F90
+    Test_GZM_TL_AD.F90 
+	)

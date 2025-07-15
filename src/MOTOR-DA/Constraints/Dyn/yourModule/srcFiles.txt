@@ -1,0 +1,3 @@
+SET (yourModule_SRC	
+	Template.F90 
+	)

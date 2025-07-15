@@ -1,0 +1,18 @@
+#!/bin/bash
+# Created by Zilong Qin (zilong.qin@gmail.com), 2022/5/26, @GBA-MWF, Shenzhen
+
+#SBATCH -J MOTOR-3DANA
+#SBATCH -N 1
+#SBATCH -n 32
+#SBATCH --ntasks-per-node 32
+#SBATCH -p YJZX
+#SBATCH -o task.log
+#SBATCH -e task.log
+
+ulimit -s unlimited
+ulimit -d unlimited
+ulimit -l unlimited
+# ulimit -m unlimited
+ulimit -v unlimited
+ulimit -x unlimited
+/public/software/openmpi-4.0.2/bin/mpirun -n 32 -mca btl_tcp_if_include ib0 /public/home/simi/code/MOTOR/build/Debug/Test_IOGrapes.exe /public/home/simi/code/MOTOR/static/Application/App_CMA_GD_ShiyanHPC.yaml

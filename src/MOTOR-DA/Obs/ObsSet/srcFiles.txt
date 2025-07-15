@@ -1,0 +1,3 @@
+SET (ObsSet_SRC	
+	ObsSet.F90 
+	)

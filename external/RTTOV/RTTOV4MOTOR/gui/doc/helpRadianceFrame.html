@@ -1,0 +1,53 @@
+<html>
+<body bgcolor="#ababab">
+
+<h4>Table of Contents</h4>
+<ul>
+<li><a href="#Charts">charts : TOTAL, CLEAR, BT, REFL</a></li>
+<li><a href="#Tabs">tabs : byChannel, byRun, OnePlot</a></li>
+</ul>
+
+<p>
+<a name="Charts">
+<h6>Plots</h6>
+<ul>
+<li><strong>TOTAL :</strong> Clear+cloudy top of atmosphere radiance for given cloud top pressure and fraction [mW.(cm-1)-1.sr-1.m-2]</li>
+<li><strong>CLEAR :</strong> Clear sky top of atmosphere radiance (channels) [mW.(cm-1)-1.sr-1.m-2]</li>
+<li><strong>BT :</strong> Brightness temperature equivalent to total radiance [K]</li>
+<li><strong>BT_CLEAR :</strong> Brightness temperature equivalent to clear radiance [K]</li>
+<li><strong>REFL :</strong> Reflectance calculated from total radiance [-]</li>
+<li><strong>REFL_CLEAR :</strong> Reflectance calculated from clear radiance [-]</li>
+</ul>
+</a>
+</p>
+
+<p>
+<a name="Tabs">
+<h6>Notebook tabs</h6>
+<dl>
+<dt><strong>byChannel</strong> <dd>For each run, view all charts with all channels values 
+	<ul>	
+		<li>-- Run --</li> : choose a run
+		<li>-- ref run --</li> : choose a reference run
+		<li>-- Pseudo Run --</li> : difference with reference run (needs at least 2 different runs)
+	</ul>
+<dt><strong>byRun</strong><dd>For each channel, view all plots with all runs values 
+	<ul>	
+		<li>-- Channel --</li> : choose a channel
+		<li>-- Pseudo Channel --</li> : channels combination in this text field, 
+user can write a formula (see the example displayed in the text field), which will become a pseudo channel.
+	</ul>
+<dt><strong>OnePlot</strong><dd>View one plot
+	<ul>	
+		<li>TOTAL BT REFL +CLEAR</li> : choose a chart type
+		<li>-- Run --</li> : choose a run
+		<li>-- ref run --</li> : choose a reference run
+		<li>-- Pseudo Run --</li> : difference (minus) or overlay (versus) with reference run
+		<li>-- Channel --</li> : choose a channel
+		<li>-- Pseudo Channel --</li> : channels combination
+	</ul>
+</dl>
+</a>
+
+</body>
+</html>

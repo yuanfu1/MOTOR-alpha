@@ -1,0 +1,113 @@
+icosTr_grid:
+  glvl:  4
+  slvl:  2
+
+
+latlon_grid:
+  num_grid: [1025, 1025]
+  domain_latlon: [-5, 5, -5, 5]
+
+
+analysis_para:
+  start_time: [2020, 1, 1, 6, 0, 0]
+  end_time: [2020, 1, 1, 7, 0, 0]
+
+
+geometry:
+  mpi_layout_g14: [1, 1]
+  mpi_layout_g58: [2, 2]
+  mpi_layout_g9L: [2, 2]
+  time_steps_g14: 2
+  time_steps_g58: 3
+  time_steps_g9L: 5
+
+poissonSovler:
+  solver:     FMV
+  nCycle:     3
+  nIterPre:   3
+  nIterPost:  6
+  nRelax:     2
+  max_band:  10
+  omegas: [1.951627, 0.569688]
+
+modelState:
+  vLevel: 66
+  varList: [pres,temp,uwnd,vwnd,wwnd]
+
+
+IO:
+  input_dir_Surface: ${INPUT_DIR}
+  input_dir_Sound: ${INPUT_DIR}
+  input_dir_Vwpw: ${INPUT_DIR}
+  input_dir_Radar: ${INPUT_DIR}
+  input_dir_Satellite: ${INPUT_DIR}
+  input_dir_model: ${INPUT_DIR}
+  input_dir: ${INPUT_DIR}
+  output_dir: ${OUTPUT_DIR}
+  bk_model: GRAPES
+  NMLFileName: namlist.input
+  ModelFileName: grapesinput
+
+flog:
+  LogFileName: /log/test
+
+
+BMat:
+  ScaleParaX: 3000000.0
+  ScaleParaY: 3000000.0
+  ScaleParaZ: 3000000.0
+  ScaleParaT: 1.0
+
+Minimization:
+  MaxOptStep: 25
+
+
+# poissonSovler
+#	solver:	     	multigrid scheme, VVV: w cycle
+#	nCycle:		    number of multigrid cycles
+#	nIterPre:		  number of iterations in pre-cycle
+#	nIterPost:		number of iterations in post-cycle
+#	nRelax:		    number of over relaxations
+#	omegas:	    	relaxations coefficients
+# max_band:     max band of poisson coefficent matrix 
+#
+# icosTr_grid
+# glvl: icos triangle grid G level;
+# slvl: Icos triangle grid start level;
+# ordr: order of accuracy;
+#
+# latlon_grid
+# domain_latlon specifies the (lat0,lat1) X (lon0,lon1)
+#
+# geometry
+# mpi_layout:  layout of mpi
+#
+# varList :  pres,temp,uwnd,vwnd,wwnd,qvapor,qcloud,qrain,qice,qrain,qgraup,topo,psfc,tsfc,q2m,u10m,v10m,&
+#           tskin,seaice,landmask,sfctype,vegtype,landtype, leaf, tsoil,qsoil,soiltype
+# ! (1)  pres, "air_pressure", unit: Pa
+# ! (2)  temp, "air_temperature", unit: K
+# ! (3)  uwnd, "x component of 3D wind", unit: m/s
+# ! (4)  vwnd, "y component of 3D wind", unit: m/s
+# ! (5)  wwnd, "z component of 3D wind", unit: m/s
+# ! (6)  qvapor, "specific_humidity of water vapor", unit: kg/kg 
+# ! (7)  qcloud, "specific_humidity of cloud water", unit: kg/kg 
+# ! (8)  qrain, "specific_humidity of rain water", unit: kg/kg 
+# ! (9)  qice, "specific_humidity of cloud ice", unit: kg/kg 
+# ! (10)  qsnow, "specific_humidity of snow", unit: kg/kg 
+# ! (11)  qgraup, "specific_humidity of graupel", unit: kg/kg 
+# ! (12)  topo, "terrain_height", unit: m
+# ! (13)  psfc, "surface_pressure", unit: Pa
+# ! (14)  tsfc, "surface_temperature", unit: K  // this is actually var_sfc_t2m
+# ! (15)  q2m, "specific_humidity_at_two_meters_above_surface", unit: kg/kg
+# ! (16)  u10m, "uwind_at_10m", unit: m/s
+# ! (17)  v10m, "vwind_at_10m", unit: m/s
+# ! (18) tskin, "skin_temperature", unit: K
+# ! (19) seaice, "seaice_fraction", unit: 1
+# ! (20) landmask, "landmask", unit: 1
+# ! (21) sfctype, "surface_type", unit: 1
+# ! (22) vegtype, "veg_type", unit: 1
+# ! (23) landtype, "land_type", unit: 1
+# ! (24) leaf, "leaf_area_index", unit: 1
+# ! (25) tsoil, "soil_temperature", unit: K
+# ! (26) qsoil, "soil_moisture", unit: kg/kg
+# ! (27) soiltype, "soil_type", unit: 1

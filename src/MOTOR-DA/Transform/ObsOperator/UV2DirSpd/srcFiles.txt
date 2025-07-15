@@ -1,0 +1,3 @@
+SET (UV2DirSpd_SRC	
+	UV2DirSpd.F90
+	)

@@ -1,0 +1,6 @@
+[submodule "external/lapack"]
+        path = external/lapack
+        url = git@github.com:Reference-LAPACK/lapack.git
+[submodule "external/petsc"]
+        path = external/petsc
+        url = https://gitlab.com/petsc/petsc.git

@@ -1,0 +1,28 @@
+#!/bin/sh
+# start the rttov gui application
+
+if [ -z ${RTTOV_GUI_PREFIX} ]
+then
+  echo "ERROR : the environment variable RTTOV_GUI_PREFIX is not set"
+  exit 1
+fi
+
+if [ -z ${RTTOV_GUI_WRK_DIR} ]
+then
+  if [ ! -r $HOME/.rttov ]
+  then
+    mkdir  $HOME/.rttov
+  fi
+  RTTOV_GUI_WRK_DIR=$HOME/.rttov
+  export RTTOV_GUI_WRK_DIR
+fi
+
+if [ ! -d ${RTTOV_GUI_WRK_DIR} ]
+then
+  mkdir -p ${RTTOV_GUI_WRK_DIR}
+fi
+
+
+
+cd ${RTTOV_GUI_PREFIX}
+${cmdpython} rcontroller/controller.py

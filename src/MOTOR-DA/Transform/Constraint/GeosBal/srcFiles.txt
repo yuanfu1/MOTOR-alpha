@@ -1,0 +1,3 @@
+SET (GeosBal_SRC	
+	GeosBal.F90 
+	)

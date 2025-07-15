@@ -1,0 +1,14 @@
+IO:
+  obsType: surface
+  inputDir: ${INPUT_DIR}
+  list:
+    - srf_202302010000.nc
+    - srf_202302010005.nc
+    - srf_202302010010.nc
+  varNames:
+    - t
+    - rh
+    - p
+    - p0
+    - wd
+    - ws

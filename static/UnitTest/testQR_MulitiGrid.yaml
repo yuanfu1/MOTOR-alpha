@@ -1,0 +1,83 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+
+latlon_grid:
+  num_grid: [1025, 1025]
+  domain_latlon: [18, 27, 107, 119]
+
+analysis_para:
+  start_time: [2022, 1, 25, 12, 0, 0]
+  end_time: [2022, 1, 26, 0, 0, 0]
+
+geometry:
+  mpi_layout_g14: [1, 1]
+  mpi_layout_g58: [1, 1]
+  mpi_layout_g9L: [1, 1]
+  time_steps_g14:  2
+  time_steps_g58:  2
+  time_steps_g9L:  2
+  mgStart: 3
+  mgEnd: 6
+
+poissonSovler:
+  solver: FMV
+  nCycle: 3
+  nIterPre: 3
+  nIterPost: 6
+  nRelax: 2
+  max_band: 10
+  omegas: [1.951627, 0.569688]
+
+modelState:
+  vLevel: 60
+  varList: temp
+
+IO:
+  input_dir_Surface: ${INPUT_DIR}
+  input_dir_Sound: ${INPUT_DIR}
+  input_dir_Vwpw: ${INPUT_DIR}
+  input_dir_Radar: ${INPUT_DIR}
+  input_dir_Satellite: ${INPUT_DIR}
+  input_dir_model: ${INPUT_DIR}
+  input_dir: ${INPUT_DIR}
+  output_dir: ${OUTPUT_DIR}
+  bk_model: GRAPES
+  NMLFileName: /namlist.input
+  ModelFileName: /grapesinput
+  bakFileList:
+    - wrfout_d01_2022-01-25_12:00:00
+    - wrfout_d01_2022-01-26_00:00:00
+  ObsFlag_Surface: 1
+  ObsFlag_Sound: 1
+  ObsFlag_Vwpw: 1
+  obsFileList_Surface:
+    - 20220113_0000
+    - 20220113_0005
+  obsVarList_Surface: temperature
+  obsFileList_Sound:
+    - rec_RTEMP_20220113000000_g.dat
+    - rec_RTEMP_20220113030000_g.dat
+  obsFileList_Vwpw:
+    - vwpw22011300.dat
+    - vwpw22011306.dat
+  obsType: vwpw
+  varWRFList: [temp, height]
+
+flog:
+  LogFileName: /log/test
+
+BMat:
+  ScaleParaX: 30000000.0
+  ScaleParaY: 30000000.0
+  ScaleParaZ: 3000.0
+  ScaleParaT: 1.0
+  NumEns: 3
+  ensForm: state
+  ensBKDiag: 1
+  ensBEC: 1
+
+Minimization:
+  MaxOptStep: 100
+
+

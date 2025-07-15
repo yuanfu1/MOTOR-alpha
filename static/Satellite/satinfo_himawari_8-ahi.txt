@@ -1,0 +1,5 @@
+used_channels_real  used_channels_rttov   obserr  bias   camin   camax   stdmin   stdmax   onverseaonly
+   3 channels in total
+   8      8       1.2     0.1    0.1     12.3    1.2     12.0   -1
+   9      9       1.3     0.1    0.1     11.4    1.1     13.0   -1
+  10     10       1.4     0.1    0.1     13.9    1.4     14.0   -1

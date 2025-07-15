@@ -1,0 +1,8 @@
+SET (rhsBase_SRC	
+       rhsBase.F90
+       rhsShallowWater.F90
+       CoriolisForce.F90
+       ShallowWaterCommon.F90
+       rhsShallowWater.F90
+       rhsZGrid_SW.F90
+    )

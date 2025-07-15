@@ -1,0 +1,4 @@
+SET (OprRadar_SRC	
+	OprRadarRef.F90 
+	OprRadarVel.F90
+	)

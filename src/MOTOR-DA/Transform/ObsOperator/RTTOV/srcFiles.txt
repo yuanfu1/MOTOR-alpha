@@ -1,0 +1,10 @@
+SET (RTTOV_SRC	
+	RTTOV_nl.F90
+        RTTOV_diag_out.F90
+        RTTOV_tlad.F90
+        RTTOV_typedefine.F90
+        RTTOV_utils.F90 
+        RTTOV_nl_sp.F90
+        RTTOV_nl_sp_obsloc.F90
+        RTTOV_tlad_sp.F90
+	)

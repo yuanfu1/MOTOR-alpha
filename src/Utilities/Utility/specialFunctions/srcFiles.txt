@@ -1,0 +1,4 @@
+SET (specialFunctions_SRC 	
+     #generalHarmonicFunctions.F90
+     harmonicBase.F90
+    )

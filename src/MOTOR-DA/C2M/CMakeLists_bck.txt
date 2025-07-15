@@ -1,0 +1,109 @@
+cmake_minimum_required(VERSION 3.12)
+
+# Change to your project:
+# build my project:
+# Note: this cmake builds the OO design of Multiscale Data Assimilation System:
+PROJECT(C2M)
+
+
+#-------------------------------------------------------------------------------
+#  To include another path to -I in cmake:
+#  For references, please see Yuanfu's "Notes on cmake and ctest" word docs.
+#-------------------------------------------------------------------------------
+INCLUDE_DIRECTORIES($ENV{COMMON_MODS})
+
+#  For libraries saved in a place, import them:
+LINK_DIRECTORIES($ENV{COMMON_LIBS})
+
+#-------------------------------------------------------------------------------
+# Source codes to this build:
+# SET (my_project_name_SRC f90-files)
+# Or include a textfile for list of filenames if the file list is too long
+include (srcFiles.txt)
+
+#-------------------------------------------------------------------------------
+# Generate lib file:
+ADD_LIBRARY(C2M STATIC ${C2M_SRC})
+TARGET_LINK_LIBRARIES(C2M PUBLIC)
+
+# 2. Build test executables:
+#SET (EXE1 "Test_BkgdMG.exe")
+
+# # 3. Add codes to the executables:
+#ADD_EXECUTABLE(${EXE1} Test_BkgdMG.F90)
+#TARGET_LINK_LIBRARIES(${EXE1} BkgdMG Geometry MPDD Utility State MGOpts ${MPI_Fortran_LIBRARIES})
+
+
+cmake_minimum_required(VERSION 3.12)
+
+# Change to your project:
+# build my project:
+# Note: this cmake builds the OO design of Multiscale Data Assimilation System:
+PROJECT(C2M)
+
+
+#-------------------------------------------------------------------------------
+#  To include another path to -I in cmake:
+#  For references, please see Yuanfu's "Notes on cmake and ctest" word docs.
+#-------------------------------------------------------------------------------
+INCLUDE_DIRECTORIES($ENV{COMMON_MODS})
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
+
+#  For libraries saved in a place, import them:
+LINK_DIRECTORIES($ENV{COMMON_LIBS})
+add_library(rhsShallowWater_m OBJECT ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/rightHandSides/rhsShallowWater.F90)
+add_library(ShallowWaterForwardModel_m OBJECT ${CMAKE_SOURCE_DIR}/src/MOTOR-DA/C2M/ShallowWaterForwardModel.F90)
+#-------------------------------------------------------------------------------
+# Source codes to this build:
+# SET (my_project_name_SRC f90-files)
+# Or include a textfile for list of filenames if the file list is too long
+#include (srcFiles.txt)
+
+set(C2M_SRC
+   C2MBase.F90
+   c4DVar.F90
+   cDefault.F90
+   cVortDive.F90
+   CoriolisForce.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/PoissonSolver_Kp/PSMatrix.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/PoissonSolver_Kp/PSSolutn.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/PoissonSolver_Kp/namelist_ps.f90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/PoissonSolver_Kp/PoissonSolver.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/PreSys/CalVerDer.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/ZGrid/gzm.F90
+   ${CMAKE_SOURCE_DIR}//src/MOTOR-PS/gzm_upd/gzm_adj.F90
+   ${CMAKE_SOURCE_DIR}//src/MOTOR-PS/gzm_upd/CalVerDer_adj.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/gzm_upd/psMatrix_adj.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/gzm_upd/psSolutn_adj.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/gzm_upd/namelist_ps_adj.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/gzm_upd/poissonSolver_adjoint.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/TimeIntegration/TimeIntegrationRK4.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/rightHandSides/rhsShallowWater.F90
+   ${CMAKE_SOURCE_DIR}/src/MOTOR-PS/rightHandSides/rhsAdjointBase.F90
+   ShallowWaterCommon.F90
+   ShallowWaterForwardModel.F90
+   ShallowWaterAdjointModel.F90
+   cShallowWater4DVar.F90
+ )
+#  cVortDiveFields.F90
+# cShallowWater4DVar.F90
+# ShallowWaterForwardModel.F90
+# ShallowWaterAdjointModel.F90
+#-------------------------------------------------------------------------------
+# Generate lib file:
+# ADD_LIBRARY(C2M STATIC ${C2M_SRC})
+ TARGET_LINK_LIBRARIES(C2M PUBLIC State)
+#ADD_LIBRARY(SingleGridInterface STATIC src/Utility/SingleGridInterface.F90)
+#ADD_LIBRARY(C2M STATIC ${C2M_SRC})
+
+
+# target_link_libraries(C2M ${CMAKE_CURRENT_BINARY_DIR}/rhsShallowWater_m.mod ${CMAKE_CURRENT_BINARY_DIR}/ShallowWaterForwardModel_m.mod)
+
+# 2. Build test executables:
+# SET (EXE1 "Test_BkgdMG.exe")
+#  set (EXE2 "ShallowWaterModelTest.exe")
+# # # # 3. Add codes to the executables:
+# # #ADD_EXECUTABLE(${EXE1} Test_BkgdMG.F90)
+# # #TARGET_LINK_LIBRARIES(${EXE1} BkgdMG Geometry MPDD Utility State MGOpts ${MPI_Fortran_LIBRARIES})
+#   add_executable(${EXE2} ${CMAKE_SOURCE_DIR}/src/MOTOR-DA/C2M/ShallowWaterModelTest.F90)
+#   target_link_libraries(${EXE2} C2M BkgdMG Geometry MPDD Utility State MGOpts ${MPI_Fortran_LIBRARIES} PoissonSolver_Kp PreSys ZGrid gzm_upd)

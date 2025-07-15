@@ -1,0 +1,6 @@
+# ...existing code...
+
+# Add ZGrid subdirectory
+add_subdirectory(ZGrid)
+
+# ...existing code...

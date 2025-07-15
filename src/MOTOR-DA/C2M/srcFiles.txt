@@ -1,0 +1,6 @@
+SET (C2M_SRC
+     C2MBase.F90
+     c4DVar.F90
+     cDefault.F90
+     cVortDive.F90
+    )

@@ -1,0 +1,3 @@
+SET (ObsGNSS_SRC    	
+     ObsGNSS.F90
+	)

@@ -1,0 +1,8 @@
+SET (Minimization_SRC	
+	MiniSolver.F90
+	SolverLBFGS.F90
+	SolverFRCG.F90
+	variationalSolvers.F90
+	FRCGSolver.F90
+	#SolverFRCG_HybInc.F90
+	)

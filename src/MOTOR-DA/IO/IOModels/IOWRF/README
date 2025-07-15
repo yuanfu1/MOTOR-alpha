@@ -1,0 +1,7 @@
+the "Times" of the three wrf_inout_tmp* files are the same
+based on wrf_inout_tmp01, the value of the other variables in tmp02 and tmp03 were made some modifications:
+wrf_inout_tmp02: T2=T2+10;T=T+10;U10=U10/2.0;V10=V10/2.0;U=U/2.0;V=V/2.0
+wrf_inout_tmp03: T2=T2+20;T=T+20;U10=U10*2.0;V10=V10*2.0;U=U*2.0;V=V*2.0
+
+
+

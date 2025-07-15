@@ -1,0 +1,641 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+latlon_grid:
+  num_grid:
+  - 513
+  - 769
+  domain_latlon:
+  - 10
+  - 43.48
+  - 93.04
+  - 132.94
+analysis_para:
+  start_time:
+  - 2024
+  - 9
+  - 7
+  - 23
+  - 0
+  - 0
+  end_time:
+  - 2024
+  - 9
+  - 8
+  - 0
+  - 0
+  - 0
+geometry:
+  mpi_layout_g14:
+  - 2
+  - 4
+  mpi_layout_g58:
+  - 2
+  - 4
+  mpi_layout_g9L:
+  - 2
+  - 4
+  time_steps_g14: 3
+  time_steps_g58: 5
+  time_steps_g9L: 9
+  mgStart: 4
+  mgEnd: 8
+DASpace:
+  VerticalCoord: TerrainFollowing
+  ztop: 30000.0
+poissonSovler:
+  solver: FMV
+  nCycle: 3
+  nIterPre: 3
+  nIterPost: 6
+  nRelax: 2
+  max_band: 10
+  omegas:
+  - 1.951627
+  - 0.569688
+modelState:
+  vLevel: 67
+  varList:
+  - temp
+  - uwnd
+  - vwnd
+  - pres
+  - qvapor
+  ctlVarNames:
+  - pres_ctl
+  - qvapor_ctl
+  - psl_ctl
+  Fillin_range:
+  - -1
+  - 3
+  - 2
+  - 1
+  - 3
+  - 2
+  - 1
+  - 3
+  - 2
+  geobalBeg: 6
+  geobalEnd: 6
+  geobalWeights:
+  - 0.0
+  - 0.0
+  - 0.0
+obs_thinning:
+  obs_qcThreshold:
+  - 5.0D2
+  - 5.0D2
+  - 5.0D2
+  obs_missing: 999999999.0D0
+  obs_invalid: 3.4D38
+  obs_radius:
+  - 5.0D0
+  - 5.0D0
+  - 5.0D2
+  - 5.0D1
+  thinning_threshold: 0.25D0
+  interpolation: 1
+  varObsSpace:
+  - abc
+IO:
+  input_dir_Surface: /Users/qzl/sources/MOTOR/input/case_20240908/input/obs/synop
+  input_dir_Sound: /Users/qzl/sources/MOTOR/input/case_20240908/input/obs/sound
+  input_dir_Vwpw: /Users/qzl/sources/MOTOR/input/case_20240908/input/obs/vwpw
+  input_dir_Radar: /Users/qzl/sources/MOTOR/input/case_20240908/obs/radar
+  input_dir_Satellite: /Users/qzl/sources/MOTOR/input/case_20240908/input
+  input_dir_model: /Users/qzl/sources/MOTOR/input/case_20240908/input/model
+  input_dir: /Users/qzl/sources/MOTOR/input/case_20240908/input
+  output_dir: /Users/qzl/sources/MOTOR/input/case_20240908/output
+  bk_model: GRAPES
+  grapes_model_type: CMA-GD
+  obsVarList_Surface:
+  - uwnd
+  - vwnd
+  - temp
+  - qvapor
+  - pres
+  NMLFileName:
+  - namelist.input.si2024090718
+  - namelist.input.si2024090800
+  ModelFileName:
+  - grapesinput2024090718
+  - grapesinput2024090800
+  bakFileList: null
+  OutputFileName: grapesinput-MOTORDA
+  ObsFlag_Surface: 1
+  ObsFlag_Sound: 1
+  ObsFlag_Vwpw: 1
+  obsFileList_Surface:
+  - '20240907_2300'
+  - '20240907_2305'
+  - '20240907_2310'
+  - '20240907_2315'
+  - '20240907_2320'
+  - '20240907_2325'
+  - '20240907_2330'
+  - '20240907_2335'
+  - '20240907_2340'
+  - '20240907_2345'
+  - '20240907_2350'
+  - '20240907_2355'
+  - '20240908_0000'
+  obsFileList_Sound:
+  - rec_RTEMP_20240908000000_g.dat
+  obsFileList_Vwpw:
+  # - RVWPW_20240907230000_g.dat
+  # - RVWPW_20240907230500_g.dat
+  # - RVWPW_20240907231000_g.dat
+  # - RVWPW_20240907231500_g.dat
+  # - RVWPW_20240907232000_g.dat
+  # - RVWPW_20240907232500_g.dat
+  # - RVWPW_20240907233000_g.dat
+  # - RVWPW_20240907233500_g.dat
+  # - RVWPW_20240907234000_g.dat
+  # - RVWPW_20240907234500_g.dat
+  # - RVWPW_20240907235000_g.dat
+  # - RVWPW_20240907235500_g.dat
+  obsFilePath_Radar: /Obs
+  obsFileList_Radar: null
+  obsType: vwpw
+  input_dir_GNSSRO: /Users/qzl/sources/MOTOR/input/case_20240908/input/obs/gnssro
+  obsFileList_GNSSRO:
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.01.G02_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.01.R19_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.02.E02_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.02.R12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.04.G03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.04.G29_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.05.R16_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.07.G21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.11.G05_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.12.R07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.13.E25_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.13.R08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.16.G04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.16.G08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.16.G12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.16.R04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.17.R03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.18.G15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.22.R18_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.23.G27_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.25.E06_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.25.G24_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.28.G16_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.28.R15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.30.R21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.31.G11_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.32.G31_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.32.R17_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.35.E10_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.36.G19_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.37.G26_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.37.R20_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.39.G06_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.40.R14_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.40.R24_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.42.G17_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.43.E31_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.44.G18_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.44.G22_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.45.R09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.47.G10_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.47.G30_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.48.G14_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.50.G23_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.56.G25_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.57.G03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.57.G29_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.58.R19_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E1.2024.281.23.59.R16_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.00.R08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.02.G08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.03.G21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.04.R03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.05.G13_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.06.R18_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.07.G20_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.07.R07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.08.G27_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.08.R22_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.10.G11_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.12.E13_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.13.R17_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.16.G32_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.16.R21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.17.R02_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.18.G19_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.19.G06_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.20.G31_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.21.G30_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.22.G28_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.23.E15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.23.G07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.25.G10_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.27.R14_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.29.E03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.30.G22_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.30.R09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.31.G09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.31.G17_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.31.G26_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.32.G14_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.32.R16_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.34.E30_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.34.G23_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.37.G25_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.38.G18_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.39.R01_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.41.E25_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.42.G03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.44.G12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.45.G04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.45.R05_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.48.G29_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.49.R08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.50.E05_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.51.G02_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.51.G08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.52.G15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.52.R04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.54.R19_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.55.G21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.57.G05_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.57.R07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.58.E09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.58.R22_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E2.2024.281.23.59.G13_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.00.R15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.01.G24_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.01.G25_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.04.G12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.04.R05_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.04.R11_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.05.R01_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.07.E21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.09.G03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.09.G04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.11.E29_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.11.G15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.12.G29_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.13.E27_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.14.G16_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.14.R04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.16.R08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.20.G05_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.20.G27_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.21.G13_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.23.E07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.23.G02_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.25.G21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.25.R18_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.26.R03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.27.R17_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.27.R22_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.29.G11_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.29.R07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.30.G20_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.30.R21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.31.E13_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.32.G31_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.33.G06_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.35.E08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.37.E15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.37.G28_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.38.G30_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.43.G07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.44.G10_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.44.R02_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.45.R09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.46.G14_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.46.R12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.49.R16_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.52.G09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.52.G23_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.53.G25_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.56.R01_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E3.2024.281.23.57.G12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.01.G30_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.01.G31_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.02.E15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.03.G07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.03.G10_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.03.R24_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.05.G17_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.07.R20_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.08.G22_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.08.G26_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.11.E30_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.11.G14_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.11.R09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.12.R12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.14.G18_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.16.G23_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.16.R16_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.18.E02_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.20.G25_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.21.G03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.25.G02_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.25.G29_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.28.R19_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.29.R05_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.29.R08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.30.G04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.30.G21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.31.G05_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.31.R04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.31.R07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.32.G12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.33.G08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.34.G15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.35.R03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.36.R22_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.38.E09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.39.G13_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.39.R18_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.41.G27_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.42.E11_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.42.G20_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.44.E04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.45.G24_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.46.G11_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.46.R21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.48.G31_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.48.R17_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.49.G28_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E4.2024.281.23.55.G06_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.00.G28_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.02.E11_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.02.G11_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.03.E04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.04.G06_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.04.G18_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.04.G20_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.07.R09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.08.G30_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.10.G10_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.10.G14_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.15.G23_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.16.G07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.16.R16_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.17.R02_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.18.G25_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.19.R12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.22.E19_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.23.G09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.24.G12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.25.R05_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.25.R15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.26.R01_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.27.G03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.27.G24_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.31.G04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.31.R11_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.32.G15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.34.R04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.35.E27_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.37.G08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.37.R08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.38.G16_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.39.G27_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.40.G19_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.41.G13_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.44.E07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.44.R17_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.44.R18_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.45.G05_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.46.G02_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.47.G21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.47.R21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.47.R22_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.48.G11_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.48.R14_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.50.G31_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.53.G26_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.53.R03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.54.E15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.54.G20_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.55.G22_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.57.G28_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.57.R07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.58.E30_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.59.E08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E5.2024.281.23.59.G30_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.20.E31_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.21.E10_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.21.G22_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.22.G06_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.22.G18_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.25.E04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.26.R09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.28.G14_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.29.G30_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.31.G10_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.33.G23_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.36.G25_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.36.G29_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.37.R16_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.39.G03_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.39.G07_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.40.R12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.42.R02_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.43.R05_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.44.R01_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.45.E21_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.45.G09_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.45.G12_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.46.R04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.48.G15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.50.G04_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.50.R08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.51.G24_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.53.R15_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.54.G08_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.58.G13_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.59.E27_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.59.G27_0001.0001_nc
+  # - cosmic-2/atmPrf_C2E6.2024.281.23.59.R11_0001.0001_nc
+  # - spire/atm_20240907_230006_L126_G006_N_3600_0010.nc
+  # - spire/atm_20240907_230051_L129_G030_N_3600_0010.nc
+  # - spire/atm_20240907_230136_L129_C043_N_3600_0010.nc
+  # - spire/atm_20240907_230149_L129_G007_N_3600_0010.nc
+  # - spire/atm_20240907_230331_L126_C035_N_3600_0010.nc
+  # - spire/atm_20240907_230351_L126_G009_N_3600_0010.nc
+  # - spire/atm_20240907_230416_L129_C029_N_3600_0010.nc
+  # - spire/atm_20240907_230742_L126_R018_N_3600_0010.nc
+  # - spire/atm_20240907_230748_L167_G003_N_3600_0010.nc
+  # - spire/atm_20240907_230811_L126_G032_N_3600_0010.nc
+  # - spire/atm_20240907_230841_L126_E008_N_3600_0010.nc
+  # - spire/atm_20240907_231257_L194_C037_N_3600_0010.nc
+  # - spire/atm_20240907_231439_L126_C029_N_3600_0010.nc
+  # - spire/atm_20240907_231447_L126_E004_N_3600_0010.nc
+  # - spire/atm_20240907_231458_L167_G009_N_3600_0010.nc
+  # - spire/atm_20240907_231530_L126_G007_N_3600_0010.nc
+  # - spire/atm_20240907_231540_L194_G030_N_3600_0010.nc
+  # - spire/atm_20240907_231615_L167_R004_N_3600_0010.nc
+  # - spire/atm_20240907_231616_L194_R017_N_3600_0010.nc
+  # - spire/atm_20240907_231636_L126_G017_N_3600_0010.nc
+  # - spire/atm_20240907_231934_L126_E007_N_3600_0010.nc
+  # - spire/atm_20240907_231944_L126_G028_N_3600_0010.nc
+  # - spire/atm_20240907_232048_L194_G007_N_3600_0010.nc
+  # - spire/atm_20240907_232124_L126_C045_N_3600_0010.nc
+  # - spire/atm_20240907_232129_L126_G029_N_3600_0010.nc
+  # - spire/atm_20240907_232219_L126_E030_N_3600_0010.nc
+  # - spire/atm_20240907_232239_L194_G017_N_3600_0010.nc
+  # - spire/atm_20240907_232332_L194_G032_N_3600_0010.nc
+  # - spire/atm_20240907_232405_L194_R022_N_3600_0010.nc
+  # - spire/atm_20240907_232505_L167_G007_N_3600_0010.nc
+  # - spire/atm_20240907_232535_L126_E009_N_3600_0010.nc
+  # - spire/atm_20240907_232558_L167_R005_N_3600_0010.nc
+  # - spire/atm_20240907_232731_L167_E008_N_3600_0010.nc
+  # - spire/atm_20240907_232807_L126_G014_N_3600_0010.nc
+  # - spire/atm_20240907_232812_L194_R018_N_3600_0010.nc
+  # - spire/atm_20240907_232821_L126_E031_N_3600_0010.nc
+  # - spire/atm_20240907_232915_L194_C032_N_3600_0010.nc
+  # - spire/atm_20240907_232927_L167_G017_N_3600_0010.nc
+  # - spire/atm_20240907_232940_L194_G027_N_3600_0010.nc
+  # - spire/atm_20240907_233125_L167_G030_N_3600_0010.nc
+  # - spire/atm_20240907_233158_L167_R014_N_3600_0010.nc
+  # - spire/atm_20240907_233213_L194_R008_N_3600_0010.nc
+  # - spire/atm_20240907_233235_L167_R017_N_3600_0010.nc
+  # - spire/atm_20240907_233708_L167_C029_N_3600_0010.nc
+  # - spire/atm_20240907_233714_L167_G028_N_3600_0010.nc
+  # - spire/atm_20240907_234022_L167_R015_N_3600_0010.nc
+  # - spire/atm_20240907_234222_L167_R011_N_3600_0010.nc
+  # - spire/atm_20240907_234225_L167_G026_N_3600_0010.nc
+  # - spire/atm_20240907_234226_L167_G031_N_3600_0010.nc
+  # - spire/atm_20240907_234359_L167_R002_N_3600_0010.nc
+  # - spire/atm_20240907_234412_L167_R016_N_3600_0010.nc
+  # - spire/atm_20240907_234418_L126_R004_N_3600_0010.nc
+  # - spire/atm_20240907_234625_L167_R012_N_3600_0010.nc
+  # - spire/atm_20240907_234628_L126_G006_N_3600_0010.nc
+  # - spire/atm_20240907_234700_L126_C027_N_3600_0010.nc
+  # - spire/atm_20240907_234728_L126_G008_N_3600_0010.nc
+  # - spire/atm_20240907_234826_L126_E003_N_3600_0010.nc
+  # - spire/atm_20240907_234944_L126_C022_N_3600_0010.nc
+  # - spire/atm_20240907_235153_L126_C032_N_3600_0010.nc
+  # - spire/atm_20240907_235248_L126_E004_N_3600_0010.nc
+  # - spire/atm_20240907_235542_L126_G032_N_3600_0010.nc
+  # - spire/atm_20240907_235600_L126_C028_N_3600_0010.nc
+  # - spire/atm_20240907_235740_L126_E008_N_3600_0010.nc
+  # - spire/atm_20240907_235829_L126_C021_N_3600_0010.nc
+  # - spire/atm_20240907_235913_L126_G030_N_3600_0010.nc
+  # - metop/atm_20240907_230007_METC_G003_N_3600_0020.nc
+  # - metop/atm_20240907_230041_METC_G011_N_3600_0020.nc
+  # - metop/atm_20240907_230356_METB_G010_N_3600_0020.nc
+  # - metop/atm_20240907_230546_METC_G018_N_3600_0020.nc
+  # - metop/atm_20240907_230627_METB_G027_N_3600_0020.nc
+  # - metop/atm_20240907_230650_METC_G006_N_3600_0020.nc
+  # - metop/atm_20240907_230659_METB_G019_N_3600_0020.nc
+  # - metop/atm_20240907_230912_METC_G009_N_3600_0020.nc
+  # - metop/atm_20240907_231120_METB_G018_N_3600_0020.nc
+  # - metop/atm_20240907_231207_METB_G017_N_3600_0020.nc
+  # - metop/atm_20240907_231219_METC_G032_N_3600_0020.nc
+  # - metop/atm_20240907_231548_METB_G032_N_3600_0020.nc
+  # - metop/atm_20240907_231742_METB_G030_N_3600_0020.nc
+  # - metop/atm_20240907_231901_METB_G002_N_3600_0020.nc
+  # - metop/atm_20240907_231920_METC_G019_N_3600_0020.nc
+  # - metop/atm_20240907_231929_METC_G016_N_3600_0020.nc
+  # - metop/atm_20240907_232133_METC_G007_N_3600_0020.nc
+  # - metop/atm_20240907_232411_METC_G017_N_3600_0020.nc
+  # - metop/atm_20240907_232423_METC_G028_N_3600_0020.nc
+  # - metop/atm_20240907_232507_METB_G014_N_3600_0020.nc
+  # - metop/atm_20240907_232645_METC_G025_N_3600_0020.nc
+  # - metop/atm_20240907_232800_METC_G030_N_3600_0020.nc
+  # - metop/atm_20240907_232804_METB_G028_N_3600_0020.nc
+  # - metop/atm_20240907_232812_METB_G016_N_3600_0020.nc
+  # - metop/atm_20240907_232943_METB_G015_N_3600_0020.nc
+  # - metop/atm_20240907_233126_METB_G026_N_3600_0020.nc
+  # - metop/atm_20240907_233306_METB_G031_N_3600_0020.nc
+  # - metop/atm_20240907_233315_METC_G013_N_3600_0020.nc
+  # - metop/atm_20240907_233443_METB_G029_N_3600_0020.nc
+  # - metop/atm_20240907_233453_METC_G022_N_3600_0020.nc
+  # - metop/atm_20240907_233616_METC_G014_N_3600_0020.nc
+  # - metop/atm_20240907_233643_METB_G024_N_3600_0020.nc
+  # - metop/atm_20240907_234040_METC_G015_N_3600_0020.nc
+  # - metop/atm_20240907_234136_METB_G023_N_3600_0020.nc
+  # - metop/atm_20240907_234153_METB_G003_N_3600_0020.nc
+  # - metop/atm_20240907_234504_METB_G010_N_3600_0020.nc
+  # - metop/atm_20240907_234731_METC_G009_N_3600_0020.nc
+  # - metop/atm_20240907_235238_METB_G011_N_3600_0020.nc
+  # - metop/atm_20240907_235325_METC_G006_N_3600_0020.nc
+  # - metop/atm_20240907_235420_METB_G032_N_3600_0020.nc
+  # - metop/atm_20240907_235513_METC_G007_N_3600_0020.nc
+  # - metop/atm_20240907_235515_METC_G010_N_3600_0020.nc
+  # - metop/atm_20240907_235522_METB_G020_N_3600_0020.nc
+  # - metop/atm_20240907_235548_METB_G027_N_3600_0020.nc
+  # - metop/atm_20240907_235730_METB_G006_N_3600_0020.nc
+flog:
+  LogFileName: /log/test
+BMat:
+  ScaleParaX: 49
+  ScaleParaY: 49
+  ScaleParaZ: 1.9
+  ScaleParaT: 0.1
+  RelativeWeightJb2Jo: 200.0
+  ensNum: 0
+Minimization:
+  MaxOptStep: 100
+  Use_JcTerm: false
+  Weight_Jc: 0.1
+  Use_JcTerm_InCompres: false
+  Weight_Jc_InCompres: 10000000
+Verify:
+  VA_latlon:
+  - 23.0
+  - 23.3
+  - 114.3
+  - 115.1
+RunMode:
+  Mode: Debug
+  Task: 3DVar
+  Framework: FullState #FullState #Incremental
+RTTOV:
+  platform_name:
+  - fy4_1
+  inst_name:
+  - agri
+  sensor_name:
+  - ir
+  debug_dev: false
+  gas_name:
+  - Water_vapour
+  ppmv_gasunit: true
+  rttov_clouds: false
+  rttov_aerosols: false
+  use_kmodel: false
+  interp_method: 1
+CV_Transform:
+  rhov_scale_scheme: None
+  qvapor_scale_scheme: Power
+  temp_scale_scheme: Power
+FY4-AGRI:
+  satinfo:
+  - satinfo_fy4-1-agri.txt
+  satpath:
+  - /MOTOR/MOTOR-TEST-DATA/20210504/
+  fdi_files:
+  - FDI.txt
+  geo_files:
+  - GEO.txt
+  clm_files:
+  - CLM.txt
+  obsfile_format: HDF5
+  only_over_sea: false
+  use_varbc: false
+  use_offline_bc: true
+  bias_predictors:
+  - constant
+  - thickness_1000_300
+  - thickness_200_50
+  - skin_temperature
+  - tpw
+  - scan_angle_order1
+  bias_scheme: pdf_mode
+  Thin_w_bkg: true
+  Source_of_bkg: tb_bak
+  Use_real_obs: true
+  Use_real_bkg: true
+  write_diag: false
+  test_name: XbMG
+  minimizer: FRCG

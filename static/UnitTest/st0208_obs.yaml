@@ -1,0 +1,99 @@
+obsList:
+  SYNOP: true
+  SHIP:  true
+  BUOY:  false
+  METAR: false
+  TEMP:  true
+  PROFL: false
+
+DASpace:
+  ztop: 30000.0
+
+SYNOP_info:
+  inputDir: ${INPUT_DIR}
+  list:
+    - synop_202302010000.nc
+    - synop_202302010010.nc
+    - synop_202302010020.nc
+  varNames:
+    - t
+    - rh
+    - p
+    - p0
+    - wd
+    - ws
+  blackExist: true
+
+SHIP_info:
+  inputDir: ${INPUT_DIR}
+  list:
+    - ship_202302010000.nc
+    - ship_202302010100.nc
+    - ship_202302010200.nc
+  varNames:
+    - t
+    - dp
+    - p
+    - p0
+    - wd
+    - ws
+    - precip1h
+    - precip6h
+    - precip24h
+  blackExist: false
+
+BUOY_info:
+  inputDir: ${INPUT_DIR}
+  list:
+    - buoy_202302010000.nc
+    - buoy_202302010030.nc
+    - buoy_202302010100.nc
+  varNames:
+    - t
+    - rh
+    - p
+    - wd
+    - ws
+    - precip05h
+  blackExist: false
+
+METAR_info:
+  inputDir: ${INPUT_DIR}
+  list:
+    - metar_202206070710.nc
+    - metar_202206070720.nc
+    - metar_202206070730.nc
+  varNames:
+    - t
+    - wd
+    - ws
+  blackExist: false
+
+TEMP_info:
+  inputDir: ${INPUT_DIR}
+  list:
+    - temp_202302010000.nc
+    - temp_202302010300.nc
+    - temp_202302010600.nc
+  varNames:
+    - t
+    - dp
+    - p
+    - uwnd
+    - vwnd
+  blackExist: false
+
+PROFL_info:
+  inputDir: ${INPUT_DIR}
+  list:
+    - profl_202302010000.nc
+    - profl_202302010005.nc
+    - profl_202302010010.nc
+  varNames:
+    - uwnd
+    - vwnd
+    - wwnd
+  blackExist: false
+
+Verify:
+  SYNOP_BlackListAdd: ${STATIC_DIR}/soloSite.yaml

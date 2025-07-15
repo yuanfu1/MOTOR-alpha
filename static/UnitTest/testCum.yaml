@@ -1,0 +1,92 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+
+latlon_grid:
+  num_grid: [2, 2]
+  domain_latlon: [23.325, 23.575, 111.425, 111.675]
+
+obs_thinning:
+  obs_qcThreshold: [5.0D2, 5.0D2, 5.0D2]
+  obs_missing: 999999999.0D0
+  obs_invalid: 3.4D38
+  obs_radius: [5.0D0, 5.0D0, 5.0D2, 5.0D1]
+  thinning_threshold: 0.25D0
+  interpolation: 1
+
+analysis_para:
+  start_time: [2022, 1, 13, 0, 0, 0]
+  end_time:   [2022, 1, 13, 1, 0, 0]
+
+geometry:
+  mpi_layout_g14: [2, 2]
+  mpi_layout_g58: [2, 2]
+  mpi_layout_g9L: [2, 2]
+  time_steps_g14:  2
+  time_steps_g58:  2
+  time_steps_g9L:  2
+  mgStart: 1
+  mgEnd: 10
+  
+cumulus:
+  abcsdf: 10086
+
+poissonSovler:
+  solver:  FMV
+  nCycle:    3
+  nIterPre:  3
+  nIterPost: 6
+  nRelax:    2
+  max_band: 10
+  omegas: [1.951627, 0.569688]
+
+modelState:
+  vLevel: 57
+  varList: [uwnd, vwnd, wwnd, theta, qvapor,pres]
+
+IO:
+  input_dir_Surface: ${INPUT_DIR}
+  input_dir_Sound: ${INPUT_DIR}
+  input_dir_Vwpw: ${INPUT_DIR}
+  input_dir_Radar: ${INPUT_DIR}
+  input_dir_Satellite: ${INPUT_DIR}
+  input_dir_model: ${INPUT_DIR}
+  input_dir: ${INPUT_DIR}
+  output_dir: ${OUTPUT_DIR}
+  bk_model: GRAPES
+  NMLFileName: namelist.input
+  ModelFileName: grapesinput-4dv-2021053018
+
+flog:
+  LogFileName: /log/test
+
+BMat:
+  ScaleParaX: 0.0
+  ScaleParaY: 0.0
+  ScaleParaZ: 0.0
+  ScaleParaT: 0.0
+
+Minimization:
+  MaxOptStep: 100
+
+
+# poissonSovler
+#	solver:	     	multigrid scheme, VVV: w cycle
+#	nCycle:		    number of multigrid cycles
+#	nIterPre:		  number of iterations in pre-cycle
+#	nIterPost:		number of iterations in post-cycle
+#	nRelax:		    number of over relaxations
+#	omegas:	    	relaxations coefficients
+# max_band:     max band of poisson coefficent matrix 
+#
+# icosTr_grid
+# glvl: icos triangle grid G level;
+# slvl: Icos triangle grid start level;
+# ordr: order of accuracy;
+#
+# latlon_grid
+# domain_latlon specifies the (lat0,lat1) X (lon0,lon1)
+#
+# geometry
+# mpi_layout:  layout of mpi
+#

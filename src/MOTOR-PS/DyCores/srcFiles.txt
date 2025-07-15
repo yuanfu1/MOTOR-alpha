@@ -1,0 +1,4 @@
+SET (DyCores_SRC
+	dyCoresBase.F90
+	dyCoreGZM.F90
+	)

@@ -1,0 +1,10 @@
+SET (ObsBase_SRC	
+	ObsBase.F90
+	obsCommon.F90
+	ObsBase2.F90
+	ObsConvention2.F90
+	obsTools.F90
+	ObsRaw.F90
+	Wavelet.F90
+    SatelliteWavelet.F90
+	)

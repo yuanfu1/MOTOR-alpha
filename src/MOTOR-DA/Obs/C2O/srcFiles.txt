@@ -1,0 +1,3 @@
+SET (C2O_SRC	
+	C2O.F90 
+	)

@@ -1,0 +1,131 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+latlon_grid:
+  num_grid:
+  - 1025
+  - 1025
+  domain_latlon:
+  - 19
+  - 26
+  - 108
+  - 117
+analysis_para:
+  start_time:
+  - 2022
+  - 5
+  - 25
+  - 10
+  - 30
+  - 0
+  end_time:
+  - 2022
+  - 5
+  - 25
+  - 10
+  - 40
+  - 0
+geometry:
+  mpi_layout_g14:
+  - 2
+  - 2
+  mpi_layout_g58:
+  - 2
+  - 2
+  mpi_layout_g9L:
+  - 2
+  - 2
+  mpi_layout_all_dim1: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+  mpi_layout_all_dim2: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+  time_steps_g14: 2
+  time_steps_g58: 2
+  time_steps_g9L: 2
+  mgStart: 3
+  mgEnd: 8
+DASpace: null
+poissonSovler:
+  solver: FMV
+  nCycle: 3
+  nIterPre: 3
+  nIterPost: 6
+  nRelax: 2
+  max_band: 10
+  omegas:
+  - 1.951627
+  - 0.569688
+modelState:
+  vLevel: 1
+  varList:
+  - temp
+  - uwnd
+  - vwnd
+  Fillin_range: [1,3,2, 1,3,2, 1,3,2]
+obs_thinning:
+  obs_qcThreshold:
+  - 5.0D2
+  - 5.0D2
+  - 5.0D2
+  obs_missing: 999999999.0D0
+  obs_invalid: 3.4D38
+  obs_radius:
+  - 5.0D0
+  - 5.0D0
+  - 5.0D2
+  - 5.0D1
+  thinning_threshold: 0.25D0
+  interpolation: 1
+IO:
+  static_dir: ${STATIC_DIR}
+  input_dir_Surface: ${INPUT_DIR}
+  input_dir_Sound: ${INPUT_DIR}
+  input_dir_Vwpw: ${INPUT_DIR}
+  input_dir_Radar: ${INPUT_DIR}
+  input_dir_Satellite: ${INPUT_DIR}
+  input_dir_model: ${INPUT_DIR}
+  input_dir: ${INPUT_DIR}
+  output_dir: ${OUTPUT_DIR}
+  bk_model: WRF
+  bakFileList:
+  - wrfout_d01_2022-05-25_10-00-00.nc
+  - wrfout_d01_2022-05-25_11-00-00.nc
+  ObsFlag_Surface: 1
+  ObsFlag_Sound: 1
+  ObsFlag_Vwpw: 1
+  obsVarList_Surface: [temp,uwnd,vwnd]
+  obsFileList_Surface:
+  - '20220525_1040'
+  - '20220525_1035'
+  - '20220525_1030'
+  varWRFList: [t2m, u10m, v10m, height]
+
+flog:
+  LogFileName: /log/test
+BMat:
+  ScaleParaX: 1
+  ScaleParaY: 1
+  ScaleParaZ: 300.0
+  ScaleParaT: 1.0
+Minimization:
+  MaxOptStep: 30
+
+RunMode:
+  Mode: Debug   # Debug/UnitTest/Alpha/Beta/Release
+  Task: SfcAna    # SfcAna/3DAna/3DVar/4DVar
+
+Verify:
+ VA_latlon:
+  - 23.00
+  - 23.30
+  - 114.30
+  - 115.10
+ SoloFile: ${STATIC_DIR}/soloSite.yaml
+
+PostProc:
+  ExportDomain:
+  - 20D0
+  - 25D0
+  - 110D0
+  - 115D0
+  ExportRes:
+  - 0.01D0  # dlat
+  - 0.01D0   # dlon

@@ -1,0 +1,63 @@
+# Used by configure to create makefile.inc 
+# 
+#
+INSTALLROOT=/home/ywLaps/LAPS/LAPS
+DATAROOT=/home/ywLaps/LAPS/LAPS/domains
+CC=icc
+
+CFLAGS=  -O3 
+DBCFLAGS= -g -O0 -traceback -ftrapuv -DDEBUG=1
+
+
+
+FC       = ifort
+#
+# NCAR graphics is used by lapsplot only.
+#
+NCARGFC  = ncargf90
+
+FFLAGS =  -warn usage $(INC) -O3
+LITTLEFLAGS =  -warn usage $(INC) -O3
+FREE = -FR
+FIXED = 
+DBFLAGS =  -warn usage $(INC) -g -O0 -traceback -ftrapuv 
+
+# Define pre-processor command line options for .F files.
+
+CPP = ifort 
+CPPFLAGS = $(INC)  -Dx86_64 -DFORTRANUNDERSCORE -DDYNAMIC -DMULTI_EXEC
+
+# Define include paths.
+NETCDF=/home/ywLaps/software/netcdf4.4.1
+INC = -I$(SRCROOT)/src/include -I$(NETCDF)/include -I$(SRCROOT)/src/lib -I$(SRCROOT)/src/lib/modules -I$(SRCROOT)/src/lib/cloud -I$(SRCROOT)/src/lib/radar/synp -I$(SRCROOT)/src/lib/degrib
+
+AR  = ar
+RANLIB   = ranlib
+INSTALL=$(SRCROOT)/util/install-sh
+PERL = /usr/bin/perl
+LIBPATHFLAG=-L
+
+# Grib1 and Grib2 decoder libs and flags
+DEGRIBLIBS=-lpng -lz 
+DEGRIBFLAGS=
+CDEGRIBFLAGS=-DLINUX -DFORTRANUNDERSCORE
+
+LAPSLIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib -llaps
+DBLAPSLIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib -ldebuglaps
+
+BGDATALIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib/bgdata -lbgdata
+DBBGDATALIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib/bgdata -ldebugbgdata
+
+GRIBLIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib/grib -lgrib
+DBGRIBLIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib/grib -ldebuggrib
+
+MTHERMOLIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib/mthermo -lmthermo
+DBMTHERMOLIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib/mthermo -ldebugmthermo
+
+UTILLIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib/util -lutil
+DBUTILLIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib/util -ldebugutil
+
+OTHERLIBS = $(LIBPATHFLAG)$(NETCDF)/lib -lnetcdf   -lnetcdff
+
+GRIB2LIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib/grib2 -lgrib2
+DBGRIB2LIB=$(LIBPATHFLAG)$(SRCROOT)/src/lib/grib2 -ldebuggrib2

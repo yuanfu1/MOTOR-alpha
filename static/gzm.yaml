@@ -1,0 +1,43 @@
+latlon_grid:
+  num_grid:
+  - 513
+  - 1025
+  domain_latlon:
+  - 16
+  - 31.36
+  - 96
+  - 123.36
+analysis_para:
+  start_time:
+  - 2022
+  - 5
+  - 26
+  - 23
+  - 0
+  - 0
+  end_time:
+  - 2022
+  - 5
+  - 27
+  - 0
+  - 0
+  - 0
+geometry:
+  mpi_layout_g14:
+  - 2
+  - 2
+  mpi_layout_g58:
+  - 2
+  - 2
+  mpi_layout_g9L:
+  - 2
+  - 2
+  time_steps_g14: 3
+  time_steps_g58: 5
+  time_steps_g9L: 9
+  mgStart: 3
+  mgEnd: 7
+DASpace:
+  ztop: 30000.0
+modelState:
+  vLevel: 67

@@ -1,0 +1,6 @@
+SET (MPDD_SRC
+	MPDDBase.F90
+	MPDDGlob.F90
+	MPDDSub.F90
+	SeedGen.F90
+	)

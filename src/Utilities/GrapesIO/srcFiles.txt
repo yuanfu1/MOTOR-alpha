@@ -1,0 +1,15 @@
+SET (GrapesIO_SRC
+     module_configure.f90
+     module_domain.f90
+     module_io_grapes.f90
+     module_io_grapes_CMA_MESO.f90
+     module_io_grapes_CMA_GD_V3p2.f90
+     module_io_grapes_CMA_GD_V3.f90
+     GrapesIO.F90
+     module_namevaluemap.f90
+     endianconverter.f90 
+     GrapesModelvarIO.F90
+     GrapesModelvarIO_500m.F90
+     GrapesPostvarIO.F90
+	)
+

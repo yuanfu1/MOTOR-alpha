@@ -1,0 +1,11 @@
+IO:
+  obsType: sound
+  inputDir: ${INPUT_DIR}
+  list:
+    - sound_202302020000.nc
+    - sound_202302020005.nc
+    - sound_202302020010.nc
+  varNames:
+    - temperature
+    - wind_u
+    - wind_v

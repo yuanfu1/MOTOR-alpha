@@ -1,0 +1,8 @@
+SET (ObsConvention_SRC
+	ObsSurface.F90
+	ObsSound.F90
+	ObsVwpw.F90
+	ObsLBUOY.F90
+	ObsSING.F90
+	ObsGWST.F90
+	)

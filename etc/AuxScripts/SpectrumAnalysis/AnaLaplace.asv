@@ -1,0 +1,62 @@
+close all;
+clear all
+
+subplot(2,1,1)
+lamda = 0:0.0001:0.2;
+k = 2*pi*lamda;
+
+H = k.^2;
+
+plot(lamda, H); hold on;
+plot(lamda, 4*H);
+
+ylim([0 1]);
+% xlim([0 1e5]);
+
+subplot(2,1,2)
+N = 3001;
+t = 1:1:N;
+func = zeros(1, N);
+func((N-1)/2+1) = 10;
+
+plot(t, func); hold on;
+
+for i = 1:50
+fft_func = fft(func);
+
+f = 1/N:1/N:1-1/N;
+f = [0, f];
+omega = 2*pi*f;
+fft_func(2:501) = omega(2:501).*omega(2:501).*fft_func(2:501);
+for i = (N-1)/2+1:N
+    fft_func(i) = conj(fft_func(N+1-i+1));
+end
+
+func = func - ifft(fft_func);
+sub(func)
+end
+
+
+plot(t, (func)); hold on;
+
+for i = 1:100
+fft_func = fft(func);
+
+f = 1/N:1/N:1-1/N;
+f = [0, f];
+omega = 2*pi*f;
+fft_func(2:501) = omega(2:501).*omega(2:501).*fft_func(2:501);
+for i = (N-1)/2+1:N
+    fft_func(i) = conj(fft_func(N+1-i+1));
+end
+
+func = func - ifft(fft_func);
+end
+
+% 
+plot(t, (func)); hold on;
+% 
+% plot(t, (func)*10); hold on;
+% 
+% plot(t, (func)*20); hold on;
+% plot(t, (func)*100); hold on;

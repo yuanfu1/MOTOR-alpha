@@ -1,0 +1,5 @@
+SET (Application_SRC
+	Applications.F90
+	App_4DVAR.F90
+	analytic_sfc.F90
+)

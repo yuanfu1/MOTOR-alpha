@@ -1,0 +1,16 @@
+SET (M2CV_SRC	
+	QrCtl2Qr.F90 
+	RhoCtl2Rho.F90
+	RhoRCtl2RhoR.F90
+	RhoVCtl2RhoV_sv.F90
+	RhoVCtl2RhoV_power.F90
+        QVCtl2QV_sv.F90
+	QVCtl2QV_power.F90
+        Pres2Rho.F90
+	Theta2Temp.F90
+	Qvapor2Rhov.F90
+	TempCtl2Temp_sv.F90
+	TempCtl2Temp_power.F90
+	Ctl2State.F90
+	LnP2Pres.F90
+	)

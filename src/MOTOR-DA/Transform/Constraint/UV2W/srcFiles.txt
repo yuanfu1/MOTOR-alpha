@@ -1,0 +1,7 @@
+SET (UV2W_SRC	
+	UV2W.F90 
+	UVW2Divg.F90
+	UV2Divg.F90
+	UV2W_Poisson.F90
+	UV2W_SurfInte.F90
+	)

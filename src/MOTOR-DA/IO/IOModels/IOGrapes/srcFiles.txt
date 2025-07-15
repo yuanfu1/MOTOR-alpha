@@ -1,0 +1,7 @@
+SET (IOGrapes_SRC
+     IOGrapes.F90
+     IOGrapesModelvar.F90
+     IOGrapesModelvar_500m.F90
+     IOGrapesPostvar.F90
+     )
+

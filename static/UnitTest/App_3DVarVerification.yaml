@@ -1,0 +1,208 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+latlon_grid:
+  num_grid:
+  - 513
+  - 1025
+  domain_latlon:
+  - 16
+  - 31.36
+  - 96
+  - 123.36
+analysis_para:
+  start_time:
+  - 2024
+  - 4
+  - 4
+  - 23
+  - 0
+  - 0
+  end_time:
+  - 2024
+  - 4
+  - 5
+  - 0
+  - 0
+  - 0
+geometry:
+  mpi_layout_g14:
+  - 2
+  - 2
+  mpi_layout_g58:
+  - 2
+  - 2
+  mpi_layout_g9L:
+  - 2
+  - 2
+  time_steps_g14: 3
+  time_steps_g58: 5
+  time_steps_g9L: 9
+  mgStart: 3
+  mgEnd: 7
+  # topoSmooth: [3,2,2,2,2]
+CV_Transform:
+  rhov_scale_scheme: None
+  qvapor_scale_scheme: Power
+  temp_scale_scheme: Power
+DASpace:
+  ztop: 30000.0
+poissonSovler:
+  solver: FMV
+  nCycle: 3
+  nIterPre: 3
+  nIterPost: 6
+  nRelax: 2
+  max_band: 10
+  omegas:
+  - 1.951627
+  - 0.569688
+modelState:
+  vLevel: 67
+  varList:
+  - temp
+  - uwnd
+  - vwnd
+  - wwnd
+  - pres
+  # - psl
+  - qvapor
+  ctlVarNames: [pres_ctl,qvapor_ctl,psl_ctl]
+  Fillin_range: [-1,5,2, 1,5,2, 1,5,2, 1,5,2, 1,3,2]
+  geobalBeg: 6
+  geobalEnd: 6
+  geobalWeights: [0.0,0.0,0.0]
+obs_thinning:
+  obs_qcThreshold:
+  - 5.0D2
+  - 5.0D2
+  - 5.0D2
+  obs_missing: 999999999.0D0
+  obs_invalid: 3.4D38
+  obs_radius:
+  - 5.0D0
+  - 5.0D0
+  - 5.0D2
+  - 5.0D1
+  thinning_threshold: 0.25D0
+  interpolation: 1
+  varObsSpace: [abs]
+IO:
+  input_dir_Surface: /home/xinyu/project/motor_case_ggf3km_2024040500/input/obs/synop
+  input_dir_Sound: /home/xinyu/project/motor_case_ggf3km_2024040500/input/obs/sound
+  input_dir_Vwpw: /home/xinyu/project/motor_case_ggf3km_2024040500/input/obs/vwpw
+  input_dir_Radar: /home/xinyu/project/motor_case_ggf3km_2024040500/input/obs/radar
+  input_dir_Satellite: ${INPUT_DIR}
+  input_dir_model: /home/xinyu/project/motor_case_ggf3km_2024040500/input/model
+  input_dir: ${INPUT_DIR}
+  output_dir: /home/xinyu/project/motor_case_ggf3km_2024040500/output
+  bk_model: GRAPES
+  grapes_model_type: CMA-GD # CMA-GD / CMA-MESO
+  obsVarList_Surface:  [uwnd, vwnd, temp, qvapor, pres]
+  NMLFileName:
+  - namelist.input.si
+  - namelist.input.si
+  ModelFileName:
+  - grapesinput2024040418
+  - grapesinput2024040500
+  bakFileList:
+  - wrfout_d01_2022-01-13_00:00:00
+  - wrfout_d01_2022-01-13_01:00:00
+  OutputFileName: grapesinput-MOTORDA
+  ObsFlag_Surface: 1
+  ObsFlag_Sound: 1
+  ObsFlag_Vwpw: 1
+  obsFileList_Surface:
+  - '20240404_2300'
+  - '20240404_2305'
+  - '20240404_2310'
+  - '20240404_2315'
+  - '20240404_2320'
+  - '20240404_2325'
+  - '20240404_2330'
+  - '20240404_2335'
+  - '20240404_2340'
+  - '20240404_2345'
+  - '20240404_2350'
+  - '20240404_2355'
+  - '20240405_0000'
+  obsFileList_Sound:
+  - rec_RTEMP_20240405000000_g.dat
+  obsFileList_Vwpw:
+  obsFilePath_Radar: /Obs
+  obsFileList_Radar:
+  obsType: vwpw
+  input_dir_GWST: /home/xinyu/project/motor_case_ggf3km_2024040500/input/obs/gwst
+  obsFileList_GWST: 
+  - rec_RGWST_202404042300_g.dat
+  - rec_RGWST_202404050000_g.dat
+  input_dir_LBUOY: /home/xinyu/project/motor_case_ggf3km_2024040500/input/obs/lbuoy
+  obsFileList_LBUOY: 
+  - rec_LBUOY_202404042300_g.dat
+  - rec_LBUOY_202404042330_g.dat
+  - rec_LBUOY_202404050000_g.dat
+  input_dir_SING: /home/xinyu/project/motor_case_ggf3km_2024040500/input/obs/sing
+  obsFileList_SING: 
+  - rec_RSING_202404042300_g.dat
+  - rec_RSING_202404050000_g.dat
+flog:
+  LogFileName: /log/test
+BMat:
+  ScaleParaX: 2.0
+  ScaleParaY: 2.0
+  ScaleParaZ: 0.5
+  ScaleParaT: 1.0
+  ensNum: 0
+Minimization:
+  MaxOptStep: 100
+  Use_JcTerm: FALSE
+  Weight_Jc: 0.1
+  Use_JcTerm_InCompres: TRUE
+  Weight_Jc_InCompres: 10000000
+Verify:
+  VA_latlon:
+  - 23.0
+  - 23.3
+  - 114.3
+  - 115.1
+RunMode:
+  Mode: Debug
+  Task: 3DVar
+RTTOV:
+  platform_name: [fy4_1]
+  inst_name: [agri]
+  sensor_name: [ir]
+  debug_dev: FALSE # for developers (dev)
+  gas_name: [Water_vapour]
+  ppmv_gasunit: TRUE
+  rttov_clouds: FALSE   #! if .true., hydrometeors  are mandatory input
+  rttov_aerosols: FALSE #! if .true., aerosol gases are mandatory input
+  use_kmodel: FALSE
+  interp_method: 1
+CV_Transform:
+  rhov_scale_scheme: 'None' # /'None'/'DomainAvg'/'EXPO'/'Power'
+  qvapor_scale_scheme: 'Power'  #/'None'/'DomainAvg'/'Power'
+  temp_scale_scheme: 'Power' # /'None'/'DomainAvg'/'Power'
+FY4-AGRI:
+  satinfo: [satinfo_fy4-1-agri.txt]
+  satpath: [/MOTOR/MOTOR-TEST-DATA/20210504/]
+  # satpath: [/public/home/wuyl/run/motor/MOTOR02/tests_DA/20220527_GGF_MOTOR/input_obs/]
+  # For FY4-AGRI 
+  fdi_files: [FDI.txt]
+  geo_files: [GEO.txt]
+  clm_files: [CLM.txt]
+  # For local run, please download data from NAS first.
+  # Local data path: Z:\谢老师团队\MOTOR-DA Test DATA
+  obsfile_format: HDF5
+  only_over_sea: FALSE
+  use_varbc: FALSE
+  use_offline_bc: TRUE
+  bias_predictors: [constant, thickness_1000_300, thickness_200_50, skin_temperature, tpw, scan_angle_order1]
+  bias_scheme: pdf_mode # 'pdf_mode', 'static_BC', 'var_BC'
+  Thin_w_bkg: TRUE
+  Source_of_bkg: tb_bak # state or obsavg or tb_bak
+  Use_real_obs: TRUE 
+  Use_real_bkg: TRUE
+  write_diag: FALSE
+  test_name: XbMG
+  minimizer: FRCG #LBFGS FRCG

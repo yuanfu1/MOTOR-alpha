@@ -1,0 +1,24 @@
+#Following below format. Do not change.
+#Total numbers of different kinds of variables
+
+2 radiance variables
+4 angle variables
+2 latlon variables
+
+#Specify the prefix of each kind of variable name
+
+radiance:
+NOMChannel
+CALChannel
+
+angles:
+NOMSatelliteZenith
+NOMSatelliteAzimuth
+NOMSunZenith
+NOMSunAzimuth
+
+latlons:
+LineNumber
+ColumnNumber
+
+

@@ -1,0 +1,3 @@
+SET (ConventionalAnalysis_SRC
+	analytic_sfc.F90
+)

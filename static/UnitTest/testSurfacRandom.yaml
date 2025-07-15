@@ -1,0 +1,96 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+
+latlon_grid:
+  num_grid: [1025, 1025]
+  domain_latlon: [21, 25, 111.5, 115]
+
+analysis_para:
+  start_time: [2021, 9, 6, 12, 0, 0]
+  end_time: [2021, 9, 6, 12, 10, 0]
+
+obs_thinning:
+  obs_qcThreshold: [5.0D2, 5.0D2, 5.0D2]
+  obs_missing: 999999999.0D0
+  obs_invalid: 3.4D38
+  obs_radius: [5.0D0, 5.0D0, 5.0D2, 5.0D1]
+  thinning_threshold: 0.25D0
+  interpolation: 1
+  varObsSpace: [abc]
+
+geometry:
+  mpi_layout_g14: [1, 1]
+  mpi_layout_g58: [2, 2]
+  mpi_layout_g9L: [2, 2]
+  time_steps_g14: 2
+  time_steps_g58: 5
+  time_steps_g9L: 5
+  mgStart: 1
+  mgEnd: 10
+
+DASpace:
+
+poissonSovler:
+  solver: FMV
+  nCycle: 3
+  nIterPre: 3
+  nIterPost: 6
+  nRelax: 2
+  max_band: 10
+  omegas: [1.951627, 0.569688]
+
+modelState:
+  vLevel: 1
+  varList: [temp, diff]
+  ctlVarNames: [pres_ctl,qvapor_ctl]
+
+IO:
+  input_dir_Surface: ${INPUT_DIR}
+  input_dir_Sound: ${INPUT_DIR}
+  input_dir_Vwpw: ${INPUT_DIR}
+  input_dir_Radar: ${INPUT_DIR}
+  input_dir_Satellite: ${INPUT_DIR}
+  input_dir_model: ${INPUT_DIR}
+  input_dir: ${INPUT_DIR}
+  output_dir: ${OUTPUT_DIR}
+  static_dir: ${STATIC_DIR}
+  bk_model: GRAPES
+  NMLFileName: /namlist.input
+  ModelFileName: /grapesinput
+  obsFileList_Surface:
+    - 20210906_1210
+    - 20210906_1210
+  obsVarList_Surface: [temp]
+
+flog:
+  LogFileName: /log/test
+
+BMat:
+  ScaleParaX: 30.0
+  ScaleParaY: 30.0
+  ScaleParaZ: 30.0
+  ScaleParaT: 0
+
+Minimization:
+  MaxOptStep: 50
+  Use_JcTerm: FALSE
+  Use_JcTerm_InCompres: FALSE
+
+RunMode:
+  Mode: Debug   # Debug/UnitTest/Alpha/Beta/Release
+  Task: SfcAna    # SfcAna/3DAna/3DVar/4DVar
+  Framework: FullState #FullState #Incremental
+  FixResolution: FALSE  # If use the same resolution for mg
+  OuterLoops: 10
+  LineSearch: TRUE
+  NegativeCheck: TRUE
+  
+Verify:
+ VA_latlon:
+  - 23.00
+  - 23.30
+  - 114.30
+  - 115.10
+ SoloFile: ${STATIC_DIR}/soloSite.yaml
+

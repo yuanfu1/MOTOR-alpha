@@ -1,0 +1,9 @@
+SET (ObsSatob_SRC	
+	Satob.F90
+	module_GtsQC.F90
+	Interp.F90
+	extreme_value.F90
+	meteoro_constants.F90
+	meteoro_type_define.F90
+	qc_flag_set.F90
+	)

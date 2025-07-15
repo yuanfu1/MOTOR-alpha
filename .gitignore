@@ -1,0 +1,72 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+*.log
+
+# Debug files
+*.dSYM/
+
+# compile files
+CMakeFiles
+.vscode
+CMakeCache.txt
+CMakeCache.cmake
+CTestTestfile.cmake
+cmake_install.cmake
+*.bak
+*.o
+*.mod
+*.dat
+*.tar
+*.100
+icos_t_data_0*
+fort.*
+mods
+grid
+build*
+data
+log
+.VSCodeCounter
+etc/sphinx/source/docs
+etc/sphinx/source/image
+etc/sphinx/build
+etc/doxygen/html
+.DS_Store
+libSlint.a_*
+run/*
+*.swp
+output*
+input
+*.asm
+src/MOTOR-QC/STMAS
+output_debug
+.git/config
+.history
+.cursor
+setEnv.*

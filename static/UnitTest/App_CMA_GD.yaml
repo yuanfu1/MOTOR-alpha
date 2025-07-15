@@ -1,0 +1,164 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+ 
+ 
+latlon_grid:
+  num_grid: [1025, 1025]
+  domain_latlon: [18, 27, 107, 119]
+ 
+ 
+analysis_para:
+  start_time: [2021, 5, 4, 9, 0, 0]
+  end_time:   [2021, 5, 4, 10, 0, 0]
+ 
+ 
+geometry:
+  mpi_layout_g14: [2, 2]
+  mpi_layout_g58: [2, 2]
+  mpi_layout_g9L: [2, 2]
+  time_steps_g14:  5
+  time_steps_g58:  9
+  time_steps_g9L:  9
+  mgStart: 1
+  mgEnd: 5
+
+DASpace:
+  ztop: 30000.0
+ 
+poissonSovler:
+  solver: FMV
+  nCycle: 3
+  nIterPre: 3
+  nIterPost: 6
+  nRelax: 2
+  max_band: 10
+  omegas: [1.951627, 0.569688]
+ 
+modelState:
+  vLevel: 257
+  varList: [temp, uwnd, vwnd, rhor]
+  Fillin_range: [-1,3,2, 1,3,2, 1,3,2]
+ 
+obs_thinning:
+  obs_qcThreshold: [5.0D2, 5.0D2, 5.0D2]
+  obs_missing: 999999999.0D0
+  obs_invalid: 3.4D38
+  obs_radius: [5.0D0, 5.0D0, 5.0D2, 5.0D1]
+  thinning_threshold: 0.25D0
+  interpolation: 1
+ 
+IO:
+  input_dir_Surface: ${INPUT_DIR}
+  input_dir_Sound: ${INPUT_DIR}
+  input_dir_Vwpw: ${INPUT_DIR}
+  input_dir_Radar: ${INPUT_DIR}/obs
+  input_dir_Satellite: ${INPUT_DIR}
+  input_dir_model: ${INPUT_DIR}
+  input_dir: ${INPUT_DIR}
+  output_dir: ${OUTPUT_DIR}
+  OutputFileName: grapesinput-MOTORDA
+  bk_model: GRAPES
+  NMLFileName: [namelist.input, namelist.input]
+  ModelFileName: 
+    - grapesinput_21050400F_0409
+    - grapesinput_21050412F_0412
+  bakFileList:
+    - wrfout_d01_2022-01-13_00:00:00
+    - wrfout_d01_2022-01-13_01:00:00
+  ObsFlag_Surface: 1
+  ObsFlag_Sound: 1
+  ObsFlag_Vwpw: 1
+  obsVarList_Surface: temperature
+  obsFileList_Surface:
+    - 20210504_0900
+    - 20210504_0905
+    - 20210504_0910
+    - 20210504_0915
+    - 20210504_0920
+    - 20210504_0925
+    - 20210504_0930
+    - 20210504_0935
+    - 20210504_0940
+    - 20210504_0945
+    - 20210504_0950
+    - 20210504_0955
+    - 20210504_1000
+  obsFileList_Sound:
+    - rec_RTEMP_20210504060000_g.dat
+    - rec_RTEMP_20210504090000_g.dat
+    - rec_RTEMP_20210504120000_g.dat
+  obsFileList_Vwpw:
+    - vwpw21050406.dat
+    - vwpw21050412.dat
+  obsFilePath_Radar: /Obs
+  obsFileList_Radar:
+    - Z_RADR_I_Z9200_20210504090000_O_DOR_SAD_CAP_FMT.nc
+    - Z_RADR_I_Z9660_20210504090000_O_DOR_SAD_CAP_FMT.nc
+    - Z_RADR_I_Z9662_20210504090000_O_DOR_SAD_CAP_FMT.nc
+    - Z_RADR_I_Z9751_20210504090000_O_DOR_SAD_CAP_FMT.nc
+    - Z_RADR_I_Z9753_20210504090001_O_DOR_SAD_CAP_FMT.nc
+    - Z_RADR_I_Z9754_20210504090001_O_DOR_SAD_CAP_FMT.nc
+    - Z_RADR_I_Z9755_20210504090000_O_DOR_SAD_CAP_FMT.nc
+    - Z_RADR_I_Z9759_20210504090001_O_DOR_SAD_CAP_FMT.nc
+    - Z_RADR_I_Z9762_20210504090000_O_DOR_SAD_CAP_FMT.nc
+    - Z_RADR_I_Z9763_20210504090001_O_DOR_SAD_CAP_FMT.nc
+  obsType: vwpw
+
+flog:
+  LogFileName: /log/test
+ 
+ 
+BMat:
+  ScaleParaX: 10000000.0
+  ScaleParaY: 10000000.0
+  ScaleParaZ: 300000.0
+  ScaleParaT: 1.0
+  NumEns: 1
+ 
+ 
+Minimization:
+  MaxOptStep: 20
+
+Verify:
+ VA_latlon:
+  - 23.00
+  - 23.30
+  - 114.30
+  - 115.10
+
+RunMode:
+  Mode: Debug   # Debug/UnitTest/Alpha/Beta/Release
+  Task: 3DVar    # SfcAna/3DAna/3DVar/4DVar
+
+PostProcessing:
+  domain_latlon: [18, 27, 107, 119]
+  
+
+
+
+# poissonSovler
+#	solver:	     	multigrid scheme, VVV: w cycle
+#	nCycle:		    number of multigrid cycles
+#	nIterPre:		  number of iterations in pre-cycle
+#	nIterPost:		number of iterations in post-cycle
+#	nRelax:		    number of over relaxations
+#	omegas:	    	relaxations coefficients
+# max_band:     max band of poisson coefficent matrix 
+#
+# icosTr_grid
+# glvl: icos triangle grid G level;
+# slvl: Icos triangle grid start level;
+# ordr: order of accuracy;
+#
+# latlon_grid
+# domain_latlon specifies the (lat0,lat1) X (lon0,lon1)
+#
+# geometry
+# mpi_layout:  layout of mpi
+#
+# obs_thinning:
+# obs_qcThreshold matches the model state variables, specify what range of values are acceptable
+# obs_radius specifies the influence radius in horizontal, height, land, and time.
+# thinning_threshold specifies those points where no thinning data if Gaussian is smaller than this.
+# interpolation: 1 using unstructured grid interpolation scheme; 2 using lat-lon grid interpolation

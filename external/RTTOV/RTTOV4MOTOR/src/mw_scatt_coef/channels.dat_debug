@@ -1,0 +1,72 @@
+ ! Diagnostic output - triggered by DIAG; To filename; hydro ID, wc [kg m^-3], frequency [GHz], temperature [K] 
+DIAG
+diag.txt
+2 1e-2 23.8 223.0
+ ! Configuration file for Hydro table generation 
+ ! ------------------------------------------------------ 
+HEADER 
+ ! Output directory for Hydro tables:
+/enter/your/path/here/
+1     ! Number of frequencies for scattering calculation   
+1     ! Number of sensors
+2     ! Number of hydrometeors and below, their IDs (see mod_scattering.F90)
+1     2
+ ! ------------------------------------------------------ 
+CONFIGURATION OF OPTICAL TABLE CALCULATION
+F      ! (T/F) - use melting layer of Bauer (2001)    
+F      ! (T/F) - In Marshall-Palmer PSD, use n0 vs T from Panegrossi et al. (1998), appendix
+       ! The following properties are specified per hydrometeor:
+       ! (A) - Scattering properties from (1) Mie sphere; (2) Liu (2008,see scatdb.c); (3) ARTS SSP-DB
+ 1  3
+       ! (B) - Particle shape: irrelevant if Mie sphere; Liu shapes from 0-10; ARTS-DB habit ID (see mod_arts.F90)
+-1  7
+       ! (C) - Density: (1) 0.132*D-1 (Wilson & Ballard, 1999) (2) 8.74E-4*exp(-0.625D2) + 4.5E-5 (Jones, 1995) 
+       ! (3) 0.035*D-1.1 (Brown & Francis, 1995) (4) Constant density as defined in mod_scattering.F90
+       ! Density 2 cannot be used with PSD 3 or 4. Density is defined by the DDA shape if that option is chosen.
+ 4 -1
+       ! (D) - PSD: (1) Pre-v13 RTTOV-SCATT gamma (2) Marshall-Palmer (3) Field et al 2005 (4) Field et al 2007
+       ! (5) Full modified gamma following Petty and Huang (2011) (6) Heymsfield et al. (2013)
+       ! (7) MacFarquhar & Heymsfield (1997)
+ 2  4
+       ! (E) If modified gamma, settings from this row of table (F) below
+-1 -1
+       ! (F) Modified gamma PSD settings: Number of rows; each row: N_0, mu, lambda, gamma, free parameter
+       ! Meaning of free parameter: 1=N_0, 2=mu, -1=all parameters fixed; lambda/gamma not yet supported
+ 1
+ 0.0  2.0  2.13e5  1.0  1
+       ! (G) - PSD Regime: (X) not relevant; Field et al 2007: (T) tropical (M) midlatitude; 
+       !       Heymsfield 2013: (S) stratiform (C) convective (A) all/composite 
+ X  T
+       ! (H) - Liquid water permittivity model, applying only to Mie spheres composed of liquid: 
+       ! (1) Liebe-89 (as used in RTTOV-SCATT for many years);  
+       ! (2) Rosenkranz (2014, IEEE TGARS); (3) Turner, Kneifel & Cadeddu [TKC]
+       !     (2016, J. Atm. and Oc. Tech)
+ 2  2
+       ! (I) - Ice water permittivity model, applying only to Mie spheres composed of ice and ice-air mixtures: 
+       ! (1) Maetzler and Wegmuller (1987, as used in RTTOV-SCATT for many years, pre-v13);  
+       ! (2) Maetzler (2006) 
+ 2  2
+       ! (J) - Fill out missing size ranges below D_min of a database shape, using soft Mie spheres (T/F)
+ F  F
+       ! (K) - New integration basis: trapezium rule, log steps in D_g / Old: rectangle, equal steps (T/F)
+ T  F
+       ! (L) - Maximum PSD renormalisation factor permitted (order of magnitude). This double checks mass
+       !       conservation in the numerical integration of the PSD over particle mass and adjusts if needed.
+ 5e-2 5e-1 5e-1 1e-3 1e-3
+       ! (M) Optical property "polarisation" scaling: h channels *(1+alpha); v channels *(1-alpha); (0.0 = ignore polarisation)
+ 0.0 0.0 0.0 0.0 0.0
+ ! ------------------------------------------------------ 
+FREQUENCIES 
+ ! Currently available polarisation options:
+ !       MPOL=-1: Ignoring polarisation
+ !       MPOL= 3: Vertical V
+ !       MPOL= 4: Horizontal H
+ ! Frequency number, GHz, number of sidebands, delta GHz for sidebands, polarisation
+ 1   23.800      1    0.00   -1
+ ! ------------------------------------------------------ 
+INSTRUMENTS 
+ ! 2 lines per instrument: 
+ ! a) 9+1 chars of platform, 8+1 chars of instrument name, I4 platform ID, I4 sensor ID, L4 T/F if reflectivity needed
+ ! b) Number of channels and the corresponding frequency IDs 
+debug     debug       1   3   F
+1      1

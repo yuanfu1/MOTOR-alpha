@@ -1,0 +1,36 @@
+% 读取日志文件
+logFile = '/Users/qzl/sources/MOTOR/build/1.log';
+fid = fopen(logFile, 'r');
+if fid == -1
+    error('无法打开日志文件');
+end
+
+% 初始化变量
+jo_values = [];
+jb_values = [];
+
+% 读取日志文件内容
+while ~feof(fid)
+    line = fgetl(fid);
+    if contains(line, 'G4')
+        % 读取下一行
+        line = fgetl(fid);
+        if contains(line, 'Jb') && contains(line, 'Jo')
+            A = sscanf(line, 'J-G: Jb %f Jo %f');
+            jb_values = [jb_values; jb_value];
+            jo_values = [jo_values; jo_value];
+        end
+    end
+end
+fclose(fid);
+
+% 绘制 Jo 和 Jb 的值变化
+figure;
+plot(jo_values, '-o');
+hold on;
+plot(jb_values, '-x');
+xlabel('迭代次数');
+ylabel('值');
+legend('Jo', 'Jb');
+title('G3 上 Jo 和 Jb 的值变化');
+grid on;

@@ -1,0 +1,69 @@
+<html>
+<body bgcolor="#ababab">
+
+<h4>Table of Contents</h4>
+<ul>
+<li><a href="#top_toolbar">Top toolbar : move, scale, reset</a></li>
+<li><a href="#plots">SubPlots : T, Q, gases (CH4,CO,CO2,N2O,O3,SO2)</a></li>
+<li><a href="#bot_toolbar">Bottom toolbar : choose gas and edit Profile</a></li>
+</ul>
+
+<p>
+<a name="top_toolbar">
+<h6>ToolBar</h6>
+<img src="../icons/kmatrix_toolbar.jpg"/>
+<ul>
+<li><strong>Toolbar : </strong> <img src="../icons/matplotlib_toolbar.png"/>see http://matplotlib.org/users/navigation_toolbar.html</li>
+<li><strong>Move L/R: </strong> <img src="../icons/hand.png"/>One screen left, left, <img src="../icons/right.png"/>10% screen right, One screen right</li>
+<li><strong>Move U/D: </strong> <img src="../icons/stock_up.png"/>One level up <img src="../icons/stock_down.png"/>One level down</li>
+<li><strong>Scale   : </strong> <img src="../icons/k10.png" />Scale KMatrix by input profile &star; coef</li>
+<li><strong>Reset   : </strong> <img src="../icons/reset.png"/>reread original kmatrix hdf5 file</li>
+<li><strong>Edit kP : </strong> <img src="../icons/kP.png"/>Show profile for selected channel (keyboard shortcuts : p or P)</li>
+</ul>
+</a>
+</p>
+
+<p>
+<a name="plots"></a>
+<h6>subplot T</h6>
+<dl> 
+	<ul>	
+		<li>Y</li> : 44 to 101 levels of pressure (from 1040.0 to 0.005 hPa)
+		<li>X</li> : channel number (1 to N)
+		<li>k</li> : (mw/cm-1/ster/sq.m) /K	
+	</ul>
+<h6>subplot Q</h6>
+	<ul>	
+		<li>Y</li> : 44 to 101 levels of pressure (from 1040.0 to 0.005 hPa)
+		<li>X</li> : channel number (1 to N)
+		<li>k</li> : (mw/cm-1/ster/sq.m) /ppmv	
+		<li>k10% </li> : (mw/cm-1/ster/sq.m) /ppmv scaled by 0.1 input profile
+	</ul>
+
+<h6>subplot CH4,CO,CO2,N2O or O3</h6>
+	<ul>	
+		<li>Y</li> : 44 to 101 levels of pressure (from 1040.0 to 0.005 hPa)
+		<li>X</li> : channel number (1 to N)
+		<li>k</li> : (mw/cm-1/ster/sq.m) /ppmv	
+		<li>k10% </li> : (mw/cm-1/ster/sq.m) /ppmv scaled by 0.1 input profile
+	</ul>
+</dl>
+</p>
+
+<p>
+<a name="bot_toolbar"></a>
+<h6>Optional Tools</h6>
+	<ul>
+	<li><img src="../icons/CH4.png"/>
+	<img src="../icons/CO.png"/>
+	<img src="../icons/CO2.png"/>
+	<img src="../icons/N2O.png"/>
+	<img src="../icons/O3.png"/>
+	<img src="../icons/SO2.png"/><strong>Choose gas to plot</strong></li>
+	<li>Enter a channel number to open the corresponding Profile window</li>
+	</ul>
+
+</p>
+
+</body>
+</html>

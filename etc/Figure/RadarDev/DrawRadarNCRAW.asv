@@ -1,0 +1,56 @@
+% close all;
+clear all;
+
+%%
+radarMap = [
+    255  255  255;
+    0  255  255;
+    0  157  255;
+    0    0  255;
+    9  130  175;
+    0  255    0;
+    8  175   20;
+    255  214    0;
+    255  152    0;
+    255    0    0;
+    221    0   27;
+    188    0   54;
+    121    0  109;
+    121   51  160;
+    195  163  212;
+    255  255  255];
+radarMap = uint8(radarMap);
+
+%%
+radialAzim  = ncread('../../../input/Obs/Z_RADR_I_Z9010_20200105080000_O_DOR_SA_CAP_FMT.nc','radialAzim');
+radialElev  = ncread('../../../input/Obs/Z_RADR_I_Z9010_20200105080000_O_DOR_SA_CAP_FMT.nc','radialElev');
+distanceZ  = ncread('../../../input/Obs/Z_RADR_I_Z9010_20200105080000_O_DOR_SA_CAP_FMT.nc','distanceZ');
+Z  = ncread('../../../input/Obs/Z_RADR_I_Z9010_20200105080000_O_DOR_SA_CAP_FMT.nc','Z');
+
+%%
+% Z(Z == 0) = 66;
+Z(Z< 0) = Z(Z<0)+256;
+% Z = (Z-66)/2;
+Z(Z==0) = NaN;
+
+%%
+figure()
+for elev = 1:1:11
+    subplot(3,4,elev)
+    for i = 1:371
+        scatter(distanceZ(:, elev)*sind(radialAzim(i, elev)), distanceZ(:, elev)*cosd(radialAzim(i, elev)), elev, Z(:, i, elev), 'filled'); hold on;
+    end
+
+    subtitle(['elevation ',num2str(elev)]);
+    axis equal;
+    xlim([-400 400]);
+    ylim([-400 400]);
+
+    box on;
+    grid on;
+% % %     colormap(radarMap);
+%     caxis([0 80]);
+end
+
+
+

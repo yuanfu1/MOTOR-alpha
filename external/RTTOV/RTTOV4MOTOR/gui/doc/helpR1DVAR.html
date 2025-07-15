@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 3.5  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGEDBY" CONTENT="Pascale Roquet">
+	<META NAME="CHANGED" CONTENT="20150226;15333500">
+	<STYLE TYPE="text/css">
+	<!--
+		P { color: #000000 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000" BGCOLOR="#ababab" DIR="LTR">
+<P STYLE="margin-bottom: 0in"><FONT SIZE=4><B>How to use the basic
+1DVAR retrieval algorithm with RTTOV-GUI</B></FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">There is a basic 1DVAR retrieval
+algorithm available with RTTOV-GUI. It uses the R-matrix and B-matrix
+of the NWPSAF-1DVAR retrieval software ( see
+http://nwpsaf.eu/site/software/1d-var/). In order to be
+independent from this software, samples of these matrices are
+available in the RTTOV-GUI directory.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">The basic 1DVAR algorithm can only be
+used for the following instruments :</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">&quot;airs&quot;,&quot;iasi&quot;,&quot;amsua&quot;,&quot;amsub&quot;,&quot;mhs&quot;,&quot;hirs&quot;,&quot;atms&quot;,&quot;ssmis&quot;,&quot;cris&quot;</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">The observation error R-matrix for iasi
+metop 2 and iasi metop 1 are identical.</P>
+<P STYLE="margin-bottom: 0in">Only one R-matrix for SSMIS is
+provided.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><B>Running the RTTOV-GUI 1DVAR</B></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">RTTOV-GUI 1DVAR works with 2 profiles :
+a Background profile “Xb” and a True profile “Xt”</P>
+<P STYLE="margin-bottom: 0in">The Background Profile is opened in the
+main RTTOV-GUI window and can be modified as usual.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">The True Profile is opened in the
+specific 1DVAR window and cannot be modified.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">If you change the coefficient file with
+RTTOV-GUI the 1DVAR window is reinitialized.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">When you run the RTTOV-GUI your profile
+must have only 54 levels ( the background error matrix are only
+available for 54 levels).</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">The configure 1dvar command of the
+r1dvar menu becomes available only if you have opened a 54 levels
+profile and loaded a coefficient file from the previous list of
+instrument.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">It is also possible to run the
+RTTOV-GUI 1DVAR basic algorithm without running the whole RTTOV-GUI :</P>
+<P STYLE="margin-bottom: 0in">example :</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Nimbus Mono L, monospace">python
+rcontroller/r1dvarController.py
+-P=${RTTOV_GUI_PROFILE_DIR}/standard54lev_allgas.H5 </FONT>
+</P>
+<P STYLE="margin-bottom: 0in"><FONT FACE="Nimbus Mono L, monospace">-s=${RTTOV_GUI_COEFF_DIR}/rttov7pred54L/rtcoef_noaa_19_amsua.dat</FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">The 1DVAR window is initialized in this
+case with the first profile of 
+</P>
+<P STYLE="margin-bottom: 0in">${RTTOV_GUI_PROFILE_DIR}/standard54lev_allgas.H5.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><B>Algorithm Description </B>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">Restrictions :</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">This algorithm works with fixed
+	profile levels (54)</P>
+	<LI><P STYLE="margin-bottom: 0in">RTTOV computations are made with
+	no cloud,nor aerosols, nor trace gas (just T and Q)</P>
+	<LI><P STYLE="margin-bottom: 0in">All surface variables except Tskin
+	and T2m are fixed for the true profile and equal to those of the
+	background profile.</P>
+	<LI><P STYLE="margin-bottom: 0in">The surface type is forced to
+	“sea”</P>
+	<LI><P STYLE="margin-bottom: 0in">all RTTOV calculations are made at
+	nadir</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in; border-top: none; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding-top: 0in; padding-bottom: 0.03in; padding-left: 0in; padding-right: 0in">
+Inputs / selections</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">When you configure the 1DVAR the
+R-matrix and B-matrix are read in the ${RTTOV_GUI_PREFIX}/r1DVAR/data
+directory</P>
+<P STYLE="margin-bottom: 0in">It is possible to configure the
+environment variable NWPSAF_1DVAR_HOME if you want to use another
+directory (but do not change the sub-directories names and file
+formats).</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<OL>
+	<LI><P STYLE="margin-bottom: 0in">Open a true profile Xt selected
+	from the database</P>
+	<LI><P STYLE="margin-bottom: 0in">Change the value of the scaling
+	factor (fb) for the background errors if necessary 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Change the value of the scaling
+	factor (fr) for the observation errors if necessary 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Change the value of the maximum
+	random noise if necessary 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Click on the <B>RUN 1DVAR</B> button</P>
+</OL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><B>Computations made by RTTOV-GUI :</B></P>
+<OL>
+	<LI><P STYLE="margin-bottom: 0in">Compute brightness temperatures
+	Y(Xt) from Xt <I>(made only at the first step)</I></P>
+	<LI><P STYLE="margin-bottom: 0in">Compute and add random noise
+	vector N to Y(Xt) <I>(made only at the first step)</I></P>
+	<LI><P STYLE="margin-bottom: 0in">Compute brightness temperatures
+	Y(Xb) from Xb</P>
+	<LI><P STYLE="margin-bottom: 0in">Compute jacobian matrix K(Xb) and
+	transpose KT(Xb)</P>
+	<LI><P STYLE="margin-bottom: 0in">Apply scaling factor to background
+	errors B --&gt; fb x B (<I>applied each step to the original
+	B-matrix)</I></P>
+	<LI><P STYLE="margin-bottom: 0in">Apply scaling factor to
+	observation errors R --&gt; fr x R <I>(applied each step to the
+	original R-matrix)</I></P>
+	<LI><P STYLE="margin-bottom: 0in">Compute linear 1DVAR weights W
+	where <B>W = B . KT . [ K .B . KT + R ](-1)</B></P>
+	<LI><P STYLE="margin-bottom: 0in">Compute linear 1DVAR retrieved
+	profile (Xr) <B>Xr = Xb + W . [ ( Y(Xt) + N ) - Y(Xb) ]</B></P>
+</OL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><B>The results are displayed in 2
+windows :</B></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">A profile window : display the
+	True, the Background and the Retrieved profiles</P>
+	<LI><P STYLE="margin-bottom: 0in">A brightness temperature window :
+	display Y(Xt)+Noise, Y(Xt) and Y(Xb)</P>
+</UL>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">It is possible to make a maximum of 9 Runs of retrieval.</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in">By clicking the <B>reset</B> button :
+the 1DVAR window is reinitialized : the background profile is
+reinitialized (if you a have made some changes on it with the surface
+window and/or the profile window).</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>

@@ -1,0 +1,7 @@
+SET (ObsUtilities_SRC
+	ObsConcat.F90
+	netCDFTable.F90
+	netCDFReader.F90
+	ObsOutlierDetector.F90
+	FastMCDDetector.F90
+	)

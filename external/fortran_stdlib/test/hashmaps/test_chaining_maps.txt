@@ -1,0 +1,151 @@
+|         Algorithm |      Process |        Data Set |   Time (s) |
+|             FNV-1 |   Enter data |   16 byte words |    0.02085 |
+|             FNV-1 | Inquire data |   16 byte words |    0.00771 |
+|             FNV-1 | Get all keys |   16 byte words |    0.00277 |
+|             FNV-1 |     Get data |   16 byte words |    0.01249 |
+|             FNV-1 |  Rehash data |   16 byte words |    0.00120 |
+
+Statistics for chaining hash table with FNV-1 hasher on 16 byte words.
+Slots = 8192
+Calls = 196608
+Entries = 65536
+Total probes = 1010597
+Loading =  8.000E+00
+Total depth = 327409
+Relative depth =  4.996E+00
+|             FNV-1 |  Remove data |   16 byte words |    0.01296 |
+|             FNV-1 |   Enter data |  256 byte words |    0.00193 |
+|             FNV-1 | Inquire data |  256 byte words |    0.00160 |
+|             FNV-1 |     Get data |  256 byte words |    0.00169 |
+|             FNV-1 | Get all keys |  256 byte words |    0.00009 |
+|             FNV-1 |  Rehash data |  256 byte words |    0.00087 |
+
+Statistics for chaining hash table with FNV-1 hasher on 256 byte words.
+Slots = 1024
+Calls = 12288
+Entries = 4096
+Total probes = 36765
+Loading =  4.000E+00
+Total depth = 12255
+Relative depth =  2.992E+00
+|             FNV-1 |  Remove data |  256 byte words |    0.00161 |
+|            FNV-1A |   Enter data |   16 byte words |    0.01429 |
+|            FNV-1A | Inquire data |   16 byte words |    0.00754 |
+|            FNV-1A |     Get data |   16 byte words |    0.01290 |
+|            FNV-1A | Get all keys |   16 byte words |    0.00249 |
+|             FNV-1 |  Rehash data |   16 byte words |    0.00239 |
+
+Statistics for chaining hash table with FNV-1A hasher on 16 byte words.
+Slots = 8192
+Calls = 196608
+Entries = 65536
+Total probes = 1011501
+Loading =  8.000E+00
+Total depth = 327685
+Relative depth =  5.000E+00
+|            FNV-1a |  Remove data |   16 byte words |    0.01396 |
+|            FNV-1A |   Enter data |  256 byte words |    0.00192 |
+|            FNV-1A | Inquire data |  256 byte words |    0.00159 |
+|            FNV-1A |     Get data |  256 byte words |    0.00169 |
+|            FNV-1A | Get all keys |  256 byte words |    0.00011 |
+|            FNV-1A |  Rehash data |  256 byte words |    0.00086 |
+
+Statistics for chaining hash table with FNV-1A hasher on 256 byte words.
+Slots = 1024
+Calls = 12288
+Entries = 4096
+Total probes = 36705
+Loading =  4.000E+00
+Total depth = 12255
+Relative depth =  2.992E+00
+|            FNV-1A |  Remove data |  256 byte words |    0.00171 |
+|   Seeded_Nmhash32 |   Enter data |   16 byte words |    0.02532 |
+|   Seeded_Nmhash32 | Inquire data |   16 byte words |    0.01235 |
+|   Seeded_Nmhash32 |     Get data |   16 byte words |    0.01814 |
+|   Seeded_Nmhash32 | Get all keys |   16 byte words |    0.00304 |
+|   Seeded_Nmhash32 |  Rehash data |   16 byte words |    0.00471 |
+
+Statistics for chaining hash table with Seeded_Nmhash32 hasher on 16 byte words.
+Slots = 8192
+Calls = 196608
+Entries = 65536
+Total probes = 1012294
+Loading =  8.000E+00
+Total depth = 327937
+Relative depth =  5.004E+00
+|   Seeded_Nmhash32 |  Remove data |   16 byte words |    0.01259 |
+|   Seeded_Nmhash32 |   Enter data |  256 byte words |    0.00308 |
+|   Seeded_Nmhash32 | Inquire data |  256 byte words |    0.00257 |
+|   Seeded_Nmhash32 |     Get data |  256 byte words |    0.00266 |
+|   Seeded_Nmhash32 | Get all keys |  256 byte words |    0.00015 |
+|   Seeded_Nmhash32 |  Rehash data |  256 byte words |    0.00227 |
+
+Statistics for chaining hash table with Seeded_Nmhash32 hasher on 256 byte words.
+Slots = 1024
+Calls = 12288
+Entries = 4096
+Total probes = 36798
+Loading =  4.000E+00
+Total depth = 12266
+Relative depth =  2.995E+00
+|   Seeded_Nmhash32 |  Remove data |  256 byte words |    0.00243 |
+|  Seeded_Nmhash32x |   Enter data |   16 byte words |    0.01517 |
+|  Seeded_Nmhash32x | Inquire data |   16 byte words |    0.00780 |
+|  Seeded_Nmhash32x |     Get data |   16 byte words |    0.01227 |
+|  Seeded_Nmhash32x | Get all keys |   16 byte words |    0.00247 |
+|  Seeded_Nmhash32x |  Rehash data |   16 byte words |    0.00427 |
+
+Statistics for chaining hash table with Seeded_Nmhash32x hasher on 16 byte words.
+Slots = 16384
+Calls = 196608
+Entries = 65536
+Total probes = 621627
+Loading =  4.000E+00
+Total depth = 196959
+Relative depth =  3.005E+00
+|  Seeded_Nmhash32x |  Remove data |   16 byte words |    0.01072 |
+|  Seeded_Nmhash32x |   Enter data |  256 byte words |    0.00289 |
+|  Seeded_Nmhash32x | Inquire data |  256 byte words |    0.00515 |
+|  Seeded_Nmhash32x |     Get data |  256 byte words |    0.00274 |
+|  Seeded_Nmhash32x | Get all keys |  256 byte words |    0.00014 |
+|  Seeded_Nmhash32x |  Rehash data |  256 byte words |    0.00175 |
+
+Statistics for chaining hash table with Seeded_Nmhash32x hasher on 256 byte words.
+Slots = 1024
+Calls = 12288
+Entries = 4096
+Total probes = 36228
+Loading =  4.000E+00
+Total depth = 12076
+Relative depth =  2.948E+00
+|  Seeded_Nmhash32x |  Remove data |  256 byte words |    0.00276 |
+|      Seeded_Water |   Enter data |   16 byte words |    0.01579 |
+|      Seeded_Water | Inquire data |   16 byte words |    0.00616 |
+|      Seeded_Water |     Get data |   16 byte words |    0.00788 |
+|      Seeded_Water | Get all keys |   16 byte words |    0.00393 |
+|      Seeded_Water |  Rehash data |   16 byte words |    0.00128 |
+
+Statistics for chaining hash table with Seeded_Water hasher on 16 byte words.
+Slots = 16384
+Calls = 196608
+Entries = 65536
+Total probes = 621126
+Loading =  4.000E+00
+Total depth = 196798
+Relative depth =  3.003E+00
+|      Seeded_Water |  Remove data |   16 byte words |    0.00650 |
+|      Seeded_Water |   Enter data |  256 byte words |    0.00128 |
+|      Seeded_Water | Inquire data |  256 byte words |    0.00088 |
+|      Seeded_Water |     Get data |  256 byte words |    0.00116 |
+|      Seeded_Water | Get all keys |  256 byte words |    0.00013 |
+|      Seeded_Water |  Rehash data |  256 byte words |    0.00027 |
+
+Statistics for chaining hash table with Seeded_Water hasher on 256 byte words.
+Slots = 1024
+Calls = 12288
+Entries = 4096
+Total probes = 37173
+Loading =  4.000E+00
+Total depth = 12391
+Relative depth =  3.025E+00
+|      Seeded_Water |  Remove data |  256 byte words |    0.00094 |

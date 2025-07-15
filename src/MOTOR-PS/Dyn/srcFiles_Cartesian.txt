@@ -1,0 +1,11 @@
+SET (Dyn_SRC
+    PreCal.F90	
+	Cartesian/TenDiv.F90
+	Cartesian/TenVor.F90
+	Cartesian/Tenqvapor.F90
+	Cartesian/TenRho.F90
+	Cartesian/TenTheta.F90
+	Cartesian/TenW.F90
+	nwp.F90
+	CalPres.F90
+	)

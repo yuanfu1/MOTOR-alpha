@@ -1,0 +1,22 @@
+/**
+@mainpage RTTOV Documentation
+@image html docs/NWPSAFLogo_gradient_S.png
+@section Introduction
+
+RTTOV (Radiative Transfer for TOVS) is a fast radiative transfer model originally developed at ECMWF in the early
+90's (Eyre, 1991). Subsequently the original code has gone through several developments (e.g. Saunders
+et al., 1999; Matricardi et al., 2001; Saunders et al., 2018), more recently within the EUMETSAT NWP Satellite
+Application Facility (SAF), of which RTTOV v13 is the latest version. The model allows rapid simulations (~1 ms
+for 40 channel ATOVS on a desktop PC) of radiances for satellite visible, infrared and microwave nadir scanning 
+radiometers given an atmospheric profile of temperature, variable gas concentrations, cloud and surface properties,
+referred to as the state vector.
+
+
+@version 13.0
+@author NWPSAF
+@date April 2020
+
+@see
+NWPSAF site http://nwpsaf.eu/site/software/rttov/
+**/
+

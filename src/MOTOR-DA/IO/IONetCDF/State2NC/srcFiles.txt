@@ -1,0 +1,4 @@
+SET (State2NC_SRC	
+	State2NC.F90
+	NCOutput.F90
+	)

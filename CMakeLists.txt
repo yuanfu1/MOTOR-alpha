@@ -65,6 +65,10 @@ add_subdirectory(./src/MOTOR-Repository/MPObs)
 
 # MOTOR-DA
 
+# States
+add_subdirectory(./src/MOTOR-DA/States/State)
+add_subdirectory(./src/MOTOR-DA/States/Field)
+
 # Transformations
 add_subdirectory(./src/MOTOR-DA/Transform/TransBase)
 add_subdirectory(./src/MOTOR-DA/Transform/M2ODirect)
@@ -81,9 +85,6 @@ add_subdirectory(./src/MOTOR-DA/Transform/Constraint/HydroStatic)
 
 add_subdirectory(./src/MOTOR-DA/Transform/ObsOperator/OprGNSS)
 
-# States
-add_subdirectory(./src/MOTOR-DA/States/State)
-add_subdirectory(./src/MOTOR-DA/States/Field)
 
 # PreSys
 add_subdirectory(./src/MOTOR-PS/PreSys)

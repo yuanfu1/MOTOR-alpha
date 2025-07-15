@@ -1,0 +1,4 @@
+SET (ObsField_SRC	
+	ObsField.F90
+	ObsAttr.F90
+	)

@@ -1,0 +1,183 @@
+icosTr_grid:
+  glvl: 4
+  slvl: 2
+latlon_grid:
+  num_grid:
+  - 513
+  - 1025
+  domain_latlon:
+  - 16
+  - 31.36
+  - 96
+  - 123.36
+analysis_para:
+  start_time:
+  - 2022
+  - 5
+  - 26
+  - 23
+  - 0
+  - 0
+  end_time:
+  - 2022
+  - 5
+  - 27
+  - 0
+  - 0
+  - 0
+geometry:
+  mpi_layout_g14:
+  - 2
+  - 2
+  mpi_layout_g58:
+  - 2
+  - 2
+  mpi_layout_g9L:
+  - 2
+  - 2
+#  time_steps_all:
+#  - 3
+#  - 3
+#  - 5
+#  - 5
+#  - 9
+#  - 9
+#  - 9
+#  - 9
+#  - 9
+#  - 9
+  time_steps_g14: 3
+  time_steps_g58: 5
+  time_steps_g9L: 9
+  mgStart: 1
+  mgEnd:   8
+  haloWidth: 2
+
+poissonSovler:
+  solver:     FMV
+  nCycle:     3
+  nIterPre:   3
+  nIterPost:  6
+  nRelax:     2
+  max_band:  10
+  omegas: [1.951627, 0.569688]
+
+BMat:
+  ScaleParaX: 2.0
+  ScaleParaY: 2.0
+  ScaleParaZ: 0.5
+  ScaleParaT: 1.0
+  ensNum: 0
+  bkgdWeights: [1.0D0, 0.0D0]
+MultigridOptions:
+  UpdateBkgd: TRUE
+
+Minimization:
+  method: 'FRCG'
+  MaxOptStep: 100
+  Use_JcTerm: FALSE
+  Weight_Jc: 0.1
+  Use_JcTerm_InCompres: FALSE
+  Weight_Jc_InCompres: 10000000
+DASpace:
+  ztop: 30000.0
+  VerticalCoord: Cartesian
+modelState:
+  vLevel: 1
+  varList:
+  - psi
+  - chi
+  - uwd
+  - vwd
+  - vor
+  - div
+  ctlVarNames: [pres_ctl,qvapor_ctl,psl_ctl] # Temporarily kept for matching the current analysis; consider to remove
+  Fillin_range: [-1,5,2, 1,5,2, 1,5,2, 1,5,2, 1,3,2]
+  geobalBeg: 6
+  geobalEnd: 6
+
+# This Control variable transformation will be removed by introducing C2M module
+# See document of Object-oriented Design.md under MOTOR/etc/docs
+CV_Transform: 
+  rhov_scale_scheme: 'None' # /'None'/'DomainAvg'/'EXPO'/'Power'
+  # qvapor_ctl_scheme: 'DomainAvg'  #/'None'/'DomainAvg'/'Power'
+  # qvapor_scale_scheme: 'DomainAvg'  #/'None'/'DomainAvg'/'Power'
+  qvapor_scale_scheme: 'Power'  #/'None'/'DomainAvg'/'Power'
+  temp_scale_scheme: 'Power' # /'None'/'DomainAvg'/'Power'
+
+IO:
+  input_dir: ${INPUT_DIR}
+  input_dir_Surface: ${INPUT_DIR}/obs/synop
+  input_dir_Sound: ${INPUT_DIR}/obs/sound
+  input_dir_CloudWind: ${INPUT_DIR}/obs/cloudwind
+  output_dir: ${OUTPUT_DIR}
+  bk_model: GRAPES
+  grapes_model_type: CMA-GD-V3
+  NMLFileName:
+  - namelist.input
+  - namelist.input
+  ModelFileName:
+  - grapesinput2022052621
+  - grapesinput2022052700
+  input_dir_model: ${INPUT_DIR}/model-ggf
+
+  obsVarList_Surface: [uwnd, vwnd, temp, qvapor, pres]
+  #obsList: ['surfaces', 'sounding']
+  obsList: ['surfaces', 'sounding','cloudWnd']
+  obsFileList_Satob:
+  - rec_R2CWE_20220527000000_g.dat
+  - rec_R2CWE_20220527030000_g.dat
+
+
+  obsFileList_Surface:
+  - '20220526_2300'
+  - '20220526_2305'
+  - '20220526_2310'
+  - '20220526_2315'
+  - '20220526_2320'
+  - '20220526_2325'
+  - '20220526_2330'
+  - '20220526_2335'
+  - '20220526_2340'
+  - '20220526_2345'
+  - '20220526_2350'
+  - '20220526_2355'
+  - '20220527_0000'
+  obsFileList_Sound:
+  # - rec_RTEMP_20220526210000_g.dat
+  - rec_RTEMP_20220527000000_g.dat
+
+ObsFlag_satob:
+  logic_satob_qc: .TRUE.
+  dqcuv_satob: 3.0
+  satobPresWeight: 3.0D0
+
+obs_thinning:
+  obs_qcThreshold:
+  - 5.0D2
+  - 5.0D2
+  - 5.0D2
+  obs_missing: 999999999.0D0
+  obs_invalid: 3.4D38
+  obs_radius:
+  - 5.0D0
+  - 5.0D0
+  - 5.0D2
+  - 5.0D1
+  thinning_threshold: 0.25D0
+  interpolation: 1
+  varObsSpace: [psl]
+
+RunMode:
+  Mode: Debug
+  Task: 3DVar
+
+VerifyArea:
+  VA_latlon:
+  - 16.0
+  - 23.0
+  - 96.0
+
+TimeIntegral:
+  time_step: 0.01
+  buffer: 0

@@ -1,0 +1,4 @@
+SET (MGOpts_SRC
+     MGOpts.F90
+     	)
+

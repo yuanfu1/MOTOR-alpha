@@ -1,0 +1,5 @@
+SET (AuxType_SRC
+     AuxTypeMG.F90
+     AuxTypeSG.F90
+     AuxTypeObs.F90
+     	)

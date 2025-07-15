@@ -1,0 +1,4 @@
+SET (zgrid_SRC
+	gzm_Xie.F90
+	gzm.F90
+)
