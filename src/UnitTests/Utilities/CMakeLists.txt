@@ -62,7 +62,7 @@ TARGET_LINK_LIBRARIES(Test_NMLRead.exe NMLRead Utility ${MPI_Fortran_LIBRARIES})
 # TARGET_LINK_LIBRARIES(Test_IntepHP.exe InterpHP Utility ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_VerticalInterp.exe Test_VerticalInterp.F90)
-TARGET_LINK_LIBRARIES(Test_VerticalInterp.exe Utility MPDD ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_VerticalInterp.exe YAMLRead Utility MPDD ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_Derivative.exe Test_Derivative.F90)
 TARGET_LINK_LIBRARIES(Test_Derivative.exe Utility ${MPI_Fortran_LIBRARIES})

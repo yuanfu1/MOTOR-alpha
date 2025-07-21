@@ -30,6 +30,7 @@ MODULE IOWRF_m
   USE ModelCoupler_m, ONLY: ModelCoupler_t
   USE Interp1D_m
   USE conversions_m
+  USE Filter_m, ONLY: smoothField, guidedfilter
   ! USE netcdf
 
   TYPE, EXTENDS(IOModel_t) :: IOWRF_t
@@ -60,7 +61,7 @@ CONTAINS
   SUBROUTINE interpVerticalWRF_unStaged(sg, WRF_topo, WRF_height, WRF_data, Target_data)
     IMPLICIT NONE
     TYPE(SingleGrid_t), INTENT(IN)  :: sg
-    REAL(r_kind), INTENT(IN)  :: WRF_topo(:, :)         ! X x Y
+    REAL(r_kind), INTENT(IN)  :: WRF_topo(:)        ! X x Y
     REAL(r_kind), INTENT(IN)  :: WRF_height(:, :, :, :)   ! X x Y x Z x T
     REAL(r_kind), INTENT(IN)  :: WRF_data(:, :, :, :)     ! X x Y x Z x T
     REAL(r_kind), INTENT(OUT) :: Target_data(:, :, :)    ! vLevel x Horizontal x T
@@ -77,7 +78,7 @@ CONTAINS
       DO i = 1, shape_indata(1)
         DO j = 1, shape_indata(2)
           ALLOCATE (WRF_sigma(shape_indata(3)))
-          WRF_sigma = (WRF_height(i, j, :, t) - WRF_topo(i, j)) / (sg%ztop - WRF_topo(i, j)) * sg%ztop
+          WRF_sigma = (WRF_height(j, i, :, t) - WRF_topo(i * j)) / (sg%ztop - WRF_topo(i * j)) * sg%ztop
           CALL interp1d(WRF_sigma, WRF_data(i, j, :, t), sg%sigma, Target_data_tmp(i, j, :, t))
           DEALLOCATE (WRF_sigma)
         END DO
@@ -167,13 +168,14 @@ CONTAINS
     REAL(r_kind), ALLOCATABLE :: valueDA(:, :, :)
 
     INTEGER(i_kind), ALLOCATABLE :: TimeSlots_target(:)   ! for time-scale interpolation, Jiongming Pang
+    REAL(r_kind), ALLOCATABLE :: zRHghtModelAtDA(:, :)
 
     INTEGER(i_kind) :: i, j, k, HorNumGridModel, nprocInterp
     TYPE(InterpolateData_Time_t), ALLOCATABLE :: IntpTime
 
     CHARACTER(LEN=20) :: varName
     INTEGER(i_kind)   :: iv, varIndx
-    REAL(r_kind), ALLOCATABLE :: timeWRF(:), timeDA(:)
+    REAL(r_kind), ALLOCATABLE :: timeWRF(:), timeDA(:), timeModel(:)
     REAL(r_kind) :: u, v
 
     ! CHARACTER(LEN=1024) :: OUTPUT_DIR
@@ -215,10 +217,13 @@ CONTAINS
 
       END IF
 
-      CALL sg_mp%mpddInfo_sg%bCast(WRFIO%nz)
+      CALL sg%mpddInfo_sg%bCast(WRFIO%nt)
+      CALL sg%mpddInfo_sg%bCast(WRFIO%nx)
+      CALL sg%mpddInfo_sg%bCast(WRFIO%ny)
+      CALL sg%mpddInfo_sg%bCast(WRFIO%nz)
+      CALL sg%mpddInfo_sg%bCast(HorNumGridModel)
+      ! CALL sg%mpddInfo_sg%bCast(this%DEMFileName)
 
-      ! Ingest the topo and update the height in MOTOR-DA
-      ! CALL ModelCoupler%ingest_to_topo_and_update_zHght_d(GrapesPostvarIO%zs * 1.0D0, HorNumGridModel, sg_mp)
       BLOCK
         USE mo_netcdf
         USE parameters_m
@@ -230,64 +235,102 @@ CONTAINS
         REAL(r_kind), ALLOCATABLE :: llTopo(:, :), valueTopo(:)
         INTEGER(i_kind) :: lat_len, lon_len
 
-        PRINT *, 'DEMFileName: ', TRIM(this%DEMFileName)
+        IF (sg_mp%isBaseProc()) THEN
 
-        IF(sg%isBaseProc()) THEN
-          
-        nc = NcDataset(this%DEMFileName, "r")
+          PRINT *, 'DEMFileName: ', TRIM(this%DEMFileName)
+          nc = NcDataset(this%DEMFileName, "r")
 
-        var = nc%getVariable("lat"); CALL var%getData(latTopoFromNC)
-        var = nc%getVariable("lon"); CALL var%getData(lonTopoFromNC)
-        var = nc%getVariable("height"); CALL var%getData(valueTopoFromNC)
+          var = nc%getVariable("lat"); CALL var%getData(latTopoFromNC)
+          var = nc%getVariable("lon"); CALL var%getData(lonTopoFromNC)
+          var = nc%getVariable("height"); CALL var%getData(valueTopoFromNC)
 
-        CALL nc%CLOSE()
+          CALL nc%CLOSE()
 
-        lat_len = SIZE(latTopoFromNC)
-        lon_len = SIZE(lonTopoFromNC)
+          lat_len = SIZE(latTopoFromNC)
+          lon_len = SIZE(lonTopoFromNC)
 
-        PRINT *, 'lat_len: ', lat_len
-        PRINT *, 'lon_len: ', lon_len
+          PRINT *, 'lat_len: ', lat_len
+          PRINT *, 'lon_len: ', lon_len
 
-        ALLOCATE (llTopo(2, lat_len * lon_len), valueTopo(lat_len * lon_len))
+          ALLOCATE (llTopo(2, lat_len * lon_len), valueTopo(lat_len * lon_len))
 
-        DO i = 1, lat_len
-          DO j = 1, lon_len
-            llTopo(1, (j - 1) * lat_len + i) = latTopoFromNC(i) * degree2radian
-            llTopo(2, (j - 1) * lat_len + i) = lonTopoFromNC(j) * degree2radian
-            valueTopo((j - 1) * lat_len + i) = valueTopoFromNC(j, i)
-
-            ! if(latTopoFromNC(i) > 25.4 .and. latTopoFromNC(i) < 25.6 .and. lonTopoFromNC(j) > 100.5 .and. lonTopoFromNC(j) < 100.6) then
-            !   valueTopo((j - 1)*lat_len + i) = 800.0
-            ! ELSE
-            !   valueTopo((j - 1)*lat_len + i) = 0.0
-            ! end if
-
+          DO i = 1, lat_len
+            DO j = 1, lon_len
+              llTopo(1, (j - 1) * lat_len + i) = latTopoFromNC(i) * degree2radian
+              llTopo(2, (j - 1) * lat_len + i) = lonTopoFromNC(j) * degree2radian
+              valueTopo((j - 1) * lat_len + i) = valueTopoFromNC(j, i)
+            END DO
           END DO
-        END DO
 
-        PRINT *, 'MAXVAL(llTopo)', MAXVAL(llTopo(1, :)) * radian2degree, MAXVAL(llTopo(2, :)) * radian2degree
-        PRINT *, 'MINVAL(llTopo)', MINVAL(llTopo(1, :)) * radian2degree, MINVAL(llTopo(2, :)) * radian2degree
+          BLOCK
+            REAL(r_kind), ALLOCATABLE ::  tmp2D(:, :)
+            IF (sg%isBaseProc()) THEN
+              ALLOCATE (tmp2D(lon_len, lat_len))
+              tmp2D = RESHAPE(valueTopo, [lon_len, lat_len])
+              CALL guidedfilter(tmp2D, tmp2D, 5, 4.0D0, tmp2D)
+              valueTopo = RESHAPE(tmp2D, [lon_len * lat_len])
+            END IF
+
+            IF (sg%isBaseProc()) DEALLOCATE (tmp2D)
+          END BLOCK
+
+          PRINT *, 'MAXVAL(llTopo)', MAXVAL(llTopo(1, :)) * radian2degree, MAXVAL(llTopo(2, :)) * radian2degree
+          PRINT *, 'MINVAL(llTopo)', MINVAL(llTopo(1, :)) * radian2degree, MINVAL(llTopo(2, :)) * radian2degree
         END IF
+
         CALL ModelCouplerForTopo%Initialize(this%m_configFile, this%geometry)
         CALL ModelCouplerForTopo%gen_interp_coeffs(llTopo, lat_len * lon_len, sg)
-        ! -----------------------------------------------------------
-        CALL ModelCouplerForTopo%ingest_to_topo_and_update_zHght_d(valueTopo*1.0D0, lat_len*lon_len, sg_mp)
-        ! -----------------------------------------------------------
-
-        ! CALL ModelCouplerForTopo%interhpN%interp_singleLevel_d(valueTopo * 1.0D0, sg_mp%topo)
-        ! CALL sg_mp%m_interp_points_on_bndy_linear(1, sg_mp%topo)
-        ! CALL sg_mp%ExchangeMatOnHalo2D(1, sg_mp%topo)
-        ! CALL sg_mp%update_zHght_from_topo_and_sigma
 
         ! -----------------------------------------------------------
+        ! CALL ModelCouplerForTopo%ingest_to_topo_and_update_zHght_d(valueTopo*1.0D0, lat_len*lon_len, sg_mp)
+        ! -----------------------------------------------------------
 
-        PRINT *, 'here'
-        ! STOP
+        CALL ModelCouplerForTopo%interhpN%interp_singleLevel_d(valueTopo * 1.0D0, sg_mp%topo)
+        CALL sg_mp%m_interp_points_on_bndy_linear(1, sg_mp%topo)
+        CALL sg_mp%ExchangeMatOnHalo2D(1, sg_mp%topo)
+
+        BLOCK
+          REAL(r_kind), ALLOCATABLE :: tmp(:), tmp2D(:, :)
+          INTEGER(i_kind) :: bufShape(1)
+          IF (sg_mp%isBaseProc()) THEN
+            ALLOCATE (tmp(sg%num_icell_global))
+          END IF
+
+          CALL sg_mp%aggrGridReal1D(sg_mp%topo, tmp, sg_mp%num_icell_global)
+
+          IF (sg_mp%isBaseProc()) THEN
+            ALLOCATE (tmp2D(sg_mp%dimCell_global(2), sg_mp%dimCell_global(1)))
+
+            tmp2D = RESHAPE(tmp(:), [sg_mp%dimCell_global(2), sg_mp%dimCell_global(1)])
+            CALL guidedfilter(tmp2D, tmp2D, 5, 4.0D0, tmp2D)
+            tmp(:) = RESHAPE(tmp2D, [sg_mp%num_icell_global])
+          END IF
+
+          CALL sg%DistGridReal1D(tmp, sg_mp%topo, [sg_mp%num_icell_global])
+          IF (sg%isBaseProc()) DEALLOCATE (tmp, tmp2D)
+        END BLOCK
+
+        CALL sg_mp%update_zHght_from_topo_and_sigma
+
       END BLOCK
 
       ! Initialize the model coupler.
       CALL ModelCoupler%Initialize(this%m_configFile, this%geometry)
       CALL ModelCoupler%gen_interp_coeffs(cellCntrModel, HorNumGridModel, sg_mp)
+
+      IF (sg_mp%isBaseProc()) THEN
+        timeModel = WRFIO%time_unix
+        timeDA = TimeSlots_target
+      ELSE
+        ALLOCATE (timeModel(WRFIO%nt), timeDA(sg%tSlots))
+      END IF
+      PRINT *, "ccc: ", WRFIO%nt, sg%tSlots, SHAPE(timeModel), SHAPE(timeDA)
+
+      CALL sg%mpddInfo_sg%bCastReal1D(timeModel)
+      CALL sg%mpddInfo_sg%bCastReal1D(timeDA)
+
+      ! Modelvar only work for surface analysis
+      PRINT *, "sg_mp%vLevel", sg_mp%vLevel
 
       ! Ingest the topo and update the height in MOTOR-DA
       ! CALL ModelCoupler%ingest_to_topo_and_update_zHght_d(WRFIO%topo, HorNumGridModel, sg_mp)
@@ -444,162 +487,219 @@ CONTAINS
         END IF
 
       ELSE
-        !! Ingest the 3D background field
+        PRINT *, "GrapesModelvarIO_500m_t run in vertical level other than 1  vLevel: vLevel", sg_mp%vLevel
+        ALLOCATE (zRHghtModelAtDA(WRFIO%nz, sg_mp%num_cell))
+        BLOCK
+          REAL(r_single), ALLOCATABLE :: valueTemp(:, :)
 
-        ! ! Ingest t2m-temperature at 2m
-        ! IF (Xm%getVarIdx('t2m') .ne. 0) THEN
-        !   IF (sg_mp%isBaseProc()) THEN
-        !     IF (getStrIndex(this%varNames, 't2m') < 0) THEN
-        !       PRINT *, "ERROR!!! There is no 't2m'. Please CHECK 'varWRFList' in your namelist file! "
-        !       STOP
-        !     END IF
+          ALLOCATE (valueTemp(WRFIO%nz, HorNumGridModel))
 
-        !     valueModel_tmp(1, :, :) = RESHAPE(WRFIO%t2m, (/HorNumGridModel, WRFIO%nt/))
+          PRINT *, 'WRFIO%nt: ', WRFIO%nt
 
-        !     ! for time-scale interpolation
-        !     ALLOCATE (IntpTime)
-        !     CALL IntpTime%IntpInitialize(valueModel_tmp, WRFIO%time_unix, TimeSlots_target)
-        !     CALL IntpTime%IntpLinearTime(valueModel_tmp)
-        !     valueModel = IntpTime%data_intperpolate
-        !     DEALLOCATE (IntpTime)
-        !   END IF
+          IF (sg%isBaseProc()) THEN
+            FORALL (i=1:WRFIO%nx, j=1:WRFIO%ny)
+              valueTemp(:, (j - 1) * WRFIO%nx + i) = WRFIO%height(i, j, :, 1)
+            END FORALL
+          END IF
+          CALL sg%mpddInfo_sg%barrier
+          CALL ModelCoupler%ingest_to_field_data_2D(WRFIO%nz, &
+                                                    valueTemp, zRHghtModelAtDA, sg_mp)          ! CALL sg%mpddInfo_sg%barrier
 
-        !   CALL ModelCoupler%ingest_to_field_data_MT(sg_mp%vLevel, valueModel, Xm%Fields(Xm%getVarIdx('t2m'))%data, sg_mp)
-        !   PRINT *, 'IOWRF - t2m has been loaded.',Xm%Fields(Xm%getVarIdx('t2m'))%data(1,1,1), &
-        !   sg_mp%cell_cntr(:,1),sg_mp%mpddInfo_sg%myrank
-        ! END IF
+          PRINT *, "zRHghtModelAtDA", MAXVAL(zRHghtModelAtDA), timeModel, timeDA
+          DEALLOCATE (valueTemp)
+        END BLOCK
 
-        ! Ingest temp-temperature
-        IF (Xm%getVarIdx('temp') .NE. 0) THEN
+        !!! 开始进行数据插值
+        BLOCK
+          REAL(r_kind), ALLOCATABLE :: valueDA_mp(:, :, :)
+          REAL(r_single), ALLOCATABLE :: tmpModel_u(:, :, :)
+          REAL(r_single), ALLOCATABLE :: tmp_u(:, :, :)
+
           IF (sg_mp%isBaseProc()) THEN
-            IF (getStrIndex(this%varNames, 'temp') < 0) THEN
-              PRINT *, "ERROR!!! There is no 'temp'. Please CHECK 'varWRFList' in your namelist file! "
-              STOP
-            END IF
-
-            ! for vertical inter/extra-polation
-            IF (.NOT. ALLOCATED(WRFIO%topo) .OR. .NOT. ALLOCATED(WRFIO%height)) THEN
-              PRINT *, "ERROR!!! There is no 'topo' or no 'height'. Please CHECK 'varWRFList' in your namelist file! "
-              STOP
-            END IF
-
-            CALL interpVerticalWRF_unStaged(sg_mp, WRFIO%topo, WRFIO%height, WRFIO%temp, valueModel_tmp(:, :, :))
-            ! for time-scale interpolation
-            ALLOCATE (IntpTime)
-            CALL IntpTime%IntpInitialize(valueModel_tmp, WRFIO%time_unix, TimeSlots_target)
-            CALL IntpTime%IntpLinearTime(valueModel_tmp)
-            valueModel = IntpTime%data_intperpolate
-            DEALLOCATE (IntpTime)
+            ALLOCATE (tmpModel_u(WRFIO%nz, HorNumGridModel, WRFIO%nt), &
+                      tmp_u(WRFIO%nz, HorNumGridModel, sg_mp%tSlots))
           END IF
 
-          CALL ModelCoupler%ingest_to_field_data_MT(sg_mp%vLevel, valueModel, Xm%Fields(Xm%getVarIdx('temp'))%DATA, sg_mp)
-          PRINT *, 'IOWRF - temp has been loaded.'
-        END IF
+          ! Ingest temp-temperature
+          IF (Xm%getVarIdx('temp') .NE. 0) THEN
+            IF (sg_mp%isBaseProc()) THEN
+              IF (getStrIndex(this%varNames, 'temp') < 0) THEN
+                PRINT *, "ERROR!!! There is no 'temp'. Please CHECK 'varWRFList' in your namelist file! "
+                STOP
+              END IF
 
-        ! Ingest uwnd-u wind
-        IF (Xm%getVarIdx('uwnd') .NE. 0) THEN
-          IF (sg_mp%isBaseProc()) THEN
-            IF (getStrIndex(this%varNames, 'uwnd') < 0) THEN
-              PRINT *, "ERROR!!! There is no 'uwnd'. Please CHECK 'varWRFList' in your namelist file! "
-              STOP
+              ! for vertical inter/extra-polation
+              IF (.NOT. ALLOCATED(sg_mp%topo) .OR. .NOT. ALLOCATED(WRFIO%height)) THEN
+                PRINT *, "ERROR!!! There is no 'topo' or no 'height'. Please CHECK 'varWRFList' in your namelist file! "
+                STOP
+              END IF
+
+              CALL interpVerticalWRF_unStaged(sg_mp, sg_mp%topo, WRFIO%height, WRFIO%temp, valueModel_tmp(:, :, :))
+              ! for time-scale interpolation
+              ALLOCATE (IntpTime)
+              CALL IntpTime%IntpInitialize(valueModel_tmp, WRFIO%time_unix, TimeSlots_target)
+              CALL IntpTime%IntpLinearTime(valueModel_tmp)
+              valueModel = IntpTime%data_intperpolate
+              DEALLOCATE (IntpTime)
             END IF
 
-            ! for vertical inter/extra-polation
-            IF (.NOT. ALLOCATED(WRFIO%topo) .OR. .NOT. ALLOCATED(WRFIO%height)) THEN
-              PRINT *, "ERROR!!! There is no 'topo' or no 'height'. Please CHECK 'varWRFList' in your namelist file! "
-              STOP
-            END IF
-            CALL interpVerticalWRF_unStaged(sg_mp, WRFIO%topo, WRFIO%height, WRFIO%uwnd, valueModel_tmp(:, :, :))
-            ! for time-scale interpolation
-            ALLOCATE (IntpTime)
-            CALL IntpTime%IntpInitialize(valueModel_tmp, WRFIO%time_unix, TimeSlots_target)
-            CALL IntpTime%IntpLinearTime(valueModel_tmp)
-            valueModel = IntpTime%data_intperpolate
-            DEALLOCATE (IntpTime)
+            CALL ModelCoupler%ingest_to_field_data_MT(sg_mp%vLevel, valueModel, Xm%Fields(Xm%getVarIdx('temp'))%DATA, sg_mp)
+            PRINT *, 'IOWRF - temp has been loaded.'
           END IF
 
-          CALL ModelCoupler%ingest_to_field_data_MT(sg_mp%vLevel, valueModel, Xm%Fields(Xm%getVarIdx('uwnd'))%DATA, sg_mp)
-          PRINT *, 'IOWRF - uwnd has been loaded.'
-        END IF
+          ! Ingest uwnd
+          IF (Xm%getVarIdx('uwnd') .NE. 0) THEN
+            IF (sg_mp%isBaseProc()) THEN
+              FORALL (k=1:WRFIO%nt, i=1:WRFIO%nx, j=1:WRFIO%ny)
+                tmpModel_u(:, (j - 1) * WRFIO%nx + i, k) = WRFIO%uwnd(i, j, :, k)
+              END FORALL
 
-        ! Ingest vwnd-v wind
-        IF (Xm%getVarIdx('vwnd') .NE. 0) THEN
-          IF (sg_mp%isBaseProc()) THEN
-            IF (getStrIndex(this%varNames, 'vwnd') < 0) THEN
-              PRINT *, "ERROR!!! There is no 'vwnd'. Please CHECK 'varWRFList' in your namelist file! "
-              STOP
+              CALL interp1d(timeModel, tmpModel_u, sg_mp%tt, tmp_u)
+              PRINT *, "End of interp1d_3D_idx3."
             END IF
 
-            ! for vertical inter/extra-polation
-            IF (.NOT. ALLOCATED(WRFIO%topo) .OR. .NOT. ALLOCATED(WRFIO%height)) THEN
-              PRINT *, "ERROR!!! There is no 'topo' or no 'height'. Please CHECK 'varWRFList' in your namelist file! "
-              STOP
-            END IF
-            CALL interpVerticalWRF_unStaged(sg_mp, WRFIO%topo, WRFIO%height, WRFIO%vwnd, valueModel_tmp(:, :, :))
-            ! for time-scale interpolation
-            ALLOCATE (IntpTime)
-            CALL IntpTime%IntpInitialize(valueModel_tmp, WRFIO%time_unix, TimeSlots_target)
-            CALL IntpTime%IntpLinearTime(valueModel_tmp)
-            valueModel = IntpTime%data_intperpolate
-            DEALLOCATE (IntpTime)
+            CALL ModelCoupler%ingest_to_field_data_3D_ZRHght_s(WRFIO%nz, zRHghtModelAtDA, tmp_u, &
+                                                               Xm%Fields(Xm%getVarIdx('uwnd'))%DATA, sg_mp)
+            PRINT *, 'IOGrapes - uwnd has been loaded.'
           END IF
 
-          CALL ModelCoupler%ingest_to_field_data_MT(sg_mp%vLevel, valueModel, Xm%Fields(Xm%getVarIdx('vwnd'))%DATA, sg_mp)
-          PRINT *, 'IOWRF - vwnd has been loaded.'
-        END IF
+          ! Ingest vwnd
+          IF (Xm%getVarIdx('vwnd') .NE. 0) THEN
+            IF (sg_mp%isBaseProc()) THEN
+              FORALL (k=1:WRFIO%nt, i=1:WRFIO%nx, j=1:WRFIO%ny)
+                tmpModel_u(:, (j - 1) * WRFIO%nx + i, k) = WRFIO%vwnd(i, j, :, k)
+              END FORALL
 
-        ! Ingest pres-pressure
-        IF (Xm%getVarIdx('pres') .NE. 0) THEN
-          IF (sg_mp%isBaseProc()) THEN
-            IF (getStrIndex(this%varNames, 'pres') < 0) THEN
-              PRINT *, "ERROR!!! There is no 'pres'. Please CHECK 'varWRFList' in your namelist file! "
-              STOP
+              CALL interp1d(timeModel, tmpModel_u, sg_mp%tt, tmp_u)
+              PRINT *, "End of interp1d_3D_idx3."
             END IF
 
-            ! for vertical inter/extra-polation
-            IF (.NOT. ALLOCATED(WRFIO%topo) .OR. .NOT. ALLOCATED(WRFIO%height)) THEN
-              PRINT *, "ERROR!!! There is no 'topo' or no 'height'. Please CHECK 'varWRFList' in your namelist file! "
-              STOP
-            END IF
-            CALL interpVerticalWRF_unStaged(sg_mp, WRFIO%topo, WRFIO%height, WRFIO%pres, valueModel_tmp(:, :, :))
-            ! for time-scale interpolation
-            ALLOCATE (IntpTime)
-            CALL IntpTime%IntpInitialize(valueModel_tmp, WRFIO%time_unix, TimeSlots_target)
-            CALL IntpTime%IntpLinearTime(valueModel_tmp)
-            valueModel = IntpTime%data_intperpolate
-            DEALLOCATE (IntpTime)
+            CALL ModelCoupler%ingest_to_field_data_3D_ZRHght_s(WRFIO%nz, zRHghtModelAtDA, tmp_u, &
+                                                               Xm%Fields(Xm%getVarIdx('vwnd'))%DATA, sg_mp)
+            PRINT *, 'IOGrapes - vwnd has been loaded.'
           END IF
 
-          CALL ModelCoupler%ingest_to_field_data_MT(sg_mp%vLevel, valueModel, Xm%Fields(Xm%getVarIdx('pres'))%DATA, sg_mp)
-          PRINT *, 'IOWRF - pres has been loaded.'
-        END IF
+          ! ! Ingest wwnd
+          ! IF (Xm%getVarIdx('wwnd') .NE. 0) THEN
+          !   IF (sg_mp%isBaseProc()) THEN
+          !     FORALL (k=1:WRFIO%nt, i=1:WRFIO%nx, j=1:WRFIO%ny)
+          !       tmpModel_u(:, (j - 1) * WRFIO%nx + i, k) = WRFIO%wwnd(i, j, :, k)
+          !     END FORALL
 
-        ! Ingest qvapor
-        IF (Xm%getVarIdx('qvapor') .NE. 0) THEN
-          IF (sg_mp%isBaseProc()) THEN
-            IF (getStrIndex(this%varNames, 'qvapor') < 0) THEN
-              PRINT *, "ERROR!!! There is no 'pres'. Please CHECK 'varWRFList' in your namelist file! "
-              STOP
+          !     CALL interp1d(timeModel, tmpModel_u, sg_mp%tt, tmp_u)
+          !     PRINT *, "End of interp1d_3D_idx3."
+          !   END IF
+
+          !   CALL ModelCoupler%ingest_to_field_data_3D_ZRHght_s(WRFIO%nz, zRHghtModelAtDA, tmp_u, &
+          !                                                      Xm%Fields(Xm%getVarIdx('wwnd'))%DATA, sg_mp)
+          !   PRINT *, 'IOGrapes - wwnd has been loaded.'
+
+          ! END IF
+
+          ! ! Ingest uwnd-u wind
+          ! IF (Xm%getVarIdx('uwnd') .NE. 0) THEN
+          !   IF (sg_mp%isBaseProc()) THEN
+          !     IF (getStrIndex(this%varNames, 'uwnd') < 0) THEN
+          !       PRINT *, "ERROR!!! There is no 'uwnd'. Please CHECK 'varWRFList' in your namelist file! "
+          !       STOP
+          !     END IF
+
+          !     ! for vertical inter/extra-polation
+          !     IF (.NOT. ALLOCATED(WRFIO%topo) .OR. .NOT. ALLOCATED(WRFIO%height)) THEN
+          !       PRINT *, "ERROR!!! There is no 'topo' or no 'height'. Please CHECK 'varWRFList' in your namelist file! "
+          !       STOP
+          !     END IF
+          !     CALL interpVerticalWRF_unStaged(sg_mp, sg_mp%topo, WRFIO%height, WRFIO%uwnd, valueModel_tmp(:, :, :))
+          !     ! for time-scale interpolation
+          !     ALLOCATE (IntpTime)
+          !     CALL IntpTime%IntpInitialize(valueModel_tmp, WRFIO%time_unix, TimeSlots_target)
+          !     CALL IntpTime%IntpLinearTime(valueModel_tmp)
+          !     valueModel = IntpTime%data_intperpolate
+          !     DEALLOCATE (IntpTime)
+          !   END IF
+
+          !   CALL ModelCoupler%ingest_to_field_data_MT(sg_mp%vLevel, valueModel, Xm%Fields(Xm%getVarIdx('uwnd'))%DATA, sg_mp)
+          !   PRINT *, 'IOWRF - uwnd has been loaded.'
+          ! END IF
+
+          ! Ingest vwnd-v wind
+          ! IF (Xm%getVarIdx('vwnd') .NE. 0) THEN
+          !   IF (sg_mp%isBaseProc()) THEN
+          !     IF (getStrIndex(this%varNames, 'vwnd') < 0) THEN
+          !       PRINT *, "ERROR!!! There is no 'vwnd'. Please CHECK 'varWRFList' in your namelist file! "
+          !       STOP
+          !     END IF
+
+          !     ! for vertical inter/extra-polation
+          !     IF (.NOT. ALLOCATED(sg_mp%topo) .OR. .NOT. ALLOCATED(WRFIO%height)) THEN
+          !       PRINT *, "ERROR!!! There is no 'topo' or no 'height'. Please CHECK 'varWRFList' in your namelist file! "
+          !       STOP
+          !     END IF
+          !     CALL interpVerticalWRF_unStaged(sg_mp, sg_mp%topo, WRFIO%height, WRFIO%vwnd, valueModel_tmp(:, :, :))
+          !     ! for time-scale interpolation
+          !     ALLOCATE (IntpTime)
+          !     CALL IntpTime%IntpInitialize(valueModel_tmp, WRFIO%time_unix, TimeSlots_target)
+          !     CALL IntpTime%IntpLinearTime(valueModel_tmp)
+          !     valueModel = IntpTime%data_intperpolate
+          !     DEALLOCATE (IntpTime)
+          !   END IF
+
+          !   CALL ModelCoupler%ingest_to_field_data_MT(sg_mp%vLevel, valueModel, Xm%Fields(Xm%getVarIdx('vwnd'))%DATA, sg_mp)
+          !   PRINT *, 'IOWRF - vwnd has been loaded.'
+          ! END IF
+
+          ! Ingest pres-pressure
+          IF (Xm%getVarIdx('pres') .NE. 0) THEN
+            IF (sg_mp%isBaseProc()) THEN
+              IF (getStrIndex(this%varNames, 'pres') < 0) THEN
+                PRINT *, "ERROR!!! There is no 'pres'. Please CHECK 'varWRFList' in your namelist file! "
+                STOP
+              END IF
+
+              ! for vertical inter/extra-polation
+              IF (.NOT. ALLOCATED(sg_mp%topo) .OR. .NOT. ALLOCATED(WRFIO%height)) THEN
+                PRINT *, "ERROR!!! There is no 'topo' or no 'height'. Please CHECK 'varWRFList' in your namelist file! "
+                STOP
+              END IF
+              CALL interpVerticalWRF_unStaged(sg_mp, sg_mp%topo, WRFIO%height, WRFIO%pres, valueModel_tmp(:, :, :))
+              ! for time-scale interpolation
+              ALLOCATE (IntpTime)
+              CALL IntpTime%IntpInitialize(valueModel_tmp, WRFIO%time_unix, TimeSlots_target)
+              CALL IntpTime%IntpLinearTime(valueModel_tmp)
+              valueModel = IntpTime%data_intperpolate
+              DEALLOCATE (IntpTime)
             END IF
 
-            ! for vertical inter/extra-polation
-            IF (.NOT. ALLOCATED(WRFIO%topo) .OR. .NOT. ALLOCATED(WRFIO%height)) THEN
-              PRINT *, "ERROR!!! There is no 'topo' or no 'height'. Please CHECK 'varWRFList' in your namelist file! "
-              STOP
-            END IF
-            CALL interpVerticalWRF_unStaged(sg_mp, WRFIO%topo, WRFIO%height, WRFIO%qvapor, valueModel_tmp(:, :, :))
-            ! for time-scale interpolation
-            ALLOCATE (IntpTime)
-            CALL IntpTime%IntpInitialize(valueModel_tmp, WRFIO%time_unix, TimeSlots_target)
-            CALL IntpTime%IntpLinearTime(valueModel_tmp)
-            valueModel = IntpTime%data_intperpolate
-            DEALLOCATE (IntpTime)
+            CALL ModelCoupler%ingest_to_field_data_MT(sg_mp%vLevel, valueModel, Xm%Fields(Xm%getVarIdx('pres'))%DATA, sg_mp)
+            PRINT *, 'IOWRF - pres has been loaded.'
           END IF
 
-          CALL ModelCoupler%ingest_to_field_data_MT(sg_mp%vLevel, valueModel, Xm%Fields(Xm%getVarIdx('qvapor'))%DATA, sg_mp)
-          PRINT *, 'IOWRF - qvapor has been loaded.'
-        END IF
+          ! Ingest qvapor
+          IF (Xm%getVarIdx('qvapor') .NE. 0) THEN
+            IF (sg_mp%isBaseProc()) THEN
+              IF (getStrIndex(this%varNames, 'qvapor') < 0) THEN
+                PRINT *, "ERROR!!! There is no 'pres'. Please CHECK 'varWRFList' in your namelist file! "
+                STOP
+              END IF
 
+              ! for vertical inter/extra-polation
+              IF (.NOT. ALLOCATED(sg_mp%topo) .OR. .NOT. ALLOCATED(WRFIO%height)) THEN
+                PRINT *, "ERROR!!! There is no 'topo' or no 'height'. Please CHECK 'varWRFList' in your namelist file! "
+                STOP
+              END IF
+              CALL interpVerticalWRF_unStaged(sg_mp, sg_mp%topo, WRFIO%height, WRFIO%qvapor, valueModel_tmp(:, :, :))
+              ! for time-scale interpolation
+              ALLOCATE (IntpTime)
+              CALL IntpTime%IntpInitialize(valueModel_tmp, WRFIO%time_unix, TimeSlots_target)
+              CALL IntpTime%IntpLinearTime(valueModel_tmp)
+              valueModel = IntpTime%data_intperpolate
+              DEALLOCATE (IntpTime)
+            END IF
+
+            CALL ModelCoupler%ingest_to_field_data_MT(sg_mp%vLevel, valueModel, Xm%Fields(Xm%getVarIdx('qvapor'))%DATA, sg_mp)
+            PRINT *, 'IOWRF - qvapor has been loaded.'
+          END IF
+        END BLOCK
       END IF
 
       CALL sg_mp%mpddInfo_sg%barrier

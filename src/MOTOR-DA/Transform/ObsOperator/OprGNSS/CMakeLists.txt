@@ -30,4 +30,4 @@ TARGET_LINK_LIBRARIES(OprGNSS ObsSet State Field Geometry Utility TransBase)
 
 # 3. Add codes to the executables:
 #ADD_EXECUTABLE(${EXE1} Test_OprGNSSRefrac.F90)
-TARGET_LINK_LIBRARIES(${EXE1} OprGNSS IOGrapes ObsGNSS C2O )
+# TARGET_LINK_LIBRARIES(${EXE1} OprGNSS IOGrapes ObsGNSS C2O )

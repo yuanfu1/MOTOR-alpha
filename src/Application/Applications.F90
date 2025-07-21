@@ -475,24 +475,28 @@ CONTAINS
                 ALLOCATE (IOGrapesModelvar_500m_t:: this%IOModel)
               END SELECT
 
+              PRINT *, "In reading ", TRIM(bkModel)
               ASSOCIATE (IOModel => this%IOModel)
                 SELECT TYPE (IOModel)
                 TYPE IS (IOWRF_t)
                   CALL IOModel%initialize(this%configFile, this%geometry)
+                  CALL this%IOModel%m_read_bcg_into_Xm_Ens(this%XbMG(mgEnd), sg)
                 TYPE IS (IOGrapes_t)
                   CALL IOModel%initialize(this%configFile, this%geometry)
+                  CALL this%IOModel%m_read_bcg_into_Xm(this%XbMG(mgEnd), sg)
                 TYPE IS (IOGrapesPostvar_t)
                   CALL IOModel%initialize(this%configFile, this%geometry)
+                  CALL this%IOModel%m_read_bcg_into_Xm(this%XbMG(mgEnd), sg)
                 TYPE IS (IOECM_t)
                   CALL IOModel%initialize(this%configFile, this%geometry)
+                  CALL this%IOModel%m_read_bcg_into_Xm(this%XbMG(mgEnd), sg)
                 TYPE IS (IOGrapesModelvar_500m_t)
                   CALL IOModel%initialize(this%configFile, this%geometry)
+                  CALL this%IOModel%m_read_bcg_into_Xm(this%XbMG(mgEnd), sg)
                 END SELECT
               END ASSOCIATE
-
-              PRINT *, "In reading ", TRIM(bkModel)
-              CALL this%IOModel%m_read_bcg_into_Xm(this%XbMG(mgEnd), sg)
               PRINT *, "Done reading ", TRIM(bkModel)
+
             END BLOCK
           END IF
         END ASSOCIATE
@@ -889,6 +893,7 @@ CONTAINS
         CALL this%vel%ObsIngest(XbRef)
         ! PRINT *,'readObs - vel min/max: ', &
         !    minval(this%vel%obsData),maxval(this%vel%obsData) ! Radar vel is not fill this variable
+
         ! Yuanfu Xie 2022-11-27 added Dr. Zhang Hua's cloud derived wind:
         ! Yuanfu Xie 2022-11-27 added Dr. Zhang Hua's cloud derived wind:
       CASE ('cloudWnd')
@@ -996,8 +1001,8 @@ CONTAINS
         END IF
       CASE ('radarVel')
         IF (sg%gLevel >= this%mgEnd) THEN
-          CALL this%vel%ObsPrepareForSg(XbRef)
-          CALL this%vel%ObsThinning(XbRef, Yi(5), mpObs, .TRUE., .FALSE.)
+        CALL this%vel%ObsPrepareForSg(XbRef)
+        CALL this%vel%ObsThinning(XbRef, Yi(5), mpObs, .TRUE., .FALSE.)
         END IF
       CASE ('cloudWnd')
         CALL this%cdw%ObsThinning(XbRef, Yi(6), mpObs, .TRUE., .FALSE.)

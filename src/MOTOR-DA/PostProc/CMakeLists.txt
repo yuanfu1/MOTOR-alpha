@@ -36,4 +36,4 @@ TARGET_LINK_LIBRARIES(PostProc Geometry State State2NC)
 
 # 3. Add codes to the executables:
 #ADD_EXECUTABLE(${EXE1} Test_Export2SelDomain.F90)
-TARGET_LINK_LIBRARIES(${EXE1} PostProc)
+# TARGET_LINK_LIBRARIES(${EXE1} PostProc)

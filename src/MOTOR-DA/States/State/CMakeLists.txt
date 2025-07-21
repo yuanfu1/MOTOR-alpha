@@ -5,7 +5,6 @@ cmake_minimum_required(VERSION 3.12)
 # Note: this cmake builds the OO design of Multiscale Data Assimilation System:
 PROJECT(State_Xm)
 
-
 #-------------------------------------------------------------------------------
 #  To include another path to -I in cmake:
 #  For references, please see Yuanfu's "Notes on cmake and ctest" word docs.
@@ -31,7 +30,7 @@ TARGET_LINK_LIBRARIES(State Field MPDD Geometry YAMLRead Utility AuxType ${MPI_F
 
 # 3. Add codes to the executables:
 #ADD_EXECUTABLE(${EXE1} Test_State.F90)
-TARGET_LINK_LIBRARIES(${EXE1} State MPDD Geometry Utility ${MPI_Fortran_LIBRARIES} YAMLRead MGGen fortran-yaml-cpp)
+# TARGET_LINK_LIBRARIES(${EXE1} State MPDD Geometry Utility ${MPI_Fortran_LIBRARIES} YAMLRead MGGen fortran-yaml-cpp)
 
 # 4. Add tests: (MIGRATED TO UnitTests/MOTOR-DA/CMakeLists.txt)
 # ADD_TEST(NAME "Test_States" 

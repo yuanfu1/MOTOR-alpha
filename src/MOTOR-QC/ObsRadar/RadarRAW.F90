@@ -376,7 +376,20 @@ CONTAINS
       var = nc%getVariable("azimuthV"); CALL var%getData(radialAzimV)
       var = nc%getVariable("elevationV"); CALL var%getData(radialElevV)
       var = nc%getVariable("timeV"); CALL var%getData(radialTimeV)
-      var = nc%getVariable("unambiguousRangeV"); CALL var%getData(this%unAmbigRangeVel)
+      ! PRINT *, 'Reading velocity data. 1',
+      BLOCK
+        REAL(r_kind) :: ccRV
+        IF (UBOUND(radialTimeV, 2) == 1) THEN
+          var = nc%getVariable("unambiguousRangeV"); CALL var%getData(ccRV)
+          ALLOCATE (this%unAmbigRangeVel(1))
+          this%unAmbigRangeVel(1) = ccRV
+        ELSE
+          var = nc%getVariable("unambiguousRangeV"); CALL var%getData(this%unAmbigRangeVel)
+        END IF
+
+      END BLOCK
+      ! PRINT *, 'Reading velocity data. 2'
+
       this%unAmbigRangeVel = this%unAmbigRangeVel * 1000.0D0
       var = nc%getVariable("distanceV"); CALL var%getData(distV)
       radialTimeV = radialTimeV / 1000.0 + posixOnDate
@@ -396,6 +409,8 @@ CONTAINS
                                      this%latVel, this%lonVel, this%altVel, this%timVel, this%valVel, &
                                      V_offset, V_scale, V_fillValue, 'Vel', this%unAmbigRangeVel, "SAD")
       this%sizeVel = SIZE(this%latVel)
+      ! PRINT *, 'sizeVel: ', this%sizeVel, this%unAmbigRangeVel
+      ! STOP
     END IF
 
     IF (ALLOCATED(radialAzimR)) DEALLOCATE (radialAzimR)
@@ -460,11 +475,11 @@ CONTAINS
         FORALL (i=1:elevNum, j=1:radialNum, k=1:gateNum, dist(k) < unAmbigRange(i)) &
           val(k, j, i) = countsTodBZ(velRaw(k, j, i), offset, scale)
       ELSE IF (TRIM(varType) .EQ. 'Vel') THEN ! For Velocity
-        FORALL (i=1:elevNum, j=1:radialNum, k=1:gateNum, dist(k) < unAmbigRange(i) .AND. dist(k) > 20000)
+        FORALL (i=1:elevNum, j=1:radialNum, k=1:gateNum, dist(k) < unAmbigRange(i))
           val(k, j, i) = countsToVel(velRaw(k, j, i), offset, scale)
           SpmW(k, j, i) = countsToSpmW(SpmWRaw(k, j, i), offset, scale)
         END FORALL
-        FORALL (i=1:elevNum, j=1:radialNum, k=1:gateNum, dist(k) < unAmbigRange(i) .AND. dist(k) > 20000 &
+        FORALL (i=1:elevNum, j=1:radialNum, k=1:gateNum, dist(k) < unAmbigRange(i) &
                 .AND. SpmW(k, j, i) > 3.5D0)
           val(k, j, i) = 0.0D0
         END FORALL

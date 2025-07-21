@@ -468,20 +468,20 @@ CONTAINS
 !     END IF
 ! #endif
 
-    ! Output obs data information:
-    DO iu = 1, this%numVars
-      ! Check field to Obs exist:
-      varname = TRIM(this%varNames(iu))
-      PRINT *, 'check check ', varname, this%Field2ObsIsExisted(state, varname)
-      WRITE (*, 1111) TRIM(this%varNames(iu)), TRIM(this%obsType), state%sg%mpddInfo_sg%myrank
-1111  FORMAT('Thinning check var name: ', A, ' TYPE: ', A, ' pc:', I2)
-      IF (.NOT. this%Field2ObsIsExisted(state, varname)) CYCLE
+!     ! Output obs data information:
+!     DO iu = 1, this%numVars
+!       ! Check field to Obs exist:
+!       varname = TRIM(this%varNames(iu))
+!       PRINT *, 'check check ', varname, this%Field2ObsIsExisted(state, varname)
+!       WRITE (*, 1111) TRIM(this%varNames(iu)), TRIM(this%obsType), state%sg%mpddInfo_sg%myrank
+! 1111  FORMAT('Thinning check var name: ', A, ' TYPE: ', A, ' pc:', I2)
+!       IF (.NOT. this%Field2ObsIsExisted(state, varname)) CYCLE
 
-      WRITE (*, 1) TRIM(varname), MAXVAL(this%obsData(:, iu), this%obsData(:, iu) .LT. 1.0D8), &
-        MINVAL(this%obsData(:, iu), this%obsData(:, iu) .GT. -1.0D8), &
-        state%sg%mpddInfo_sg%myrank, TRIM(this%obsType), state%sg%gLevel
-1     FORMAT('MAX/MIN obs: ', A, ' before thinning: ', 2D12.4, ' at proc: ', I1, ' Type: ', A, ' G: ', I2)
-    END DO
+!       WRITE (*, 1) TRIM(varname), MAXVAL(this%obsData(:, iu), this%obsData(:, iu) .LT. 1.0D8), &
+!         MINVAL(this%obsData(:, iu), this%obsData(:, iu) .GT. -1.0D8), &
+!         state%sg%mpddInfo_sg%myrank, TRIM(this%obsType), state%sg%gLevel
+! 1     FORMAT('MAX/MIN obs: ', A, ' before thinning: ', 2D12.4, ' at proc: ', I1, ' Type: ', A, ' G: ', I2)
+!     END DO
 
     ! Initialize thinObs
     thinObs = ObsSet_t(this%configFile, mpObs)

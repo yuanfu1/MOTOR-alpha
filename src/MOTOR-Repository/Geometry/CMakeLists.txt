@@ -40,11 +40,11 @@ TARGET_LINK_LIBRARIES(Geometry Utility MGGen MPDD YAMLRead ${MPI_Fortran_LIBRARI
 # 3. Add codes to the executables:
 #ADD_EXECUTABLE(${EXE1} Test_Geometry.F90)
 #ADD_EXECUTABLE(${EXE2} Test_ImmersedBoundary.F90)
-TARGET_LINK_LIBRARIES(${EXE1} Geometry Utility MGGen MPDD ${MPI_Fortran_LIBRARIES})
+# TARGET_LINK_LIBRARIES(${EXE1} Geometry Utility MGGen MPDD ${MPI_Fortran_LIBRARIES})
 #TARGET_LINK_LIBRARIES(${EXE2} Utility MGGen MPDD ${MPI_Fortran_LIBRARIES} Geometry)
 
 #ADD_EXECUTABLE(${EXE2} Test_Halo.F90)
-TARGET_LINK_LIBRARIES(${EXE2} Geometry Utility  MGGen MPDD ${MPI_Fortran_LIBRARIES} State2NC IOGrapes)
+# TARGET_LINK_LIBRARIES(${EXE2} Geometry Utility  MGGen MPDD ${MPI_Fortran_LIBRARIES} State2NC IOGrapes)
 
 # 4. Add tests: (MIGRATED TO UnitTests/MOTOR-Repository/CMakeLists.txt)
 # ADD_TEST(NAME Test_Geometry

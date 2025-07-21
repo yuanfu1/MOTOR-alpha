@@ -86,7 +86,6 @@ CONTAINS
 
     ! Here is the code of monk for simulating the fileinput of B mat files
     ALLOCATE (this%sigma(SIZE(Y%values))); 
-
     ! For normalization
     ! IF (PRESENT(Nocoarest)) THEN
     !   IF (Nocoarest .GT. 0) THEN
@@ -109,6 +108,7 @@ CONTAINS
     CALL Y%mpObs%AllReduceSumInt(SIZE(Y%values), this%numObs)
 
     ! ---------------------------------------- For testing ----------------------------------------
+    this%scaleObs = DBLE(sg%num_icell_global * sg%vLevel * sg%tSlots) / DBLE(this%numObs)
     IF (this%numObs > 1) THEN
       SELECT CASE (TRIM(this%name(1:5)))
       CASE ('SYNOP')
@@ -118,10 +118,10 @@ CONTAINS
         this%scaleObs = DBLE(sg%num_icell_global * sg%vLevel * sg%tSlots) / DBLE(this%numObs) / 5.0D0
       CASE ('RAD_Z')
         this%scaleObs = DBLE(sg%num_icell_global * sg%vLevel * sg%tSlots) / DBLE(this%numObs) / 700.0D0
-          FORALL (iobs=1:SIZE(Y%values))
-            this%z_varied_sigma(iobs) = 2.0 - 1.0D0 / ((1.0D0 + EXP(-0.0012D0 * (sg%sigma(Y%idx(iobs)%vidx) - 3500.0D0)))) * &
-                                        (1.0D0 - (1.0D0 / ((1.0D0 + EXP(-0.0012D0 * (sg%sigma(Y%idx(iobs)%vidx) - 17000.0D0))))))
-          END FORALL
+        FORALL (iobs=1:SIZE(Y%values))
+          this%z_varied_sigma(iobs) = 2.0 - 1.0D0 / ((1.0D0 + EXP(-0.0012D0 * (sg%sigma(Y%idx(iobs)%vidx) - 3500.0D0)))) * &
+                                      (1.0D0 - (1.0D0 / ((1.0D0 + EXP(-0.0012D0 * (sg%sigma(Y%idx(iobs)%vidx) - 17000.0D0))))))
+        END FORALL
       CASE ('fy4_1')
         this%scaleObs = DBLE(sg%num_icell_global * sg%vLevel * sg%tSlots) / DBLE(this%numObs) / this%ScaleTBB ! 200.0D0
         PRINT *, 'NUM fy4_1: ', this%numObs, this%scaleObs
@@ -152,14 +152,14 @@ CONTAINS
             this%z_varied_sigma(iobs) = 4.0 - 2.0D0 / ((1.0D0 + EXP(-0.0012D0 * (sg%sigma(Y%idx(iobs)%vidx) - 3500.0D0)))) * &
                                         (1.0D0 - (1.0D0 / ((1.0D0 + EXP(-0.0012D0 * (sg%sigma(Y%idx(iobs)%vidx) - 17000.0D0))))))
           END FORALL
-          PRINT*, MAXVAL(this%z_varied_sigma), MINVAL(this%z_varied_sigma)
+          PRINT *, MAXVAL(this%z_varied_sigma), MINVAL(this%z_varied_sigma)
         CASE ('SOUND_vwnd')
           FORALL (iobs=1:SIZE(Y%values))
             this%z_varied_sigma(iobs) = 4.0 - 2.0D0 / ((1.0D0 + EXP(-0.0012D0 * (sg%sigma(Y%idx(iobs)%vidx) - 3500.0D0)))) * &
                                         (1.0D0 - (1.0D0 / ((1.0D0 + EXP(-0.0012D0 * (sg%sigma(Y%idx(iobs)%vidx) - 17000.0D0))))))
           END FORALL
         END SELECT
-        
+
       END SELECT
     END IF
 
@@ -252,6 +252,10 @@ CONTAINS
     CASE ('GNSSRO_refractivity')
       this%isEye = .FALSE.
       this%sigma = this%z_varied_sigma * 0.25D0
+
+    CASE ('RAD_Sweep_102372_rwn')
+      this%isEye = .FALSE.
+      this%sigma = 0.1
     END SELECT
 
     ! IF (TRIM(this%name) .EQ. 'RADAR_ref') THEN

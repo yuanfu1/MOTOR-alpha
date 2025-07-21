@@ -90,31 +90,31 @@ ADD_EXECUTABLE(Test_State2NC.exe Test_State2NC.F90)
 TARGET_LINK_LIBRARIES(Test_State2NC.exe State2NC IOGrapes Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES} ${NETCDF_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_IOWRF_Ens.exe Test_IOWRF_Ens.F90)
-TARGET_LINK_LIBRARIES(Test_IOWRF_Ens.exe IOWRF Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES} ${NETCDF_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_IOWRF_Ens.exe IOWRF Geometry MPDD YAMLRead Utility State State2NC Field ${MPI_Fortran_LIBRARIES} ${NETCDF_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_IOWRF.exe Test_IOWRF.F90)
-TARGET_LINK_LIBRARIES(Test_IOWRF.exe IOWRF Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES} ${NETCDF_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_IOWRF.exe IOWRF Geometry MPDD YAMLRead Utility State State2NC Field ${MPI_Fortran_LIBRARIES} ${NETCDF_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_IOGrapesPostvar.exe Test_IOGrapesPostvar.F90)
-TARGET_LINK_LIBRARIES(Test_IOGrapesPostvar.exe IOGrapes Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_IOGrapesPostvar.exe IOGrapes Geometry MPDD YAMLRead Utility State State2NC Field ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_IOGrapesModelvar.exe Test_IOGrapesModelvar.F90)
-TARGET_LINK_LIBRARIES(Test_IOGrapesModelvar.exe IOGrapes Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_IOGrapesModelvar.exe IOGrapes Geometry MPDD YAMLRead Utility State State2NC Field ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_IOGrapesModelvar_Ens.exe Test_IOGrapesModelvar_Ens.F90)
-TARGET_LINK_LIBRARIES(Test_IOGrapesModelvar_Ens.exe IOGrapes Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_IOGrapesModelvar_Ens.exe IOGrapes Geometry MPDD YAMLRead Utility State State2NC Field ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_IOGrapesModelvar_500m_to_nc.exe Test_IOGrapesModelvar_500m_to_nc.F90)
 TARGET_LINK_LIBRARIES(Test_IOGrapesModelvar_500m_to_nc.exe PostProc IOGrapes Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES} ${NETCDF_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_IOGrapes.exe Test_IOGrapes.F90)
-TARGET_LINK_LIBRARIES(Test_IOGrapes.exe IOGrapes Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_IOGrapes.exe IOGrapes Geometry MPDD YAMLRead Utility State State2NC Field ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_IOERA5.exe Test_IOERA5.F90)
-TARGET_LINK_LIBRARIES(Test_IOERA5.exe IOERA5 Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES} ${NETCDF_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_IOERA5.exe IOERA5 IOGrapes Geometry MPDD YAMLRead Utility State State2NC Field ${MPI_Fortran_LIBRARIES} ${NETCDF_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_IOECM.exe Test_IOECM.F90)
-TARGET_LINK_LIBRARIES(Test_IOECM.exe IOECM Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES} ${NETCDF_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_IOECM.exe IOECM Geometry MPDD YAMLRead Utility State State2NC Field ${MPI_Fortran_LIBRARIES} ${NETCDF_Fortran_LIBRARIES})
 
 # Other DA Tests
 ADD_EXECUTABLE(Test_Export2SelDomain.exe Test_Export2SelDomain.F90)
@@ -124,7 +124,7 @@ ADD_EXECUTABLE(Test_ObsSet.exe Test_ObsSet.F90)
 TARGET_LINK_LIBRARIES(Test_ObsSet.exe ObsSet Geometry MPDD YAMLRead Utility State Field Mock ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_C2O.exe Test_C2O.F90)
-TARGET_LINK_LIBRARIES(Test_C2O.exe C2O Geometry MPDD YAMLRead Utility State Field ObsSet ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_C2O.exe C2O Geometry MPDD YAMLRead Utility State Field ObsSet Mock ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_State.exe Test_State.F90)
 TARGET_LINK_LIBRARIES(Test_State.exe State Geometry MPDD YAMLRead Utility Field ${MPI_Fortran_LIBRARIES})
@@ -137,7 +137,7 @@ TARGET_LINK_LIBRARIES(Test_MiniSolver.exe Minimization JFunc Geometry MPDD YAMLR
 
 # Transform Tests
 ADD_EXECUTABLE(Test_OprGNSSRefrac.exe Test_OprGNSSRefrac.F90)
-TARGET_LINK_LIBRARIES(Test_OprGNSSRefrac.exe OprGNSS Geometry MPDD YAMLRead Utility State Field ObsSet ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_OprGNSSRefrac.exe OprGNSS ObsBase ObsGNSS Geometry MPDD YAMLRead Utility State Field ObsSet C2O IOGrapes ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_UV2DirSpd.exe Test_UV2DirSpd.F90)
 TARGET_LINK_LIBRARIES(Test_UV2DirSpd.exe UV2DirSpd Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
@@ -146,19 +146,19 @@ ADD_EXECUTABLE(Test_RadarVel.exe Test_RadarVel.F90)
 TARGET_LINK_LIBRARIES(Test_RadarVel.exe OprRadar Geometry MPDD YAMLRead Utility State Field ObsSet ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_UV2WForward_SurfInte.exe Test_UV2WForward_SurfInte.F90)
-TARGET_LINK_LIBRARIES(Test_UV2WForward_SurfInte.exe UV2W Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_UV2WForward_SurfInte.exe IOGrapes State2NC UV2W Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_UVW2DivgTLAD.exe Test_UVW2DivgTLAD.F90)
-TARGET_LINK_LIBRARIES(Test_UVW2DivgTLAD.exe UV2W Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_UVW2DivgTLAD.exe UV2W IOGrapes State2NC Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_QRSolver.exe Test_QRSolver.F90)
 TARGET_LINK_LIBRARIES(Test_QRSolver.exe UV2W Geometry MPDD YAMLRead Utility ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_UV2WForward_Poisson.exe Test_UV2WForward_Poisson.F90)
-TARGET_LINK_LIBRARIES(Test_UV2WForward_Poisson.exe UV2W PoissonSolver Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_UV2WForward_Poisson.exe IOGrapes UV2W PoissonSolver Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_UV2WTLAD.exe Test_UV2WTLAD.F90)
-TARGET_LINK_LIBRARIES(Test_UV2WTLAD.exe UV2W Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_UV2WTLAD.exe UV2W IOGrapes State2NC Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
 
 # ADD_EXECUTABLE(Test_UV2WParaTest.exe Test_UV2WParaTest.F90)
 # TARGET_LINK_LIBRARIES(Test_UV2WParaTest.exe UV2W Geometry MPDD YAMLRead Utility State Field ${MPI_Fortran_LIBRARIES})
@@ -189,7 +189,7 @@ ADD_TEST(NAME Test_Solver_FRCG
         WORKING_DIRECTORY $ENV{BIN_DIR})
 
 ADD_TEST(NAME Test_Solver_LBFGS 
-        COMMAND mpirun -np 4 --oversubscribe Test_MiniSolver.exe
+        COMMAND mpirun -np 1 --oversubscribe Test_MiniSolver.exe
         WORKING_DIRECTORY $ENV{BIN_DIR})
 
 # Set test criteria

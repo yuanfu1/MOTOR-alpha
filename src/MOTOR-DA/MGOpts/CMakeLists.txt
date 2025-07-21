@@ -25,3 +25,5 @@ include (srcFiles.txt)
 # Generate lib file:
 ADD_LIBRARY(MGOpts STATIC ${MGOpts_SRC})
 TARGET_LINK_LIBRARIES(MGOpts Geometry Utility State M2CV)
+add_dependencies(MGOpts Geometry Utility State M2CV)
+

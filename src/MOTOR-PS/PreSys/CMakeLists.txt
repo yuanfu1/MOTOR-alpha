@@ -33,10 +33,11 @@ TARGET_LINK_LIBRARIES(PreSys MPDD Geometry Utility YAMLRead ${MPI_Fortran_LIBRAR
 
 # 3. Add codes to the executables:
 #ADD_EXECUTABLE(${EXE1} Test_InterpValue.F90)
-TARGET_LINK_LIBRARIES(${EXE1} PreSys MPDD Geometry Utility FLog ${MPI_Fortran_LIBRARIES} zgrid)
+# TARGET_LINK_LIBRARIES(${EXE1} PreSys MPDD Geometry Utility FLog ${MPI_Fortran_LIBRARIES} zgrid)
+
 
 #ADD_EXECUTABLE(${EXE2} Test_bdyidx.F90)
-TARGET_LINK_LIBRARIES(${EXE2} PreSys MPDD Geometry Utility FLog ${MPI_Fortran_LIBRARIES} YAMLRead)
+# TARGET_LINK_LIBRARIES(${EXE2} PreSys MPDD Geometry Utility FLog ${MPI_Fortran_LIBRARIES} YAMLRead)
 
 # # 4. Add tests:
 # ADD_TEST(NAME "Test_PossionSolver" 

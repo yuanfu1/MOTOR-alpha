@@ -39,7 +39,7 @@ ADD_EXECUTABLE(Test_obsControl.exe Test_obsControl.F90)
 TARGET_LINK_LIBRARIES(Test_obsControl.exe ObsConvention Geometry MPDD YAMLRead Utility ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_ObsRead.exe Test_ObsRead.F90)
-TARGET_LINK_LIBRARIES(Test_ObsRead.exe ObsConvention Geometry MPDD YAMLRead Utility ObsUtilities ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_ObsRead.exe MGOpts ObsConvention Geometry MPDD YAMLRead Utility ObsUtilities ${MPI_Fortran_LIBRARIES})
 
 # Radar Tests
 # ADD_EXECUTABLE(Test_RefVar.exe Test_RefVar.F90)

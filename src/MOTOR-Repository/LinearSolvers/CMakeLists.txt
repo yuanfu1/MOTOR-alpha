@@ -24,7 +24,7 @@ include (srcFiles.txt)
 #-------------------------------------------------------------------------------
 # Generate lib file:
 ADD_LIBRARY(Axb STATIC ${Axb_SRC})
-#TARGET_LINK_LIBRARIES(C2M PUBLIC )
+TARGET_LINK_LIBRARIES(Axb State Geometry MPDD)
 
 # Add dependencies:
 #add_dependencies(C2M TimeIntegration)

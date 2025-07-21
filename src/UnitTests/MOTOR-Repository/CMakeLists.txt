@@ -32,7 +32,7 @@ LINK_DIRECTORIES($ENV{COMMON_LIBS})
 
 # Geometry Tests
 ADD_EXECUTABLE(Test_Halo.exe Test_Halo.F90)
-TARGET_LINK_LIBRARIES(Test_Halo.exe Geometry MPDD YAMLRead Utility ${MPI_Fortran_LIBRARIES})
+TARGET_LINK_LIBRARIES(Test_Halo.exe IOGrapes State2NC Geometry MPDD YAMLRead Utility ${MPI_Fortran_LIBRARIES})
 
 ADD_EXECUTABLE(Test_Geometry.exe Test_Geometry.F90)
 TARGET_LINK_LIBRARIES(Test_Geometry.exe Geometry MPDD YAMLRead Utility ${MPI_Fortran_LIBRARIES})

@@ -30,4 +30,4 @@ TARGET_LINK_LIBRARIES(OprRadar ObsSet State Field Geometry Utility TransBase)
 
 # 3. Add codes to the executables:
 #ADD_EXECUTABLE(${EXE1} Test_RadarVel.F90)
-TARGET_LINK_LIBRARIES(${EXE1} OprRadar)
+# TARGET_LINK_LIBRARIES(${EXE1} OprRadar)
