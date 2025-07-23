@@ -8,6 +8,14 @@
 ! HISTORY           : 2021-01-20   Created by Jiongming Pang
 !
 !   Created by Jiongming Pang (pang.j.m@hotmail.com), 2022/01/20, @GBA-MWF, Shenzhen
+!
+!   Modified by Yuanfu Xie (yuanfu_xie@yahoo.com), 2025/07/22, @GBA-MWF, Shenzhen
+!     created a DeepCopyObsField subroutine to copy ObsField_t objects suggested by chatGPT to
+!     avoid segmentation fault when concatenating ObsSet_t objects by copying ObsFields using
+!     ObsSetAll%ObsFields(indxBeg:indxEnd) = ObsSetList(i)%ObsFields(:)
+!     as the idx array is not allocated in ObsSetList(i)%ObsFields(:)
+!     and the idx array is not allocated in ObsSetAll%ObsFields(indxBeg:indxEnd)
+!
 !!--------------------------------------------------------------------------------------------------
 
 !> @brief
@@ -32,7 +40,7 @@ CONTAINS
     TYPE(ObsSet_t), INTENT(IN)  :: ObsSetList(:)
     TYPE(ObsSet_t), INTENT(INOUT) :: ObsSetAll
 
-    INTEGER(i_kind) :: numSets, numFields, i, indxBeg, indxEnd, num
+    INTEGER(i_kind) :: numSets, numFields, i, j, indxBeg, indxEnd, num
 
     numSets = UBOUND(ObsSetList, 1)
 
@@ -55,13 +63,34 @@ CONTAINS
         num = UBOUND(ObsSetList(i)%ObsFields, 1)
         IF (num .EQ. 0) CYCLE
         indxEnd = indxBeg + num - 1
-!         WRITE (*, 1) indxBeg, indxEnd, i, ObsSetAll%mpObs%myrank
-! 1       FORMAT('Obs concat - indxBeg/indxEnd: ', 2I6, ' at obs Set: ', I2, ' at proc: ', I2)
-        ObsSetAll%ObsFields(indxBeg:indxEnd) = ObsSetList(i)%ObsFields(:)
+        ! Yuanfu Xie added this line to deep copy ObsField_t objects and turned off the following assignment: 2025/07/22
+        ! ObsSetAll%ObsFields(indxBeg:indxEnd) = ObsSetList(i)%ObsFields(:)
+        DO j=indxBeg, indxEnd
+          CALL DeepCopyObsField(ObsSetAll%ObsFields(j), ObsSetList(i)%ObsFields(j-indxBeg+1))
+        END DO
         indxBeg = indxEnd + 1
       END IF
     END DO
-
   END SUBROUTINE ObsConcat_s
+
+  ! Yuanfu Xie added this subroutine to deep copy ObsField_t objects by modifying the suggested code from chatGPT
+  SUBROUTINE DeepCopyObsField(dest, src)
+    TYPE(ObsField_t), INTENT(OUT) :: dest
+    TYPE(ObsField_t), INTENT(IN)  :: src
+    dest%name = src%name
+    dest%valType = src%valType
+    dest%obsType = src%obsType
+    dest%mpObs => src%mpObs
+    IF (ALLOCATED(src%idx)) THEN
+      ALLOCATE(dest%idx(SIZE(src%idx)))
+      ALLOCATE(dest%values(SIZE(src%values)))
+      dest%idx = src%idx
+      dest%values = src%values
+    END IF
+    IF (ALLOCATED(src%valueArray)) THEN
+      ALLOCATE(dest%valueArray(SIZE(src%valueArray,1), SIZE(src%valueArray,2)))
+      dest%valueArray = src%valueArray
+    END IF
+  END SUBROUTINE
 
 END MODULE ObsUtilities_m
